@@ -1,0 +1,36 @@
+{
+  "name": "halliday-sfl-analysis-skill",
+  "version": "1.0.0",
+  "description": "Evidence-grounded Hallidayan Systemic Functional Linguistics analysis for texts and discourse.",
+  "author": {
+    "name": "cinquewoo",
+    "url": "https://github.com/cinquewoo"
+  },
+  "homepage": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill",
+  "repository": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill",
+  "keywords": [
+    "halliday",
+    "systemic-functional-linguistics",
+    "functional-grammar",
+    "discourse-analysis",
+    "grammatical-metaphor"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Halliday SFL Analyst",
+    "shortDescription": "Evidence-grounded Hallidayan text and discourse analysis.",
+    "longDescription": "Analyze texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor; and explain key choices through evidence and alternative wording.",
+    "developerName": "cinquewoo",
+    "category": "Education",
+    "capabilities": [
+      "Text Analysis",
+      "Research"
+    ],
+    "websiteURL": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill",
+    "defaultPrompt": [
+      "Analyze this text with Hallidayan SFL at full depth.",
+      "Compare the metafunctional choices in these two passages.",
+      "Unpack the grammatical metaphors in this academic text."
+    ]
+  }
+}

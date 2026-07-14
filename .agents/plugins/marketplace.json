@@ -1,0 +1,20 @@
+{
+  "name": "halliday-sfl",
+  "interface": {
+    "displayName": "Halliday SFL"
+  },
+  "plugins": [
+    {
+      "name": "halliday-sfl-analysis-skill",
+      "source": {
+        "source": "local",
+        "path": "./plugins/halliday-sfl-analysis-skill"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Education"
+    }
+  ]
+}
