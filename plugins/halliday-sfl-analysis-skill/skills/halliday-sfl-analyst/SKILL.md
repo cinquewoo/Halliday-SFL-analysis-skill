@@ -18,6 +18,7 @@ Infer the depth from the request. Use **full** when the user does not specify on
 ## Load references progressively
 
 - Read [theory-core.md](references/theory-core.md) before any substantive analysis or theoretical explanation.
+- Read [grammatical-metaphor-research.md](references/grammatical-metaphor-research.md) whenever the request concerns the history, identification, disputed boundaries, subtypes, research extensions, or applications of grammatical metaphor.
 - Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
 - Read [corpus-catalog.md](references/corpus-catalog.md) when locating a primary source. If `.agents/halliday-corpus.local.json` exists, use it to resolve stable source IDs; otherwise use PDFs supplied or explicitly identified by the user.
 - Read [analysis-framework.md](references/analysis-framework.md) for full or research analysis, clause-level annotation, non-English analysis, or whenever a category boundary is uncertain.
@@ -103,6 +104,8 @@ Explain how the text guides attention and maintains continuity. Do not equate Th
 
 Identify ideational or interpersonal grammatical metaphor, especially nominalization, process-to-thing reconstrual, compressed causal relations, metaphorical modality, and indirect commands. Reword consequential examples into plausible, more congruent alternatives.
 
+Do not diagnose grammatical metaphor from morphology, embedding, rank shift, or process-type change alone. For ideational cases, test the congruent agnate, semantic junction, rank relation, and degree of realization. For interpersonal cases, establish the contextual speech function or modal value before comparing it with the grammatical realization. Treat logical, textual, polarity, contextual, and multimodal metaphor as differently established extensions; name their lineage and level of consensus.
+
 For every key comparison, explain what changes in:
 
 - Agency and responsibility.
@@ -151,6 +154,7 @@ Before finishing, verify that:
 - At least one meaningful alternative wording is compared for every central finding.
 - Counts include a denominator and sampling basis.
 - Theme is not conflated with Subject, and Given/New is not inferred from word order alone.
+- Rank shift, embedding, process-type change, and nominalization are not treated as automatic proof of grammatical metaphor.
 - English descriptive categories are not imposed unchanged on another language.
 - Later SFL extensions are not attributed to Halliday without qualification.
 - The conclusion answers the user's question rather than merely naming categories.

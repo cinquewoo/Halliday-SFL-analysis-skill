@@ -82,6 +82,8 @@ Use these scales to avoid treating a grammar as static. A community makes availa
 
 Grammatical metaphor is a non-congruent relation between semantics and lexicogrammar, not ornamental vocabulary. In ideational metaphor, processes and qualities are often reconstrued as things, while logical relations are compressed inside clauses. In interpersonal metaphor, modality or speech function may be realized through a clause rather than a more congruent modal or Mood choice.
 
+Do not equate grammatical metaphor with a visible suffix or a syntactic movement. Rank shift can provide the structural environment for ideational reconstrual, but embedding, nominalization, or a change of process type is not sufficient by itself. Compare a plausible congruent agnate and test whether meanings from different semantic categories meet in one realization (semantic junction). For disputed extensions and operational diagnostics, use [grammatical-metaphor-research.md](grammatical-metaphor-research.md).
+
 Example:
 
 ```text

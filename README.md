@@ -4,6 +4,8 @@ An installable Codex plugin for evidence-grounded analysis with Hallidayan Syste
 
 It supports context and register, ideational, interpersonal, and textual metafunctions, clause complexes, grammatical metaphor, alternative wording, English-Chinese analysis safeguards, teaching, and research-oriented review.
 
+The grammatical-metaphor module also distinguishes historical milestones, tests semantic junction rather than suffixes alone, separates rank shift from metaphor, applies Context-first and AS IF diagnostics to interpersonal metaphor, and marks logical, textual, polarity, contextual, and multimodal extensions by lineage and level of consensus.
+
 ## Install
 
 Add this repository as a Codex plugin marketplace:
@@ -53,6 +55,14 @@ The skill also allows implicit invocation when a request clearly asks for Hallid
 - **Quick**: Context plus 5-10 consequential language choices.
 - **Full**: Context, three metafunctions, clause-complex relations, grammatical metaphor, alternatives, and limitations.
 - **Research**: Reproducible sampling, category definitions, counts with denominators, exceptions, evidence tables, and cautious claims.
+
+## Grammatical-metaphor research support
+
+For questions such as “When was grammatical metaphor first proposed?”, the skill avoids collapsing different milestones into one date: 1966 is treated as a conceptual precursor, 1976 as an earlier broader occurrence of the terminology, 1984 as the explicit naming of the mature phenomenon, and 1985 as the canonical systematic exposition.
+
+For identification, it checks a plausible congruent agnate, semantic junction, rank relation, realization degree, morphology, and contextual function. It does not assume that every nominalization, embedded clause, process-type change, or rank shift is automatically a grammatical metaphor.
+
+The detailed workflow is in `references/grammatical-metaphor-research.md`, distilled from Bingjun Yang's 2026 ISFC 51 presentation and cross-checked against page-verified Halliday sources. The source presentation is not redistributed.
 
 ## What a full report contains
 
@@ -123,6 +133,7 @@ plugins/halliday-sfl-analysis-skill/
     ├── references/
     │   ├── analysis-framework.md
     │   ├── corpus-catalog.md
+    │   ├── grammatical-metaphor-research.md
     │   ├── source-citation-protocol.md
     │   └── theory-core.md
     └── scripts/
