@@ -1,7 +1,4 @@
 interface:
   display_name: "Halliday SFL Analyst"
-  short_description: "用韩礼德系统功能语言学分析文本中的意义选择与社会功能"
-  default_prompt: "Use $halliday-sfl-analyst to analyze the provided text through context, ideational, interpersonal, and textual meaning."
-
-policy:
-  allow_implicit_invocation: true
+  short_description: "用韩礼德系统功能语言学分析文本，并核验原著出处与双页码"
+  default_prompt: "Use $halliday-sfl-analyst to analyze the provided text and cite page-verified Halliday sources with printed and PDF page numbers."

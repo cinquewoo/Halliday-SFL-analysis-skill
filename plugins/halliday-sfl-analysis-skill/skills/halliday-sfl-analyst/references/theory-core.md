@@ -116,7 +116,7 @@ Hallidayan analysis gains depth by rotating perspectives rather than choosing on
 - Do not attribute Appraisal, genre pedagogy, or later discourse-semantic networks to Halliday alone.
 - Do not infer ideology from a single passive or nominalization; require patterns, contrasts, and context.
 
-## 10. Source map for deeper checking
+## 10. Source map for routing only
 
 The following locations refer to the PDF-page numbers in the corpus from which the original distillation was prepared:
 
@@ -129,4 +129,4 @@ The following locations refer to the PDF-page numbers in the corpus from which t
 - *Complementarities in Language*: grammar-lexis, system-text, and speech-writing, PDF 13-17.
 - Halliday and Matthiessen, *Construing Experience through Meaning*: ideation base and grammatical metaphor, PDF 30-34 in the Chinese OCR edition.
 
-When exact quotation, printed pagination, or terminological history matters, check the user's legally available source rather than relying on this map alone.
+These anchors are not sufficient as final citations. For every theoretical answer, follow [source-citation-protocol.md](source-citation-protocol.md), open the primary PDF page, and report the printed page label together with the one-based PDF page number. When exact quotation, printed pagination, or terminological history matters, check the user's legally available source rather than relying on this map alone.

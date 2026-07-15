@@ -1,6 +1,6 @@
 ---
 name: halliday-sfl-analyst
-description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), covering field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, and meaningful alternative wordings. Use when a user requests Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register analysis, grammatical metaphor, or a theory-grounded explanation of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
+description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), with page-verified source tracing for Hallidayan theory. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
 ---
 
 # Halliday SFL Analyst
@@ -18,8 +18,24 @@ Infer the depth from the request. Use **full** when the user does not specify on
 ## Load references progressively
 
 - Read [theory-core.md](references/theory-core.md) before any substantive analysis or theoretical explanation.
+- Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
+- Read [corpus-catalog.md](references/corpus-catalog.md) when locating a primary source. If `.agents/halliday-corpus.local.json` exists, use it to resolve stable source IDs; otherwise use PDFs supplied or explicitly identified by the user.
 - Read [analysis-framework.md](references/analysis-framework.md) for full or research analysis, clause-level annotation, non-English analysis, or whenever a category boundary is uncertain.
-- Do not load unrelated source PDFs. Ask the user to supply any source whose exact wording or pagination must be checked.
+- Do not load unrelated source PDFs. Search candidate works selected from the corpus catalog, then open the complete supporting page before citing it.
+- Treat the bundled distillation and page map as routing aids, not final evidence. Ask the user for a primary source if exact wording or pagination cannot be verified from accessible files.
+
+## Enforce the source contract
+
+For every theoretical answer, definition, historical claim, or theory-grounded analytical conclusion:
+
+1. Cite the specific work and chapter or article when available.
+2. Give both the printed page label and the one-based PDF page number: `printed p. x; PDF p. y`.
+3. Verify the page and surrounding context in the original PDF; do not cite a contents, index, bibliography, or a quoted opponent as Halliday's own claim.
+4. Distinguish primary Halliday evidence, secondary interpretation, evidence from the user's analyzed text, and the analyst's inference.
+5. For a synthesis across works, cite at least two primary locations unless one passage states the synthesis explicitly.
+6. If a page cannot be verified, say `page unverified` and narrow or withhold the claim. Never invent a page number.
+
+Use `scripts/corpus_index.py` to search a private local index when available. Open the full indexed page with its `page` command before using a search hit as evidence. Visually inspect the PDF when OCR, tables, figures, headers, or page labels are uncertain.
 
 ## Prepare the input
 
@@ -120,6 +136,8 @@ Use the smallest structure that satisfies the request. For a full analysis, defa
 8. **Key choices table** with columns: evidence, system choice, plausible alternative, functional consequence, confidence.
 9. **Synthesis**: how the choices work together and what remains uncertain.
 
+Add a compact **Theoretical sources** section whenever theory is invoked. Map each major theoretical proposition to a page-verified primary citation. A text-analysis page reference does not replace the theoretical citation, and vice versa.
+
 Quote only enough text to identify evidence. Preserve clause identifiers or page/paragraph references so the user can audit the interpretation.
 
 ## Apply quality gates
@@ -127,6 +145,7 @@ Quote only enough text to identify evidence. Preserve clause identifiers or page
 Before finishing, verify that:
 
 - Each major claim cites a word, clause, passage, or quantitative pattern.
+- Every attributed theoretical proposition has a verified source, chapter or article locator, printed page label, and PDF page number; unverified pagination is explicitly labelled.
 - The three metafunctions are analyzed as simultaneous meanings, not three disconnected text zones.
 - Context and lexicogrammar support each other.
 - At least one meaningful alternative wording is compared for every central finding.
