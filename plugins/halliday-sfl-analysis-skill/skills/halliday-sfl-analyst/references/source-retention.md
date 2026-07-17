@@ -26,7 +26,7 @@ The archive command uses an APFS clone when available and otherwise makes a byte
 
 ## Supported evidence files
 
-- PDF: index by one-based PDF page; retain encoded or visually verified printed page labels separately.
+- PDF: index by one-based PDF page; retain encoded or visually verified printed page labels separately. Override malformed publisher labels with a visually checked offset, or disable printed labels when no reliable mapping exists.
 - PPTX: index visible slide text and speaker notes by one-based slide number.
 
 Build the searchable private index from the archived manifest, not from files in a transient upload directory:
@@ -38,6 +38,8 @@ python3 scripts/corpus_index.py build \
 ```
 
 The index is a locator, not final evidence. Open the complete PDF page or PPTX slide and inspect its context before citation. Render or visually inspect slides containing diagrams, screenshots, tables, or uncertain OCR.
+
+For PDFs, the optional manifest field `page_label_mode` accepts `encoded` (default), `offset`, or `none`. An offset mapping also requires `printed_page_start` and `printed_page_pdf_start`. Use it only after visually checking multiple pages; some Elsevier files encode the article number as a misleading page-label sequence. Rebuild schema-version-3 indexes after changing page-label policy.
 
 ## Portability
 

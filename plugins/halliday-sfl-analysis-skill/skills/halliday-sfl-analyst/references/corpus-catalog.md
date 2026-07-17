@@ -21,6 +21,11 @@ This catalog defines stable source IDs and complete source titles for the refere
 | `cw11-preview` | *Halliday in the 21st Century: Volume 11 in the Collected Works of M. A. K. Halliday*, separately supplied 100-page excerpt | 100 | Partial duplicate; identify as an excerpt and prefer the full volume for final citations. |
 | `complementarities-ocr` | M. A. K. Halliday, *Complementarities in Language* (《语言系统的并协与互补》), OCR edition | 243 | OCR edition; verify wording and printed pagination visually when necessary. |
 | `gm-improvements-2026` | Bingjun Yang, *Grammatical Metaphor: Improvements and Applications*, ISFC 51 presentation, Hong Kong Metropolitan University, 11 July 2026 | 208 slides | Secondary research presentation; distinguish Yang's refinements from screenshots and cited authors. |
+| `li-yang-2024-nominalizing-metaphors` | Wen Li & Bingjun Yang, `Towards a system of principles for identifying nominalizing metaphors`, *Lingua* 312: 103832 | 21 | Four-system NM identification: semantic junction, morphological priority, full realization, and rank shift. |
+| `yang-gao-2023-polarity-metaphor` | Bingjun Yang & Hongmiao Gao, `Polarity metaphor in English: Definition, identification, and categorization`, *Lingua* 295: 103623 | 16 | Ideational and interpersonal polarity metaphor; direct negative agnates and polarity cline. |
+| `yang-2019-interpersonal-metaphor` | Bingjun Yang, `Interpersonal metaphor revisited: identification, categorization, and syndrome`, *Social Semiotics* 29(2): 186-203 | 19 | Context-first and AS IF principles; PDF p. 2 corresponds to printed p. 186. |
+| `yang-2018-textual-metaphor` | Bingjun Yang, `Textual Metaphor Revisited`, *Australian Journal of Linguistics* 38(2): 205-222 | 19 | Critical account of textual-GM identification; PDF p. 2 corresponds to printed p. 205. |
+| `yang-2020-full-realization` | Bingjun Yang, `Full realization principle for the identification of ideational grammatical metaphor: nominalization as example`, *Journal of World Languages* 6(3): 161-174 | 14 | Full/intermediate/raw realization and embedding counter-test; PDF p. 1 corresponds to printed p. 161. |
 
 ## Local resolution
 
@@ -38,12 +43,15 @@ Use this minimal manifest shape and keep the file private:
       "full_citation": "Halliday, M. A. K., and Christian M. I. M. Matthiessen. 2014. Halliday's Introduction to Functional Grammar, 4th edition.",
       "short_citation": "Halliday & Matthiessen, IFG4",
       "kind": "pdf",
+      "page_label_mode": "encoded",
       "path": "/absolute/path/to/IFG4.pdf",
       "sha256": "verified-file-digest"
     }
   ]
 }
 ```
+
+`page_label_mode` may be `encoded` (default), `offset`, or `none`. Use `offset` only after visually verifying a stable mapping and add positive integers `printed_page_start` and `printed_page_pdf_start`. Use `none` when neither embedded labels nor a visually verified mapping is reliable. The index reports the original presence of encoded labels separately from the selected locator mode.
 
 Use `scripts/source_archive.py` to retain originals privately and create SHA-256 metadata. Then use `scripts/corpus_index.py` to build or query a page/slide index. The archive, manifest, extracted text, and SQLite database must remain private unless redistribution rights are established.
 
@@ -57,7 +65,11 @@ Use these routes only to select candidate sources; always verify the actual page
 - Register, context, social semiotic, language and society: `cw10-society`, `cw3-language-linguistics`.
 - Child language, ontogenesis, learning language: `cw4-early-childhood`, `cw9-education`.
 - Scientific discourse and grammatical metaphor: `cw5-science`, `construing-experience-zh-ocr`, `ifg4`.
-- Grammatical-metaphor history, diagnostics, later extensions, and applications: `gm-improvements-2026`, then verify any Halliday attribution in the primary volume it names.
+- Grammatical-metaphor history and applications: `gm-improvements-2026`, then verify any Halliday attribution in the primary volume it names.
+- Nominalizing-metaphor instance identification: `li-yang-2024-nominalizing-metaphors`, `yang-2020-full-realization`, then `ifg4` for Halliday's re-mapping account.
+- Mood or modality metaphor identification: `yang-2019-interpersonal-metaphor`, then `ifg4` and the Halliday source relevant to the example.
+- Polarity metaphor: `yang-gao-2023-polarity-metaphor`, `cw8-chinese`, and `ifg4`.
+- Proposed textual metaphor: `yang-2018-textual-metaphor`, `cw2-text-discourse`, and `ifg4`; report the category's contested status.
 - Probability, corpus, computation, quantitative modelling: `cw6-computational`, `cw11-21c`.
 - Chinese language: `cw8-chinese`; use language-specific categories rather than transferring English analyses mechanically.
 - Appliable linguistics and late theoretical synthesis: `cw11-21c`, `cw3-language-linguistics`.

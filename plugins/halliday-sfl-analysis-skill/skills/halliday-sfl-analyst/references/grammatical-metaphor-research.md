@@ -46,6 +46,8 @@ Prefer “the earliest explicit naming of the mature concept I can verify is 198
 
 ## 3. An operational identification sequence
 
+For a judgement about a specific clause, group, phrase, word, or morpheme, use [gm-identification-protocol.md](gm-identification-protocol.md). It makes the congruent agnate, positive evidence, counter-test, verdict, confidence, and exact source pages mandatory.
+
 Treat GM as a relation between a wording, its meaning, and a plausible congruent agnate. Use the following sequence rather than suffix spotting:
 
 1. **Establish the contextual meaning.** Determine what experience, logical relation, speech function, modal assessment, or polarity is being realized in this co-text.
@@ -57,7 +59,7 @@ Treat GM as a relation between a wording, its meaning, and a plausible congruent
 7. **Interpret the functional consequence.** Explain changes in agency, time, causality, negotiability, arguability, information flow, abstraction, and technicality.
 8. **Report uncertainty.** Treat lexicalized, technicalized, or weakly agnate cases as gradient or disputed when the evidence does not justify a binary decision.
 
-This sequence synthesizes the presentation's emphasis on semantic junction, rank shift, full realization, morphological priority, and context. Yang 2026, slides 54-119; Yang 2020; Li & Yang 2024.
+This sequence synthesizes Halliday's re-mapping account with later operational refinements. Halliday and Matthiessen, *Halliday's Introduction to Functional Grammar*, 4th ed., Sections 10.5.2 and 10.5.4 (printed pp. 712, 719; PDF pp. 731, 738); Yang 2020 (printed pp. 166-170; PDF pp. 6-10); Li & Yang 2024 (printed pp. 13-18; PDF pp. 13-18); Yang 2026, PPTX slides 54-119.
 
 ## 4. Rank shift, process shift, and embedding
 
@@ -82,7 +84,7 @@ the man [[who arrived yesterday]]
 his arrival yesterday
 ```
 
-The first contains a rank-shifted clause but preserves verbal process realization. The second construes arriving through a thing-like nominal group. Under Yang's Full Realization Principle, only full compression in both meaning and form counts as ideational GM; intermediate realization is partly metaphorical, while raw realization is not counted as GM. Yang 2020, especially printed pp. 161, 166; Yang 2026, slides 69-86.
+The first contains a rank-shifted clause but preserves verbal process realization. The second construes arriving through a thing-like nominal group. Under Yang's Full Realization Principle, only full compression in both meaning and form counts as ideational GM; intermediate realization is partly metaphorical, while raw realization is not counted as GM. Yang, *Full realization principle for the identification of ideational grammatical metaphor: nominalization as example* (printed pp. 166-170; PDF pp. 6-10); Yang 2026, PPTX slides 69-86.
 
 Do not generalize this full-realization test to all GM types. Interpersonal metaphor is identified through contextual speech function or modal value, not through rank shift alone.
 
@@ -97,7 +99,7 @@ Do not ask only whether a word is morphologically nominalized. Treat nominalizin
 | Full realization | How completely is compression realized in meaning and form? | full; intermediate; raw |
 | Rank shift | What rank relation realizes the reconstrual? | clause complex → clause/group/word; clause → group/word |
 
-Use the systems together. None of them alone identifies all NMs. Li & Yang 2024; Yang 2026, slides 87-102, especially slides 97, 101-102.
+Use the systems together. None of them alone identifies all NMs. Li and Yang, *Towards a system of principles for identifying nominalizing metaphors* (semantic junction: printed pp. 13-14; PDF pp. 13-14; morphological priority: printed pp. 14-15; PDF pp. 14-15; integrated system: printed pp. 16-18; PDF pp. 16-18); Yang 2026, PPTX slides 87-102, especially slides 97 and 101-102.
 
 Recognize non-morphological NMs. Examples discussed in the presentation include:
 
@@ -130,7 +132,7 @@ For mood metaphor:
 
 For modality metaphor, establish the value and orientation that the clause enacts in context. `I think ...` can realize probability, but in professional advice it may indirectly enact obligation. Do not classify it from the projecting clause alone.
 
-Source lineage: Yang 2019, pp. 186-203, especially p. 194; Yang 2026, slides 103-119. Treat the principles as Yang's refinement, not Halliday's terminology.
+Source lineage: Yang, *Interpersonal metaphor revisited: identification, categorization, and syndrome* (Context-first and AS IF principles: printed pp. 193-195; PDF pp. 9-11; application across speech functions: printed pp. 195-197; PDF pp. 11-13; synthesis: printed p. 199; PDF p. 15); Yang 2026, PPTX slides 103-119. Treat the principles as Yang's refinement, not Halliday's terminology.
 
 ## 7. Logical, textual, polarity, and contextual extensions
 
@@ -153,7 +155,7 @@ State whether the analysis treats logical GM as a subtype of ideational GM or as
 
 Treat textual metaphor as contested. Martin (1992) proposes resources such as meta-message relation, text reference, negotiating texture, and internal conjunction. Yang (2018) argues that the category lacks a stable congruent baseline, overlaps with ideational metaphor, relies heavily on nominalization, has weak identification principles, and lacks a uniquely established function.
 
-Do not label clefts, passives, internal conjunction, or text-reference nouns as textual metaphor merely because they affect information flow. First specify the proposed congruent textual realization and show why the contrast cannot be explained more adequately as an ideational or interpersonal metaphor with textual effects. Yang 2018, pp. 205-222; Yang 2026, slides 131-142.
+Do not label clefts, passives, internal conjunction, or text-reference nouns as textual metaphor merely because they affect information flow. First specify the proposed congruent textual realization and show why the contrast cannot be explained more adequately as an ideational or interpersonal metaphor with textual effects. Yang, *Textual Metaphor Revisited* (five identification problems: printed pp. 212-218; PDF pp. 9-15; redundancy argument: printed p. 219; PDF p. 16); Yang 2026, PPTX slides 131-142.
 
 ### Polarity metaphor
 
@@ -164,7 +166,7 @@ Yang & Gao broaden polarity metaphor into the indirect reconstrual of negative m
 - **Ideational:** participation, qualification, processation, and circumstantiation.
 - **Interpersonal:** tension involving mood and speech function, or varied realizations of modality.
 
-Analyze polarity as a cline where relevant, not only as a binary `not`. Keep Halliday's original interpersonal observation distinct from Yang & Gao's later cross-metafunctional model. Yang & Gao 2023, article 103623; Yang 2026, slides 143-155.
+Analyze polarity as a cline where relevant, not only as a binary `not`. Keep Halliday's original interpersonal observation distinct from Yang & Gao's later cross-metafunctional model. Yang and Gao, *Polarity metaphor in English: Definition, identification, and categorization* (definition: printed p. 6; PDF p. 6; ideational types: printed pp. 7-8; PDF pp. 7-8; interpersonal tests: printed pp. 8-10; PDF pp. 8-10; synthesis: printed p. 13; PDF p. 13); Yang 2026, PPTX slides 143-155.
 
 ### Contextual metaphor
 
@@ -226,7 +228,7 @@ The presentation's Wittgenstein-SFL comparison can motivate a context-first orie
 
 ### “Is this nominalization GM?”
 
-> Morphology alone is insufficient. I would first construct the congruent agnate, test semantic junction, record rank and realization degree, and check whether current context preserves both process/quality/relation meaning and thing-like affordances.
+> Morphology alone is insufficient. I would first construct the congruent agnate, test semantic junction, morphological priority, realization degree, and rank relation, then give a counter-analysis and an explicit verdict with confidence.
 
 ### “Is this embedded clause GM?”
 
@@ -251,12 +253,12 @@ The presentation's Wittgenstein-SFL comparison can motivate a context-first orie
 
 ### Later research distilled from the presentation
 
-- Yang, Bingjun. 2018. `Textual Metaphor Revisited`. *Australian Journal of Linguistics* 38(2): 205-222. https://doi.org/10.1080/07268602.2018.1400502
-- Yang, Bingjun. 2019. `Interpersonal metaphor revisited: identification, categorization, and syndrome`. *Social Semiotics* 29(2): 186-203. https://doi.org/10.1080/10350330.2018.1425322
-- Yang, Bingjun. 2020. `Full realization principle for the identification of ideational grammatical metaphor: nominalization as example`. *Journal of World Languages* 6(3): 161-174. https://doi.org/10.1080/21698252.2020.1777682
+- Yang, Bingjun. 2018. `Textual Metaphor Revisited`. *Australian Journal of Linguistics* 38(2): 205-222. Identification problems and conclusion: printed pp. 212-219; PDF pp. 9-16. https://doi.org/10.1080/07268602.2018.1400502
+- Yang, Bingjun. 2019. `Interpersonal metaphor revisited: identification, categorization, and syndrome`. *Social Semiotics* 29(2): 186-203. Context-first and AS IF identification: printed pp. 193-199; PDF pp. 9-15. https://doi.org/10.1080/10350330.2018.1425322
+- Yang, Bingjun. 2020. `Full realization principle for the identification of ideational grammatical metaphor: nominalization as example`. *Journal of World Languages* 6(3): 161-174. Full/intermediate/raw realization and embedding: printed pp. 166-170; PDF pp. 6-10. https://doi.org/10.1080/21698252.2020.1777682
 - Yang, Bingjun. 2022. *Non-Finiteness: A Process-Relation Perspective*. Cambridge University Press.
-- Yang, Bingjun, and Hongmiao Gao. 2023. `Polarity metaphor in English: Definition, identification, and categorization`. *Lingua* 295: 103623. https://doi.org/10.1016/j.lingua.2023.103623
-- Li, Wen, and Bingjun Yang. 2024. `Towards a system of principles for identifying nominalizing metaphors`. *Lingua* 312: 103832. https://doi.org/10.1016/j.lingua.2024.103832
+- Yang, Bingjun, and Hongmiao Gao. 2023. `Polarity metaphor in English: Definition, identification, and categorization`. *Lingua* 295: 103623. Definition, types, and identification: printed pp. 6-13; PDF pp. 6-13. https://doi.org/10.1016/j.lingua.2023.103623
+- Li, Wen, and Bingjun Yang. 2024. `Towards a system of principles for identifying nominalizing metaphors`. *Lingua* 312: 103832. Four-principle identification system: printed pp. 10-18; PDF pp. 10-18. https://doi.org/10.1016/j.lingua.2024.103832
 - Yang, Bingjun. 2026. *Grammatical Metaphor: Improvements and Applications*. ISFC 51 conference presentation, slides 1-208. Private user-supplied source; not redistributed.
 
-Before giving exact article-page claims from the later research, open the original article and verify the page. Presentation slide numbers support the distillation but do not replace the article's pagination.
+The article locations above were checked in the user-supplied PDFs. Re-open the complete page before each future citation; presentation slide numbers support the distillation but do not replace the article's pagination.

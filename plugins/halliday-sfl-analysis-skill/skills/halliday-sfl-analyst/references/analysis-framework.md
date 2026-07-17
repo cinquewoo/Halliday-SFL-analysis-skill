@@ -148,6 +148,8 @@ Track reference, substitution, ellipsis, conjunction, and lexical cohesion. Expl
 
 ## 5. Grammatical metaphor
 
+For a judgement about one clause, group, phrase, word, or morpheme, follow [gm-identification-protocol.md](gm-identification-protocol.md). The forms below are candidate signals only.
+
 ### Ideational metaphor
 
 Check for:
@@ -160,6 +162,15 @@ Check for:
 
 Unpack the metaphor into one or more plausible congruent clauses. Compare changes in rank, participant roles, agency, tense, modality, causality, and the ability to qualify or classify the new entity.
 
+For a nominalizing candidate, record all four diagnostics rather than only the nominal form:
+
+- semantic junction: process/quality/circumstance/relator + entity;
+- morphological priority: derivational, then inflectional/infinitival for a lexical gap, then non-morphological where necessary;
+- realization degree: full, intermediate, or raw;
+- rank relation: clause complex to clause/group/word or clause to group/word.
+
+Only a full realization that also passes the other relevant tests supports a canonical nominalizing-GM verdict. Treat intermediate realization as gradient and raw clausal realization as non-GM. Exclude ordinary participant/product nouns, lexicalized labels, event nouns without an unpackable process, and embedded clauses unless the positive relation is independently demonstrated.
+
 ### Interpersonal metaphor
 
 Check for:
@@ -169,6 +180,14 @@ Check for:
 - Explicit-objective formulations that present a judgment as detached from the speaker.
 
 Compare force, responsibility, negotiability, politeness, and dialogic openness. Avoid assuming indirectness always means politeness.
+
+Establish the contextual speech function and response potential before comparing it with Mood. Apply the AS IF test and supply the congruent statement, question, command, offer, or modal wording. A surface imperative, interrogative, or declarative has no context-free metaphor status.
+
+### Polarity and proposed textual metaphor
+
+For polarity metaphor, identify the negative meaning and a direct congruent negative before classifying an ideational realization (participation, processation, qualification, or circumstantiation) or an interpersonal one (mood or modality tension).
+
+Treat textual metaphor as disputed. Require a defensible congruent textual baseline, an operational contrast beyond ordinary markedness, and evidence that the case is not better analyzed as ideational/interpersonal GM with textual effects.
 
 ## 6. Multilingual safeguards
 
@@ -216,6 +235,11 @@ Do not call a feature frequent or significant without a baseline. Reserve statis
 
 | Evidence | Selected wording | Plausible alternative | Meaning contrast | Confidence |
 |---|---|---|---|---|
+
+### Grammatical-metaphor instance judgement
+
+| Unit + context | Candidate | Congruent agnate | Mapping and type-specific evidence | Counter-test | Verdict + confidence | Meaning consequence |
+|---|---|---|---|---|---|---|
 
 Use confidence labels such as high, medium, and low only after explaining the evidence basis.
 

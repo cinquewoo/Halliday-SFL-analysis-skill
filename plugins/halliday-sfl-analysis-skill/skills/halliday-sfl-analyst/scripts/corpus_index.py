@@ -18,7 +18,7 @@ from pathlib import Path
 from pypdf import PdfReader
 
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 SUPPORTED_KINDS = {"pdf", "pptx"}
 SCHEMA = f"""
 CREATE TABLE metadata (schema_version INTEGER NOT NULL);
@@ -32,6 +32,7 @@ CREATE TABLE source (
     kind TEXT NOT NULL,
     unit_count INTEGER NOT NULL,
     page_labels_encoded INTEGER NOT NULL,
+    page_label_mode TEXT NOT NULL,
     file_size INTEGER NOT NULL,
     mtime_ns INTEGER NOT NULL,
     sha256 TEXT NOT NULL
@@ -68,12 +69,12 @@ def infer_kind(path: Path, declared: object | None = None) -> str:
     return kind
 
 
-def load_manifest(path: Path) -> list[dict[str, str]]:
+def load_manifest(path: Path) -> list[dict[str, object]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("version") not in (1, 2) or not isinstance(data.get("sources"), list):
         raise ValueError("Manifest must contain version 1 or 2 and a sources array")
     seen: set[str] = set()
-    sources: list[dict[str, str]] = []
+    sources: list[dict[str, object]] = []
     for raw in data["sources"]:
         required = ("id", "title", "path")
         missing = [key for key in required if not raw.get(key)]
@@ -84,7 +85,23 @@ def load_manifest(path: Path) -> list[dict[str, str]]:
             raise ValueError(f"Duplicate source id: {source_id}")
         seen.add(source_id)
         resolved_path = Path(str(raw["path"])).expanduser().resolve()
-        source = {
+        page_label_mode = str(raw.get("page_label_mode") or "encoded")
+        if page_label_mode not in {"encoded", "none", "offset"}:
+            raise ValueError(
+                f"Unsupported page_label_mode for {source_id}: {page_label_mode}"
+            )
+        printed_page_start = raw.get("printed_page_start")
+        printed_page_pdf_start = raw.get("printed_page_pdf_start")
+        if page_label_mode == "offset":
+            if not isinstance(printed_page_start, int) or printed_page_start < 1:
+                raise ValueError(
+                    f"printed_page_start must be a positive integer for {source_id}"
+                )
+            if not isinstance(printed_page_pdf_start, int) or printed_page_pdf_start < 1:
+                raise ValueError(
+                    f"printed_page_pdf_start must be a positive integer for {source_id}"
+                )
+        source: dict[str, object] = {
             "id": source_id,
             "title": str(raw["title"]),
             "full_citation": str(raw.get("full_citation") or raw["title"]),
@@ -92,6 +109,9 @@ def load_manifest(path: Path) -> list[dict[str, str]]:
             "path": str(resolved_path),
             "kind": infer_kind(resolved_path, raw.get("kind")),
             "sha256": str(raw.get("sha256") or ""),
+            "page_label_mode": page_label_mode,
+            "printed_page_start": printed_page_start,
+            "printed_page_pdf_start": printed_page_pdf_start,
         }
         sources.append(source)
     return sources
@@ -101,12 +121,30 @@ def clean_text(text: str) -> str:
     return text.replace("\x00", " ").replace("\r\n", "\n").replace("\r", "\n")
 
 
-def extract_pdf(path: Path) -> tuple[list[tuple[int, str, str]], bool]:
-    reader = PdfReader(str(path), strict=False)
-    page_labels_encoded = reader.root_object.get("/PageLabels") is not None
-    labels = list(reader.page_labels) if page_labels_encoded else []
+def pdf_page_labels(reader: PdfReader, source: dict[str, object]) -> tuple[list[str], bool]:
+    encoded = reader.root_object.get("/PageLabels") is not None
+    mode = str(source["page_label_mode"])
+    if mode == "none":
+        return [""] * len(reader.pages), encoded
+    if mode == "offset":
+        printed_start = int(source["printed_page_start"])
+        pdf_start = int(source["printed_page_pdf_start"])
+        labels = [
+            str(printed_start + pdf_page - pdf_start) if pdf_page >= pdf_start else ""
+            for pdf_page in range(1, len(reader.pages) + 1)
+        ]
+        return labels, encoded
+    labels = list(reader.page_labels) if encoded else []
     if len(labels) != len(reader.pages):
         labels = [""] * len(reader.pages)
+    return [str(label) for label in labels], encoded
+
+
+def extract_pdf(
+    path: Path, source: dict[str, object]
+) -> tuple[list[tuple[int, str, str]], bool]:
+    reader = PdfReader(str(path), strict=False)
+    labels, page_labels_encoded = pdf_page_labels(reader, source)
     units: list[tuple[int, str, str]] = []
     for page_index, page in enumerate(reader.pages):
         try:
@@ -176,9 +214,11 @@ def extract_pptx(path: Path) -> tuple[list[tuple[int, str, str]], bool]:
     return units, False
 
 
-def extract_units(path: Path, kind: str) -> tuple[list[tuple[int, str, str]], bool]:
+def extract_units(
+    path: Path, kind: str, source: dict[str, object]
+) -> tuple[list[tuple[int, str, str]], bool]:
     if kind == "pdf":
-        return extract_pdf(path)
+        return extract_pdf(path, source)
     if kind == "pptx":
         return extract_pptx(path)
     raise ValueError(f"Unsupported source type: {kind}")
@@ -195,7 +235,7 @@ def build_index(manifest: Path, database: Path) -> None:
         connection = sqlite3.connect(temporary)
         connection.executescript(SCHEMA)
         for source_number, source in enumerate(sources, start=1):
-            document_path = Path(source["path"])
+            document_path = Path(str(source["path"]))
             if not document_path.is_file():
                 raise FileNotFoundError(f"Missing source for {source['id']}: {document_path}")
             actual_digest = sha256_file(document_path)
@@ -204,19 +244,21 @@ def build_index(manifest: Path, database: Path) -> None:
                     f"SHA-256 mismatch for {source['id']}: "
                     f"expected {source['sha256']}, found {actual_digest}"
                 )
-            units, page_labels_encoded = extract_units(document_path, source["kind"])
+            source_kind = str(source["kind"])
+            units, page_labels_encoded = extract_units(document_path, source_kind, source)
             stat = document_path.stat()
             connection.execute(
-                "INSERT INTO source VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO source VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     source["id"],
                     source["title"],
                     source["full_citation"],
                     source["short_citation"],
                     str(document_path),
-                    source["kind"],
+                    source_kind,
                     len(units),
                     int(page_labels_encoded),
+                    source["page_label_mode"],
                     stat.st_size,
                     stat.st_mtime_ns,
                     actual_digest,
@@ -227,7 +269,7 @@ def build_index(manifest: Path, database: Path) -> None:
                 ((source["id"], number, label, text) for number, label, text in units),
             )
             connection.commit()
-            unit_name = "pages" if source["kind"] == "pdf" else "slides"
+            unit_name = "pages" if source_kind == "pdf" else "slides"
             print(
                 f"[{source_number}/{len(sources)}] indexed {source['id']}: "
                 f"{len(units)} {unit_name}",
@@ -413,7 +455,7 @@ def show_status(database: Path) -> None:
     rows = connection.execute(
         """
         SELECT s.id, s.title, s.full_citation, s.kind, s.unit_count,
-               s.page_labels_encoded, s.sha256, s.path,
+               s.page_labels_encoded, s.page_label_mode, s.sha256, s.path,
                SUM(CASE WHEN trim(p.text) = '' THEN 1 ELSE 0 END) AS empty_units,
                SUM(CASE WHEN p.text LIKE '[TEXT EXTRACTION ERROR:%' THEN 1 ELSE 0 END)
                    AS extraction_errors

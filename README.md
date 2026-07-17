@@ -4,7 +4,7 @@ An installable Codex plugin for evidence-grounded analysis with Hallidayan Syste
 
 It supports context and register, ideational, interpersonal, and textual metafunctions, clause complexes, grammatical metaphor, alternative wording, English-Chinese analysis safeguards, teaching, and research-oriented review.
 
-The grammatical-metaphor module also distinguishes historical milestones, tests semantic junction rather than suffixes alone, separates rank shift from metaphor, applies Context-first and AS IF diagnostics to interpersonal metaphor, and marks logical, textual, polarity, contextual, and multimodal extensions by lineage and level of consensus.
+The grammatical-metaphor module also distinguishes historical milestones, tests semantic junction rather than suffixes alone, separates rank shift from metaphor, applies Context-first and AS IF diagnostics to interpersonal metaphor, and marks logical, textual, polarity, contextual, and multimodal extensions by lineage and level of consensus. For a clause or word judgement, it must give the contextual unit, congruent agnate, identification evidence, strongest counter-test, verdict, confidence, functional consequence, and complete page-verified theory source.
 
 ## Install
 
@@ -62,7 +62,15 @@ For questions such as “When was grammatical metaphor first proposed?”, the s
 
 For identification, it checks a plausible congruent agnate, semantic junction, rank relation, realization degree, morphology, and contextual function. It does not assume that every nominalization, embedded clause, process-type change, or rank shift is automatically a grammatical metaphor.
 
-The detailed workflow is in `references/grammatical-metaphor-research.md`, distilled from Bingjun Yang's 2026 ISFC 51 presentation and cross-checked against page-verified Halliday sources. The source presentation is not redistributed.
+Ask about a specific instance:
+
+```text
+$halliday-sfl-analyst
+
+Does “his arrival yesterday” contain grammatical metaphor? Give the congruent form, apply the identification criteria step by step, state the strongest counter-analysis, and cite the complete theory sources with printed/PDF pages.
+```
+
+The mandatory instance workflow is in `references/gm-identification-protocol.md`. It integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles and Li and Yang's four-system nominalizing-metaphor test. The broader research history is in `references/grammatical-metaphor-research.md`. The privately supplied articles and presentation are not redistributed.
 
 ## What a full report contains
 
@@ -100,6 +108,7 @@ The repository defines stable source IDs in `references/corpus-catalog.md`. User
       "full_citation": "Halliday, M. A. K., and Christian M. I. M. Matthiessen. 2014. Halliday's Introduction to Functional Grammar, 4th edition.",
       "short_citation": "Halliday & Matthiessen, IFG4",
       "kind": "pdf",
+      "page_label_mode": "encoded",
       "path": "/absolute/path/to/IFG4.pdf"
     }
   ]
@@ -140,6 +149,8 @@ python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/
 
 The indexer requires Python and `pypdf`; PPTX text extraction uses the Python standard library. Search hits are candidate evidence: inspect the complete page/slide and visually check scans, OCR, screenshots, tables, diagrams, or uncertain page labels before citing them.
 
+For PDFs with bad embedded labels, set `page_label_mode` to `offset` and add visually verified `printed_page_start` and `printed_page_pdf_start`, or use `none` when no reliable printed mapping exists. The index never treats a publisher's article number as a page number merely because it was embedded in `/PageLabels`.
+
 ## Repository structure
 
 ```text
@@ -153,6 +164,7 @@ plugins/halliday-sfl-analysis-skill/
     ├── references/
     │   ├── analysis-framework.md
     │   ├── corpus-catalog.md
+    │   ├── gm-identification-protocol.md
     │   ├── grammatical-metaphor-research.md
     │   ├── source-citation-protocol.md
     │   ├── source-retention.md

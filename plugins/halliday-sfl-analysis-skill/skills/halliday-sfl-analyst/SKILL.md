@@ -1,6 +1,6 @@
 ---
 name: halliday-sfl-analyst
-description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), with page-verified PDF/PPTX source tracing and complete bibliographic citations. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
+description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), with page-verified PDF/PPTX source tracing and complete bibliographic citations. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, congruent forms, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, deciding whether a clause or word contains grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
 ---
 
 # Halliday SFL Analyst
@@ -19,6 +19,7 @@ Infer the depth from the request. Use **full** when the user does not specify on
 
 - Read [theory-core.md](references/theory-core.md) before any substantive analysis or theoretical explanation.
 - Read [grammatical-metaphor-research.md](references/grammatical-metaphor-research.md) whenever the request concerns the history, identification, disputed boundaries, subtypes, research extensions, or applications of grammatical metaphor.
+- Read [gm-identification-protocol.md](references/gm-identification-protocol.md) whenever the user asks whether a particular clause, group, phrase, word, or morpheme contains grammatical metaphor. Follow its mandatory result format and provide a congruent agnate even when the verdict is negative, disputed, gradient, or context-dependent.
 - Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
 - Read [corpus-catalog.md](references/corpus-catalog.md) when locating a source. Prefer `.agents/halliday-corpus.archived.local.json`, then `.agents/halliday-corpus.local.json`, to resolve stable source IDs; otherwise use PDF/PPTX files supplied or explicitly identified by the user.
 - Read [source-retention.md](references/source-retention.md) whenever PDF/PPTX evidence is supplied, archived, indexed, moved, verified, or prepared for sharing.
@@ -108,6 +109,8 @@ Identify ideational or interpersonal grammatical metaphor, especially nominaliza
 
 Do not diagnose grammatical metaphor from morphology, embedding, rank shift, or process-type change alone. For ideational cases, test the congruent agnate, semantic junction, rank relation, and degree of realization. For interpersonal cases, establish the contextual speech function or modal value before comparing it with the grammatical realization. Treat logical, textual, polarity, contextual, and multimodal metaphor as differently established extensions; name their lineage and level of consensus.
 
+When judging a specific clause or word, do not answer with a bare yes/no. Quote the analysed unit and context; name the candidate lineage; give the congruent agnate; show the semantic-to-grammatical mapping and type-specific tests; state the strongest counter-analysis; report `GM`, `partly/gradient GM`, `not GM`, `disputed`, or `insufficient context` with confidence; and cite the complete theory source with verified pages. A word in isolation is normally underdetermined: give conditional agnates and identify the missing context instead of forcing a verdict.
+
 For every key comparison, explain what changes in:
 
 - Agency and responsibility.
@@ -143,6 +146,8 @@ Use the smallest structure that satisfies the request. For a full analysis, defa
 
 Add a compact **Theoretical sources** section whenever theory is invoked. Map each major theoretical proposition to a complete, page/slide-verified citation. A text-analysis locator does not replace the theoretical citation, and vice versa.
 
+For a clause/word GM judgement, default to the decision table in [gm-identification-protocol.md](references/gm-identification-protocol.md), even when the rest of the answer is brief.
+
 Quote only enough text to identify evidence. Preserve clause identifiers or page/paragraph references so the user can audit the interpretation.
 
 ## Apply quality gates
@@ -157,6 +162,7 @@ Before finishing, verify that:
 - Counts include a denominator and sampling basis.
 - Theme is not conflated with Subject, and Given/New is not inferred from word order alone.
 - Rank shift, embedding, process-type change, and nominalization are not treated as automatic proof of grammatical metaphor.
+- Every clause/word GM judgement includes a contextualized unit, congruent agnate, positive evidence, counter-test, explicit verdict, confidence basis, functional consequence, and complete page-verified theory source.
 - English descriptive categories are not imposed unchanged on another language.
 - Later SFL extensions are not attributed to Halliday without qualification.
 - The conclusion answers the user's question rather than merely naming categories.

@@ -1,6 +1,6 @@
 # Halliday 蒸馏：系统功能语言学的最小完整模型
 
-> 基于用户提供的 16 份 PDF 与 1 份 PPTX 所做的概念蒸馏。目标不是逐卷摘要，而是重建 Halliday 理论中能够解释其全部工作的“生成内核”。正文中遗留的 `PDF x` 等简写只用作内部检索路标，不能直接作为对外引用；每次理论回答必须重新核验原件，并给出作者、年份、完整书籍/文章/演示名称、章节，以及书内页码＋PDF页码或PPTX幻灯片号。
+> 基于用户提供的 21 份 PDF 与 1 份 PPTX 所做的概念蒸馏。目标不是逐卷摘要，而是重建 Halliday 理论中能够解释其全部工作的“生成内核”。正文中遗留的 `PDF x` 等简写只用作内部检索路标，不能直接作为对外引用；每次理论回答必须重新核验原件，并给出作者、年份、完整书籍/文章/演示名称、章节，以及书内页码＋PDF页码或PPTX幻灯片号。
 
 ## 0. 一句话与一段话
 
@@ -214,19 +214,21 @@ Halliday 的动态观可以用三个时间尺度组织：
 - **嵌入不等于隐喻。** 必须证明压缩与非一致的语义—语法实现；`the man who arrived yesterday` 与 `his arrival yesterday` 不能仅因都进入名词性位置而归为一类。
 - **名词化不等于名词后缀。** `if → condition`、`can → possibility`、`with → accompaniment` 等非形态对应也可能参与名词化隐喻。
 
-较稳健的识别顺序是：先确定语境意义，再建立自然的一致式对应，检查语义交汇（semantic junction），说明级阶关系和实现程度，最后解释能动性、时间、因果、可争辩性和信息流的变化。对名词化隐喻，Li & Yang（2024）提出四个互补系统：**语义交汇、形态优先、完整实现、级转移**；任何单一标准都不足以覆盖全部实例。报告相关论证见幻灯片 54–102。
+较稳健的识别顺序是：先确定语境意义，再建立自然的一致式对应，检查语义交汇（semantic junction），说明级阶关系和实现程度，最后解释能动性、时间、因果、可争辩性和信息流的变化。对名词化隐喻，Li & Yang（2024）提出四个互补系统：**语义交汇、形态优先、完整实现、级转移**；任何单一标准都不足以覆盖全部实例。语义交汇和形态优先见 *Towards a system of principles for identifying nominalizing metaphors* 印刷页 13–15（PDF页 13–15），整合系统见印刷页 16–18（PDF页 16–18）；完整、居间和原始实现及嵌入反例见 Yang（2020）*Full realization principle for the identification of ideational grammatical metaphor: nominalization as example* 印刷页 166–170（PDF页 6–10）。
+
+因此，判断一个具体小句或词语时，输出不能只写“是/否”。至少应同时给出：被分析单位及语境、候选隐喻类型、自然的一致式对应、逐项识别证据、最强反例分析、`隐喻/部分隐喻/非隐喻/有争议/语境不足`的结论与置信度、意义后果，以及支持识别标准的完整来源和精确页码。孤立词语通常只能给条件性判断；不能为了得到二元答案而虚构语境。
 
 ### 6.3 人际隐喻要“语境优先”
 
 一个疑问句、祈使句或陈述句脱离语境时，不能被固定判为一致式或隐喻式。Yang（2019）的 **Context-first Principle** 要求先用活动类型、参与者关系、上下文和回应潜势判断实际言语功能，再把它与语气形式比较；**AS IF Principle** 则比较隐喻式如何“仿佛”一致式那样实现另一种功能或情态价值。
 
-因此，`Can you close the door?` 只有在对方的典型相关反应是服从而不是回答能力问题时，才有充分证据把它分析为由疑问语气实现命令。类似地，专业建议中的 `I think ...` 可能在字面上表达概率，却在语境中缓和地施行义务。报告相关论证见幻灯片 103–119。
+因此，`Can you close the door?` 只有在对方的典型相关反应是服从而不是回答能力问题时，才有充分证据把它分析为由疑问语气实现命令。类似地，专业建议中的 `I think ...` 可能在字面上表达概率，却在语境中缓和地施行义务。两项原则见 Yang（2019）*Interpersonal metaphor revisited: identification, categorization, and syndrome* 印刷页 193–195（PDF页 9–11），四类言语功能的应用见印刷页 195–197（PDF页 11–13），总结见印刷页 199（PDF页 15）。
 
 ### 6.4 扩展范畴必须标明学术地位
 
 - **逻辑语法隐喻**是有用的后续标签，可描述 `so → cause`、`if → condition` 等逻辑关系的重新实现，但不宜说成 Halliday 已确立的第三个顶层类别。
-- **语篇隐喻**仍有争议。Yang（2018）指出其一致式基线、识别原则、与概念隐喻的边界及独特功能都尚不稳定。
-- **极性隐喻**不能只归入人际意义。Halliday 1984 以 `I don't think he's coming` 说明否定转移；Yang & Gao（2023）则把它发展为同时具有概念和人际实现的跨元功能范畴。Halliday 原文见书内 p. 329、PDF p. 340。
+- **语篇隐喻**仍有争议。Yang（2018）指出其一致式基线、识别原则、与概念隐喻的边界及独特功能都尚不稳定；五项问题见 *Textual Metaphor Revisited* 印刷页 212–218（PDF页 9–15），冗余性结论见印刷页 219（PDF页 16）。因此默认应先分析为“概念/人际隐喻的语篇效果”，除非能独立证明语篇一致式和识别标准。
+- **极性隐喻**不能只归入人际意义。Halliday 1984 以 `I don't think he's coming` 说明否定转移；Yang & Gao（2023）则把它发展为同时具有概念和人际实现的跨元功能范畴。其定义见 *Polarity metaphor in English: Definition, identification, and categorization* 印刷页 6（PDF页 6），概念类型见印刷页 7–8（PDF页 7–8），人际检验见印刷页 8–10（PDF页 8–10），总结见印刷页 13（PDF页 13）。Halliday 原文见书内 p. 329、PDF p. 340。
 - **语境隐喻和多模态隐喻**可作为研究假设，但必须说明层次、实现关系和理论谱系，不能冒充 Halliday 的既定分类。
 
 应用上，也不能把语法隐喻缩减为科学写作中的名词化。它同时涉及知识建构、学术读写、二语发展、批评与制度话语、翻译、语料库、政治法律医疗语篇、历史、多模态和自然语言处理；人际侧还涉及语气、情态、极性、权力、身份、立场与对话空间。报告尤其提醒：AI 生成文本既能扩充例证，也会污染“自然发生”的语言事实，必须与人工语料分开标注。相关综述见幻灯片 143–201。
@@ -415,6 +417,11 @@ Halliday 经常反对只能二选一的理论设计。完整解释需要同时�
 - M. A. K. Halliday，*Complementarities in Language*（《语言系统的并协与互补》）：目录及语法—词汇连续统见 PDF 13-17。
 - M. A. K. Halliday 与 Christian M. I. M. Matthiessen，*Construing Experience through Meaning: A Language-based Approach to Cognition*，中文 OCR 版：中英文目录及整体理论结构见 PDF 30-34。关键术语应与英文原著或 IFG 交叉核验。
 - Bingjun Yang，*Grammatical Metaphor: Improvements and Applications*，ISFC 51 演示文稿，香港都会大学，2026年7月11日，共208张幻灯片。引用时必须给出具体 `PPTX slide x`，并区分演讲者主张、引用文献和AI截图。
+- Wen Li 与 Bingjun Yang，`Towards a system of principles for identifying nominalizing metaphors`，*Lingua* 312 (2024): 103832：四项名词化隐喻识别系统见印刷页 10–18、PDF页 10–18。
+- Bingjun Yang，`Full realization principle for the identification of ideational grammatical metaphor: nominalization as example`，*Journal of World Languages* 6(3) (2020): 161–174：完整/居间/原始实现与嵌入问题见印刷页 166–170、PDF页 6–10。
+- Bingjun Yang，`Interpersonal metaphor revisited: identification, categorization, and syndrome`，*Social Semiotics* 29(2) (2019): 186–203：Context-first 与 AS IF 识别见印刷页 193–199、PDF页 9–15。
+- Bingjun Yang 与 Hongmiao Gao，`Polarity metaphor in English: Definition, identification, and categorization`，*Lingua* 295 (2023): 103623：定义、类型和识别见印刷页 6–13、PDF页 6–13。
+- Bingjun Yang，`Textual Metaphor Revisited`，*Australian Journal of Linguistics* 38(2) (2018): 205–222：语篇隐喻识别问题与结论见印刷页 212–219、PDF页 9–16。
 - `halliday in the 21st centery1-100.pdf` 经页面渲染确认，实际是中文《21世纪的韩礼德语言学思想》的前100页扫描，不是英文第11卷的重复版本；该文件无可提取文本层。
 
 本稿是“理论架构版”蒸馏。它有意不展开英语每个系统的全部网络，也不把 Martin、Hasan、Matthiessen 等人的后续扩展全部归入 Halliday 本人。
