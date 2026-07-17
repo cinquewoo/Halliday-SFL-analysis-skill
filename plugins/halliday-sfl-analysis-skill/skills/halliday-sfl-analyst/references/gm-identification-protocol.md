@@ -60,6 +60,19 @@ Then test whether the selected wording carries a **semantic junction**: the earl
 
 Halliday and Matthiessen describe ideational GM as re-mapping between semantics and lexicogrammar and show its typical downgrading from sequence to figure, figure to element, clause nexus to clause, clause to group/phrase, and group/phrase to word. This is the Hallidayan base; the further tests below are later operational refinements. See *Halliday's Introduction to Functional Grammar*, 4th ed., `10.5.2 Re-mapping between semantics and lexicogrammar` and `10.5.4 Types of ideational metaphor` (printed pp. 712, 719; PDF pp. 731, 738).
 
+## Chinese-language branch
+
+For Chinese material, read [chinese-sfl-analysis.md](chinese-sfl-analysis.md) and apply these safeguards before the type-specific tests:
+
+1. Construct the congruent agnate in natural Chinese; do not translate to English to create the decisive contrast.
+2. Treat zero derivation, `的`, nominal-group position, `性/率/度`, sentence-final particles, `是……的`, `有……`, and `我想/我认为/我觉得……` as clues, not automatic GM markers.
+3. Analyze the whole verb group, including result and directional complements, before deciding whether a process has changed category.
+4. Distinguish existential `有`, possessive/relational `有`, and `有` used to introduce an indefinite participant.
+5. For mood and modality, establish the contextual speech function and response potential before interpreting interrogative constructions or particles.
+6. Report Yang Yanning's Chinese category and the stricter protocol verdict separately when they diverge. In particular, her “add Thing” and “add Process” types lack a direct congruent form in that framework and are therefore disputed under this protocol unless a natural agnate can be recovered.
+
+Yang Yanning's Chinese descriptive framework is located in *汉语语法隐喻研究*, Chapters 3-5, especially 4.4-4.5 and 5.1-5.3 (EPUB section hrefs listed in [chinese-sfl-analysis.md](chinese-sfl-analysis.md); printed pages unavailable from the supplied reflowable EPUB).
+
 ## Nominalizing and other ideational GM
 
 For a canonical nominalizing metaphor, test four complementary systems. No single test is sufficient.
@@ -160,3 +173,4 @@ Use this compact table in clause/word answers:
 - Yang, Bingjun. 2019. `Interpersonal metaphor revisited: identification, categorization, and syndrome`. *Social Semiotics* 29(2): 186-203 (printed pp. 193-199; PDF pp. 9-15). https://doi.org/10.1080/10350330.2018.1425322.
 - Yang, Bingjun, and Hongmiao Gao. 2023. `Polarity metaphor in English: Definition, identification, and categorization`. *Lingua* 295: 103623, Sections 3-6 (printed pp. 6-13; PDF pp. 6-13). https://doi.org/10.1016/j.lingua.2023.103623.
 - Yang, Bingjun. 2018. `Textual Metaphor Revisited`. *Australian Journal of Linguistics* 38(2): 205-222, Sections 3-4 (printed pp. 212-219; PDF pp. 9-16). https://doi.org/10.1080/07268602.2018.1400502.
+- 杨延宁. 2020. 《汉语语法隐喻研究》. 北京：北京大学出版社，Chs. 3-5, especially 4.4-4.5 and 5.1-5.3 (EPUB section hrefs in [chinese-sfl-analysis.md](chinese-sfl-analysis.md); printed pages unavailable from the supplied reflowable EPUB).

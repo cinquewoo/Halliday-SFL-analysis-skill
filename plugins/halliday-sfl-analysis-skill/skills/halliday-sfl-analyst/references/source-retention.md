@@ -1,6 +1,6 @@
 # Private source retention and integrity
 
-Use this reference when the user supplies PDFs or PPTX files, asks to preserve the evidence corpus, or needs the local index rebuilt.
+Use this reference when the user supplies PDFs, PPTX files, or EPUB files, asks to preserve the evidence corpus, or needs the local index rebuilt.
 
 ## Retention contract
 
@@ -28,6 +28,7 @@ The archive command uses an APFS clone when available and otherwise makes a byte
 
 - PDF: index by one-based PDF page; retain encoded or visually verified printed page labels separately. Override malformed publisher labels with a visually checked offset, or disable printed labels when no reliable mapping exists.
 - PPTX: index visible slide text and speaker notes by one-based slide number.
+- EPUB: index each XHTML spine item by chapter/section title, internal href/anchor, and indexed paragraph marker. Use a publisher page-list or explicit pagebreak only when present; otherwise state that printed pagination is unavailable.
 
 Build the searchable private index from the archived manifest, not from files in a transient upload directory:
 
@@ -37,10 +38,10 @@ python3 scripts/corpus_index.py build \
   --database .agents/cache/halliday-corpus.sqlite3
 ```
 
-The index is a locator, not final evidence. Open the complete PDF page or PPTX slide and inspect its context before citation. Render or visually inspect slides containing diagrams, screenshots, tables, or uncertain OCR.
+The index is a locator, not final evidence. Open the complete PDF page, PPTX slide, or EPUB spine item and inspect its context before citation. Render or visually inspect slides and ebook figures containing diagrams, screenshots, tables, or uncertain OCR.
 
-For PDFs, the optional manifest field `page_label_mode` accepts `encoded` (default), `offset`, or `none`. An offset mapping also requires `printed_page_start` and `printed_page_pdf_start`. Use it only after visually checking multiple pages; some Elsevier files encode the article number as a misleading page-label sequence. Rebuild schema-version-3 indexes after changing page-label policy.
+For PDFs, the optional manifest field `page_label_mode` accepts `encoded` (default), `offset`, or `none`. An offset mapping also requires `printed_page_start` and `printed_page_pdf_start`. Use it only after visually checking multiple pages; some Elsevier files encode the article number as a misleading page-label sequence. Use `none` for a reflowable EPUB without a verified page map. Rebuild older indexes after changing page-label policy; the current index schema is version 4.
 
 ## Portability
 
-An installed user does not receive copyrighted source binaries. They can map stable IDs from `corpus-catalog.md` to legally available local copies, archive them, and rebuild the index. If a requested source is unavailable, state `source unavailable for page verification`; do not fabricate a page, slide, quotation, or bibliographic detail.
+An installed user does not receive copyrighted source binaries. They can map stable IDs from `corpus-catalog.md` to legally available local copies, archive them, and rebuild the index. If a requested source is unavailable, state `source unavailable for verification`; do not fabricate a page, slide, EPUB locator, quotation, or bibliographic detail.

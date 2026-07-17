@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and query a private page/slide index of user-supplied SFL sources."""
+"""Build and query a private page/slide/EPUB-section index of SFL sources."""
 
 from __future__ import annotations
 
@@ -18,8 +18,8 @@ from pathlib import Path
 from pypdf import PdfReader
 
 
-SCHEMA_VERSION = 3
-SUPPORTED_KINDS = {"pdf", "pptx"}
+SCHEMA_VERSION = 4
+SUPPORTED_KINDS = {"pdf", "pptx", "epub"}
 SCHEMA = f"""
 CREATE TABLE metadata (schema_version INTEGER NOT NULL);
 INSERT INTO metadata VALUES ({SCHEMA_VERSION});
@@ -85,7 +85,10 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
             raise ValueError(f"Duplicate source id: {source_id}")
         seen.add(source_id)
         resolved_path = Path(str(raw["path"])).expanduser().resolve()
-        page_label_mode = str(raw.get("page_label_mode") or "encoded")
+        kind = infer_kind(resolved_path, raw.get("kind"))
+        page_label_mode = str(
+            raw.get("page_label_mode") or ("none" if kind == "epub" else "encoded")
+        )
         if page_label_mode not in {"encoded", "none", "offset"}:
             raise ValueError(
                 f"Unsupported page_label_mode for {source_id}: {page_label_mode}"
@@ -107,7 +110,7 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
             "full_citation": str(raw.get("full_citation") or raw["title"]),
             "short_citation": str(raw.get("short_citation") or raw["title"]),
             "path": str(resolved_path),
-            "kind": infer_kind(resolved_path, raw.get("kind")),
+            "kind": kind,
             "sha256": str(raw.get("sha256") or ""),
             "page_label_mode": page_label_mode,
             "printed_page_start": printed_page_start,
@@ -214,6 +217,170 @@ def extract_pptx(path: Path) -> tuple[list[tuple[int, str, str]], bool]:
     return units, False
 
 
+def local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1]
+
+
+def epub_rootfile(archive: zipfile.ZipFile) -> str:
+    container_path = "META-INF/container.xml"
+    if container_path not in archive.namelist():
+        raise ValueError("EPUB has no META-INF/container.xml")
+    root = ET.fromstring(archive.read(container_path))
+    for element in root.iter():
+        if local_name(element.tag) == "rootfile":
+            full_path = element.attrib.get("full-path")
+            if full_path:
+                return posixpath.normpath(full_path)
+    raise ValueError("EPUB container does not identify an OPF rootfile")
+
+
+def epub_toc_labels(
+    archive: zipfile.ZipFile,
+    opf_path: str,
+    manifest: dict[str, dict[str, str]],
+    spine_toc_id: str | None,
+) -> dict[str, str]:
+    labels: dict[str, str] = {}
+    opf_dir = posixpath.dirname(opf_path)
+
+    toc_item = manifest.get(spine_toc_id or "")
+    if toc_item:
+        toc_path = posixpath.normpath(posixpath.join(opf_dir, toc_item["href"]))
+        if toc_path in archive.namelist():
+            root = ET.fromstring(archive.read(toc_path))
+            for nav_point in root.iter():
+                if local_name(nav_point.tag) != "navPoint":
+                    continue
+                label = ""
+                href = ""
+                for child in nav_point.iter():
+                    name = local_name(child.tag)
+                    if name == "text" and child.text and not label:
+                        label = " ".join(child.text.split())
+                    elif name == "content" and not href:
+                        href = child.attrib.get("src", "")
+                if label and href:
+                    resolved = posixpath.normpath(
+                        posixpath.join(posixpath.dirname(toc_path), href.split("#", 1)[0])
+                    )
+                    labels.setdefault(resolved, label)
+
+    for item in manifest.values():
+        properties = item.get("properties", "").split()
+        if "nav" not in properties:
+            continue
+        nav_path = posixpath.normpath(posixpath.join(opf_dir, item["href"]))
+        if nav_path not in archive.namelist():
+            continue
+        root = ET.fromstring(archive.read(nav_path))
+        for anchor in root.iter():
+            if local_name(anchor.tag) != "a":
+                continue
+            href = anchor.attrib.get("href", "")
+            label = " ".join("".join(anchor.itertext()).split())
+            if href and label:
+                resolved = posixpath.normpath(
+                    posixpath.join(posixpath.dirname(nav_path), href.split("#", 1)[0])
+                )
+                labels.setdefault(resolved, label)
+    return labels
+
+
+def epub_xhtml_text(payload: bytes, href: str, toc_label: str | None) -> tuple[str, str]:
+    root = ET.fromstring(payload)
+    block_names = {
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "li",
+        "figcaption",
+        "blockquote",
+        "td",
+        "th",
+    }
+    lines: list[str] = []
+    first_anchor = ""
+    heading = ""
+    paragraph_number = 0
+    for element in root.iter():
+        name = local_name(element.tag).lower()
+        if name not in block_names:
+            continue
+        text = " ".join("".join(element.itertext()).split())
+        if not text:
+            continue
+        if not first_anchor:
+            for descendant in element.iter():
+                if descendant.attrib.get("id"):
+                    first_anchor = descendant.attrib["id"]
+                    break
+        if not heading and name.startswith("h"):
+            heading = text
+        paragraph_number += 1
+        lines.append(f"[p{paragraph_number}] {text}")
+    if not lines:
+        fallback = " ".join("".join(root.itertext()).split())
+        if fallback:
+            lines.append(f"[p1] {fallback}")
+    section_title = toc_label or heading or posixpath.basename(href)
+    anchored_href = f"{href}#{first_anchor}" if first_anchor else href
+    prefix = f"[EPUB section: {section_title}]\n[EPUB href: {anchored_href}]"
+    body = "\n".join(lines)
+    return clean_text(f"{prefix}\n{body}" if body else prefix), anchored_href
+
+
+def extract_epub(path: Path) -> tuple[list[tuple[int, str, str]], bool]:
+    units: list[tuple[int, str, str]] = []
+    with zipfile.ZipFile(path) as archive:
+        opf_path = epub_rootfile(archive)
+        if opf_path not in archive.namelist():
+            raise ValueError(f"EPUB OPF rootfile is missing: {opf_path}")
+        root = ET.fromstring(archive.read(opf_path))
+        manifest: dict[str, dict[str, str]] = {}
+        spine_ids: list[str] = []
+        spine_toc_id: str | None = None
+        for element in root.iter():
+            name = local_name(element.tag)
+            if name == "item" and element.attrib.get("id") and element.attrib.get("href"):
+                manifest[element.attrib["id"]] = {
+                    "href": element.attrib["href"],
+                    "media-type": element.attrib.get("media-type", ""),
+                    "properties": element.attrib.get("properties", ""),
+                }
+            elif name == "spine":
+                spine_toc_id = element.attrib.get("toc")
+                for itemref in element:
+                    if local_name(itemref.tag) == "itemref" and itemref.attrib.get("idref"):
+                        spine_ids.append(itemref.attrib["idref"])
+        if not spine_ids:
+            raise ValueError(f"No spine items found in EPUB: {path}")
+        toc_labels = epub_toc_labels(archive, opf_path, manifest, spine_toc_id)
+        opf_dir = posixpath.dirname(opf_path)
+        for item_id in spine_ids:
+            item = manifest.get(item_id)
+            if not item:
+                raise ValueError(f"EPUB spine references missing manifest item: {item_id}")
+            href = posixpath.normpath(posixpath.join(opf_dir, item["href"]))
+            media_type = item.get("media-type", "")
+            if media_type not in {"application/xhtml+xml", "text/html"}:
+                continue
+            if href not in archive.namelist():
+                raise ValueError(f"EPUB spine content is missing: {href}")
+            text, anchored_href = epub_xhtml_text(
+                archive.read(href), href, toc_labels.get(href)
+            )
+            section_title = toc_labels.get(href)
+            label = f"{section_title} | {anchored_href}" if section_title else anchored_href
+            units.append((len(units) + 1, label, text))
+    if not units:
+        raise ValueError(f"No XHTML spine content found in EPUB: {path}")
+    return units, False
+
+
 def extract_units(
     path: Path, kind: str, source: dict[str, object]
 ) -> tuple[list[tuple[int, str, str]], bool]:
@@ -221,6 +388,8 @@ def extract_units(
         return extract_pdf(path, source)
     if kind == "pptx":
         return extract_pptx(path)
+    if kind == "epub":
+        return extract_epub(path)
     raise ValueError(f"Unsupported source type: {kind}")
 
 
@@ -269,7 +438,11 @@ def build_index(manifest: Path, database: Path) -> None:
                 ((source["id"], number, label, text) for number, label, text in units),
             )
             connection.commit()
-            unit_name = "pages" if source_kind == "pdf" else "slides"
+            unit_name = {
+                "pdf": "pages",
+                "pptx": "slides",
+                "epub": "EPUB sections",
+            }[source_kind]
             print(
                 f"[{source_number}/{len(sources)}] indexed {source['id']}: "
                 f"{len(units)} {unit_name}",
@@ -339,13 +512,28 @@ def location_fields(kind: str, unit_number: int, unit_label: str) -> dict[str, o
             "printed_page": printed,
             "pdf_page": unit_number,
             "slide": None,
+            "epub_unit": None,
+            "epub_section": None,
             "location": location,
+        }
+    if kind == "pptx":
+        return {
+            "printed_page": None,
+            "pdf_page": None,
+            "slide": unit_number,
+            "epub_unit": None,
+            "epub_section": None,
+            "location": f"PPTX slide {unit_number}",
         }
     return {
         "printed_page": None,
         "pdf_page": None,
-        "slide": unit_number,
-        "location": f"PPTX slide {unit_number}",
+        "slide": None,
+        "epub_unit": unit_number,
+        "epub_section": unit_label,
+        "location": (
+            f"EPUB section {unit_label}; printed page unavailable from this EPUB"
+        ),
     }
 
 
@@ -435,7 +623,7 @@ def show_page(
             )
         )
     if not rows:
-        raise LookupError("No matching page or slide")
+        raise LookupError("No matching page, slide, or EPUB section")
     for row in rows:
         location = location_fields(source["kind"], row["unit_number"], row["unit_label"])["location"]
         print(f"SOURCE: {source['id']} | {source['full_citation']} | {location}")
@@ -471,23 +659,30 @@ def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(description=__doc__)
     commands = root.add_subparsers(dest="command", required=True)
 
-    build = commands.add_parser("build", help="Build a fresh SQLite page/slide index")
+    build = commands.add_parser(
+        "build", help="Build a fresh SQLite page/slide/EPUB-section index"
+    )
     build.add_argument("--manifest", type=Path, required=True)
     build.add_argument("--database", type=Path, required=True)
 
-    search = commands.add_parser("search", help="Search indexed page or slide text")
+    search = commands.add_parser(
+        "search", help="Search indexed page, slide, or EPUB-section text"
+    )
     search.add_argument("--database", type=Path, required=True)
     search.add_argument("--query", required=True)
     search.add_argument("--source")
     search.add_argument("--limit", type=int, default=12)
     search.add_argument("--mode", choices=("all", "phrase", "raw"), default="all")
 
-    page = commands.add_parser("page", help="Print a complete page or slide for verification")
+    page = commands.add_parser(
+        "page", help="Print a complete page, slide, or EPUB section for verification"
+    )
     page.add_argument("--database", type=Path, required=True)
     page.add_argument("--source", required=True)
     selector = page.add_mutually_exclusive_group(required=True)
     selector.add_argument("--pdf-page", type=int)
     selector.add_argument("--slide", type=int)
+    selector.add_argument("--epub-unit", type=int)
     selector.add_argument("--unit", type=int)
     selector.add_argument("--label")
 
@@ -508,8 +703,16 @@ def main() -> int:
         elif args.command == "search":
             search_index(args.database, args.query, args.source, args.limit, args.mode)
         elif args.command == "page":
-            unit_number = args.pdf_page or args.slide or args.unit
-            selector_kind = "pdf" if args.pdf_page is not None else "pptx" if args.slide is not None else None
+            unit_number = args.pdf_page or args.slide or args.epub_unit or args.unit
+            selector_kind = (
+                "pdf"
+                if args.pdf_page is not None
+                else "pptx"
+                if args.slide is not None
+                else "epub"
+                if args.epub_unit is not None
+                else None
+            )
             show_page(args.database, args.source, unit_number, args.label, selector_kind)
         elif args.command == "source":
             show_source(args.database, args.source)

@@ -1,4 +1,4 @@
 interface:
   display_name: "Halliday SFL Analyst"
-  short_description: "用韩礼德系统功能语言学分析文本，并核验完整书目、页码或幻灯片号"
-  default_prompt: "Use $halliday-sfl-analyst to analyze the provided text; for grammatical-metaphor judgements give the congruent agnate, identification evidence, counter-test, verdict, and confidence; cite complete, page-verified source identities with printed/PDF pages or PPTX slide numbers."
+  short_description: "汉英系统功能语言学与语法隐喻分析，附完整可核验的来源定位"
+  default_prompt: "Use $halliday-sfl-analyst to analyze the provided English or Chinese text; for Chinese load chinese-sfl-analysis.md and construct Chinese congruent agnates; for grammatical-metaphor judgements give the identification evidence, counter-test, verdict, and confidence; cite complete, source-verified identities with printed/PDF pages, PPTX slides, or EPUB section hrefs."

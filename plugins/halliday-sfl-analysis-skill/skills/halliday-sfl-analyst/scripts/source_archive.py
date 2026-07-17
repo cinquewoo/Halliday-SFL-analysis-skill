@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Archive and verify user-supplied Halliday PDF/PPTX sources privately."""
+"""Archive and verify user-supplied Halliday PDF/PPTX/EPUB sources privately."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-SUPPORTED_KINDS = {"pdf", "pptx"}
+SUPPORTED_KINDS = {"pdf", "pptx", "epub"}
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:

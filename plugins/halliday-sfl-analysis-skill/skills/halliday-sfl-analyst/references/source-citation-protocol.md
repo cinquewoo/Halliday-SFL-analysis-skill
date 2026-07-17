@@ -10,6 +10,7 @@ Every theory-bearing answer must include a compact `Sources` or `Theoretical sou
 - **Collected article/chapter:** author, original year, article/chapter title, editor when known, complete containing book title and volume, printed page, and one-based PDF page.
 - **Journal article:** author(s), year, article title, complete journal title, volume(issue), printed page range or supporting page, and PDF page when a local file is used.
 - **Presentation:** presenter, year/date, complete presentation title, venue/event, and one-based PPTX slide number.
+- **Reflowable ebook:** author(s), year, complete book title, edition/publisher when known, chapter/section, stable EPUB href/anchor, and printed page only when the ebook contains a verified page map.
 
 Never write only `PDF p. 22`, `slide 45`, a filename, a source ID, an abbreviated title such as `IFG`, or a volume number. Short forms may appear in the discussion only after the complete source has been supplied in the same answer.
 
@@ -30,11 +31,11 @@ Never present the distillation or model memory as if it were a page-verified pri
 
 1. Identify the proposition that needs support. Split compound theoretical claims when one source does not support every part.
 2. Search the available corpus by distinctive English terms and plausible variants. For translated or OCR sources, also search the corresponding English term.
-3. Open the complete PDF page or PPTX slide containing the hit. Read enough surrounding text or adjacent slides to establish the author's claim and avoid citing a table of contents, index, bibliography, screenshot, or quoted opponent as the source author's own position.
+3. Open the complete PDF page, PPTX slide, or EPUB spine item containing the hit. Read enough surrounding text or adjacent slides/sections to establish the author's claim and avoid citing a table of contents, index, bibliography, screenshot, or quoted opponent as the source author's own position.
 4. Record the stable source ID, complete bibliographic or presentation identity, chapter/article/section when available, and the applicable locator.
 5. Check the original visually when extraction is garbled, the scan crops a footer, a table or diagram carries the evidence, a slide contains screenshots, or the printed page number is uncertain.
 6. Cite the narrowest page span that supports the claim. Do not cite a whole book or broad chapter when a precise page is available.
-7. If the exact locator cannot be verified, say so and either give a section-level locator marked `page/slide unverified` or withhold the attribution. Never invent or infer a page number from an offset.
+7. If the exact locator cannot be verified, say so and either give a section-level locator marked `locator unverified` or withhold the attribution. Never invent or infer a page number from an offset.
 8. Confirm source-file integrity against the archived SHA-256 manifest when provenance or file identity is uncertain.
 
 ## Page-number policy
@@ -59,6 +60,15 @@ For PPTX files:
 - If the deck was also exported to PDF, identify the exported file separately; do not substitute its PDF page silently for the PPTX slide number.
 - Treat an AI answer screenshot or quotation shown on a slide as evidence being discussed, not automatically as the presenter's endorsed claim.
 
+For EPUB files:
+
+- Prefer the publisher's EPUB page-list or explicit `pagebreak` markers when they can be checked against the stated edition.
+- A reflowable EPUB without those markers has no stable page number. Do not use a reading app's percentage, location number, viewport count, Pandoc page, or XHTML sequence as an inferred printed page.
+- Cite the exact chapter/section plus the internal content href and anchor, for example `EPUB EPUB/xhtml/Section0002_0003_0002.xhtml#sigil_toc_id_26; printed page unavailable from this EPUB`.
+- When useful, add the indexed paragraph marker inside that spine item, but do not call it a book page.
+- Record the EPUB's SHA-256 digest so a locator can be tied to the exact supplied edition.
+- If a figure or table carries the evidence, inspect its source image in the EPUB; extracted XHTML text alone is insufficient.
+
 ## Citation formats
 
 Use a compact inline form for ordinary answers:
@@ -77,11 +87,15 @@ For a presentation:
 
 > Yang, Bingjun. 2026. *Grammatical Metaphor: Improvements and Applications*. Presentation at the 51st International Systemic Functional Congress, Hong Kong Metropolitan University, 11 July 2026 (PPTX slides 103-107).
 
+For a reflowable ebook without a page map:
+
+> 杨延宁. 2020. 《汉语语法隐喻研究》. 北京：北京大学出版社，第 3 章 3.2“汉语小句的表意功能分析”（EPUB `EPUB/xhtml/Section0002_0003_0002.xhtml#sigil_toc_id_26`; printed page unavailable from this EPUB）。
+
 When the answer contains several claims, add a short `Sources` list mapping each source to the proposition it supports. Do not repeat the same full citation after every sentence when one clearly scoped paragraph and one citation suffice.
 
 ## Separate three kinds of evidence
 
-- **Corpus evidence**: wording and verified page/slide locations in identified primary or secondary sources.
+- **Corpus evidence**: wording and verified page/slide/EPUB-section locations in identified primary or secondary sources.
 - **Text evidence**: clauses, paragraphs, counts, or page locations in the user's analyzed text.
 - **Analyst inference**: the functional interpretation made from those two evidence sets.
 
@@ -101,6 +115,7 @@ Use one of these labels instead of bluffing:
 
 - `Page verified`: source page and surrounding context were checked.
 - `Slide verified`: source slide, adjacent context, and relevant visual content were checked.
+- `EPUB section verified; printed page unavailable`: the complete spine item and its stable href/anchor were checked, but the file contains no publisher page map.
 - `Section located, page unverified`: the section is known but pagination was not confirmed.
 - `Presentation located, slide unverified`: the presentation is known but the slide was not confirmed.
 - `Source unavailable for page verification`: a bibliographic lead exists but the original file is inaccessible.

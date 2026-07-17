@@ -1,7 +1,7 @@
 {
   "name": "halliday-sfl-analysis-skill",
-  "version": "1.1.0+codex.20260717091953",
-  "description": "Hallidayan SFL and grammatical-metaphor identification with retained-source integrity and page/slide-verified citations.",
+  "version": "1.1.0+codex.20260717134330",
+  "description": "Hallidayan SFL, Chinese SFL, and grammatical-metaphor identification with retained-source integrity and source-verified citations.",
   "author": {
     "name": "cinquewoo",
     "url": "https://github.com/cinquewoo"
@@ -13,13 +13,14 @@
     "systemic-functional-linguistics",
     "functional-grammar",
     "discourse-analysis",
-    "grammatical-metaphor"
+    "grammatical-metaphor",
+    "chinese-linguistics"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Halliday SFL Analyst",
-    "shortDescription": "Hallidayan analysis with complete, page/slide-verified source tracing.",
-    "longDescription": "Analyze texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor with explicit congruent agnates, evidence, counter-tests, and confidence; preserve private PDF/PPTX evidence with integrity metadata; and support theoretical claims with complete source identities and verified page or slide citations.",
+    "shortDescription": "Hallidayan and Chinese SFL analysis with verified source tracing.",
+    "longDescription": "Analyze English and Chinese texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor with language-internal congruent agnates, evidence, counter-tests, and confidence; preserve private PDF/PPTX/EPUB evidence with integrity metadata; and support theoretical claims with complete source identities and verified page, slide, or EPUB section citations.",
     "developerName": "cinquewoo",
     "category": "Education",
     "capabilities": [
@@ -31,6 +32,7 @@
       "Analyze this text with Hallidayan SFL at full depth and cite page-verified primary sources.",
       "Compare the metafunctional choices in these two passages.",
       "Unpack the grammatical metaphors in this academic text.",
+      "Analyze this Chinese clause with the Chinese SFL framework and give a natural Chinese congruent form.",
       "Decide whether this clause or word contains grammatical metaphor, give the congruent form and identification evidence, and cite exact source pages."
     ]
   }

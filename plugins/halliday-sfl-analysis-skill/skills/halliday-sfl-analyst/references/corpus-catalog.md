@@ -1,6 +1,6 @@
 # Halliday corpus catalog
 
-This catalog defines stable source IDs and complete source titles for the reference corpus used to develop the skill. The user's originals are retained in a private content-addressed archive; copyrighted PDF/PPTX binaries are not bundled in the public plugin. Resolve each ID against a legally available local file and verify the edition before citing it.
+This catalog defines stable source IDs and complete source titles for the reference corpus used to develop the skill. The user's originals are retained in a private content-addressed archive; copyrighted PDF/PPTX/EPUB binaries are not bundled in the public plugin. Resolve each ID against a legally available local file and verify the edition before citing it.
 
 | Source ID | Work | Reference file pages | Notes |
 | --- | --- | ---: | --- |
@@ -26,10 +26,11 @@ This catalog defines stable source IDs and complete source titles for the refere
 | `yang-2019-interpersonal-metaphor` | Bingjun Yang, `Interpersonal metaphor revisited: identification, categorization, and syndrome`, *Social Semiotics* 29(2): 186-203 | 19 | Context-first and AS IF principles; PDF p. 2 corresponds to printed p. 186. |
 | `yang-2018-textual-metaphor` | Bingjun Yang, `Textual Metaphor Revisited`, *Australian Journal of Linguistics* 38(2): 205-222 | 19 | Critical account of textual-GM identification; PDF p. 2 corresponds to printed p. 205. |
 | `yang-2020-full-realization` | Bingjun Yang, `Full realization principle for the identification of ideational grammatical metaphor: nominalization as example`, *Journal of World Languages* 6(3): 161-174 | 14 | Full/intermediate/raw realization and embedding counter-test; PDF p. 1 corresponds to printed p. 161. |
+| `yang-yanning-2020-chinese-gm` | 杨延宁，《汉语语法隐喻研究》，北京大学出版社，2020 | Reflowable EPUB | Chinese SFL description and Chinese ideational/interpersonal GM framework. The supplied EPUB has no page map; cite chapter/section plus EPUB href/anchor and state that printed pagination is unavailable. |
 
 ## Local resolution
 
-Prefer `.agents/halliday-corpus.archived.local.json`; otherwise look for `.agents/halliday-corpus.local.json`. Their `sources` arrays map stable IDs to private PDF/PPTX paths. If no manifest is present, resolve files explicitly supplied by the user. Do not assume that a same-titled file has the same pagination: compare title, edition, page/slide count, labels, and SHA-256 digest first.
+Prefer `.agents/halliday-corpus.archived.local.json`; otherwise look for `.agents/halliday-corpus.local.json`. Their `sources` arrays map stable IDs to private PDF/PPTX/EPUB paths. If no manifest is present, resolve files explicitly supplied by the user. Do not assume that a same-titled file has the same pagination or section structure: compare title, edition, page/slide/section count, labels or hrefs, and SHA-256 digest first.
 
 Use this minimal manifest shape and keep the file private:
 
@@ -51,9 +52,9 @@ Use this minimal manifest shape and keep the file private:
 }
 ```
 
-`page_label_mode` may be `encoded` (default), `offset`, or `none`. Use `offset` only after visually verifying a stable mapping and add positive integers `printed_page_start` and `printed_page_pdf_start`. Use `none` when neither embedded labels nor a visually verified mapping is reliable. The index reports the original presence of encoded labels separately from the selected locator mode.
+`page_label_mode` may be `encoded` (default), `offset`, or `none`. Use `offset` only after visually verifying a stable mapping and add positive integers `printed_page_start` and `printed_page_pdf_start`. Use `none` when neither embedded labels nor a visually verified mapping is reliable. For EPUB use `none` unless a publisher page map is present. The index reports the original presence of encoded labels separately from the selected locator mode.
 
-Use `scripts/source_archive.py` to retain originals privately and create SHA-256 metadata. Then use `scripts/corpus_index.py` to build or query a page/slide index. The archive, manifest, extracted text, and SQLite database must remain private unless redistribution rights are established.
+Use `scripts/source_archive.py` to retain originals privately and create SHA-256 metadata. Then use `scripts/corpus_index.py` to build or query a page/slide/EPUB-section index. The archive, manifest, extracted text, and SQLite database must remain private unless redistribution rights are established.
 
 ## Topic routing
 
@@ -71,5 +72,6 @@ Use these routes only to select candidate sources; always verify the actual page
 - Polarity metaphor: `yang-gao-2023-polarity-metaphor`, `cw8-chinese`, and `ifg4`.
 - Proposed textual metaphor: `yang-2018-textual-metaphor`, `cw2-text-discourse`, and `ifg4`; report the category's contested status.
 - Probability, corpus, computation, quantitative modelling: `cw6-computational`, `cw11-21c`.
-- Chinese language: `cw8-chinese`; use language-specific categories rather than transferring English analyses mechanically.
+- Chinese language and Chinese SFL analysis: `yang-yanning-2020-chinese-gm`, `cw8-chinese`; use [chinese-sfl-analysis.md](chinese-sfl-analysis.md) and language-specific categories rather than transferring English analyses mechanically.
+- Chinese grammatical-metaphor identification: `yang-yanning-2020-chinese-gm` for the Chinese descriptive framework, then `li-yang-2024-nominalizing-metaphors`, `yang-2020-full-realization`, or `yang-2019-interpersonal-metaphor` for the stricter type-specific tests.
 - Appliable linguistics and late theoretical synthesis: `cw11-21c`, `cw3-language-linguistics`.
