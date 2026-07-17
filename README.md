@@ -1,6 +1,6 @@
 # Halliday SFL Analysis Skill
 
-An installable Codex plugin for evidence-grounded analysis with Hallidayan Systemic Functional Linguistics (SFL), including page-verified primary-source tracing.
+An installable Codex plugin for evidence-grounded analysis with Hallidayan Systemic Functional Linguistics (SFL), including private PDF/PPTX source retention and page/slide-verified citations with complete source titles.
 
 It supports context and register, ideational, interpersonal, and textual metafunctions, clause complexes, grammatical metaphor, alternative wording, English-Chinese analysis safeguards, teaching, and research-oriented review.
 
@@ -45,7 +45,7 @@ To require source tracing explicitly:
 ```text
 $halliday-sfl-analyst
 
-Explain grammatical metaphor. Cite the specific Halliday work, chapter or article, printed page, and one-based PDF page for every theoretical claim.
+Explain grammatical metaphor. For every theoretical claim, cite the author, year, complete book/article/presentation title, chapter or section, and verified printed/PDF page or PPTX slide.
 ```
 
 The skill also allows implicit invocation when a request clearly asks for Hallidayan SFL, metafunction, transitivity, Theme-Rheme, mood/modality, register, or grammatical-metaphor analysis.
@@ -76,37 +76,53 @@ The detailed workflow is in `references/grammatical-metaphor-research.md`, disti
 8. Key-choice table with evidence, alternatives, effects, and confidence.
 9. Synthesis without unsupported claims about authorial intention.
 
-## Page-verified Halliday sources
+## Retained and page-verified sources
 
 For theoretical claims, the skill is instructed to:
 
-- verify the complete primary-source PDF page and surrounding context;
-- cite the work and chapter or article when available;
-- report both the printed page label and the one-based PDF page number;
+- preserve supplied PDF/PPTX files in a private content-addressed archive with SHA-256 integrity metadata;
+- verify the complete primary-source page or slide and its surrounding context;
+- cite the author, year, complete book/article/presentation title, containing volume or venue, and chapter/section when available;
+- report both the printed page label and one-based PDF page, or the one-based PPTX slide number;
 - distinguish primary evidence, secondary interpretation, text evidence, and analyst inference;
-- mark pagination as unverified instead of inventing a page number.
+- mark a page/slide as unverified instead of inventing a locator;
+- never use a bare filename, source ID, `PDF p. x`, or `slide x` as the complete citation.
 
 The repository defines stable source IDs in `references/corpus-catalog.md`. Users may privately map those IDs to their own legally available PDFs in `.agents/halliday-corpus.local.json`:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "sources": [
     {
       "id": "ifg4",
       "title": "Halliday's Introduction to Functional Grammar, 4th edition",
+      "full_citation": "Halliday, M. A. K., and Christian M. I. M. Matthiessen. 2014. Halliday's Introduction to Functional Grammar, 4th edition.",
       "short_citation": "Halliday & Matthiessen, IFG4",
+      "kind": "pdf",
       "path": "/absolute/path/to/IFG4.pdf"
     }
   ]
 }
 ```
 
-Build a private page-level SQLite index, then search and open the complete supporting page:
+Archive the originals first. The command uses APFS cloning when available and otherwise makes a byte-for-byte copy:
+
+```bash
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/source_archive.py \
+  archive --manifest .agents/halliday-corpus.local.json \
+  --destination ~/.codex/halliday-sfl-analysis-sources \
+  --output-manifest .agents/halliday-corpus.archived.local.json
+
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/source_archive.py \
+  verify --manifest .agents/halliday-corpus.archived.local.json
+```
+
+Build a private page/slide-level SQLite index from the archived manifest, then search and open the complete supporting unit:
 
 ```bash
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  build --manifest .agents/halliday-corpus.local.json \
+  build --manifest .agents/halliday-corpus.archived.local.json \
   --database .agents/cache/halliday-corpus.sqlite3
 
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
@@ -116,9 +132,13 @@ python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
   page --database .agents/cache/halliday-corpus.sqlite3 \
   --source ifg4 --pdf-page 22
+
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
+  page --database .agents/cache/halliday-corpus.sqlite3 \
+  --source gm-improvements-2026 --slide 103
 ```
 
-The script requires Python and `pypdf`. Search hits are candidate evidence: inspect the complete page, and visually check scans, OCR, tables, or uncertain page labels before citing them.
+The indexer requires Python and `pypdf`; PPTX text extraction uses the Python standard library. Search hits are candidate evidence: inspect the complete page/slide and visually check scans, OCR, screenshots, tables, diagrams, or uncertain page labels before citing them.
 
 ## Repository structure
 
@@ -135,9 +155,11 @@ plugins/halliday-sfl-analysis-skill/
     │   ├── corpus-catalog.md
     │   ├── grammatical-metaphor-research.md
     │   ├── source-citation-protocol.md
+    │   ├── source-retention.md
     │   └── theory-core.md
     └── scripts/
-        └── corpus_index.py
+        ├── corpus_index.py
+        └── source_archive.py
 halliday-distillation.md
 ```
 
@@ -145,7 +167,7 @@ The repository-level symlink keeps the skill directly discoverable while develop
 
 ## Sources and redistribution
 
-The plugin includes an original theoretical distillation, procedural framework, source catalog, citation protocol, and indexing utility. It does not redistribute source PDFs, local manifests, extracted page text, or SQLite indexes. Keep those private and provide your own legally available texts when exact quotation or pagination needs verification.
+The plugin includes an original theoretical distillation, procedural framework, source catalog, retention utility, citation protocol, and PDF/PPTX indexing utility. The user's supplied source binaries are retained privately with integrity metadata, but the public repository does not redistribute copyrighted books, presentations, absolute local paths, extracted page text, or SQLite indexes. Installed users provide their own legally available copies when exact quotation or pagination needs verification.
 
 ## Validate locally
 

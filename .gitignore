@@ -1,0 +1,4 @@
+.agents/cache/
+.agents/halliday-corpus.local.json
+.agents/halliday-corpus.archived.local.json
+private-sources/

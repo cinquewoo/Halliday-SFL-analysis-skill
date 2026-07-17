@@ -1,6 +1,6 @@
 # Halliday 蒸馏：系统功能语言学的最小完整模型
 
-> 基于用户提供的 16 份 PDF 所做的概念蒸馏。目标不是逐卷摘要，而是重建 Halliday 理论中能够解释其全部工作的“生成内核”。页码统一标为 PDF 页码，而不是书内印刷页码。
+> 基于用户提供的 16 份 PDF 与 1 份 PPTX 所做的概念蒸馏。目标不是逐卷摘要，而是重建 Halliday 理论中能够解释其全部工作的“生成内核”。正文中遗留的 `PDF x` 等简写只用作内部检索路标，不能直接作为对外引用；每次理论回答必须重新核验原件，并给出作者、年份、完整书籍/文章/演示名称、章节，以及书内页码＋PDF页码或PPTX幻灯片号。
 
 ## 0. 一句话与一段话
 
@@ -404,14 +404,17 @@ Halliday 经常反对只能二选一的理论设计。完整解释需要同时�
 
 ## 13. 证据定位与语料说明
 
-- IFG：资源/文本定义见 PDF 22；五组架构维度见 PDF 39；情境与三目式视角见 PDF 54。
-- 第 3 卷：语言架构的分层、元功能、组合/选择和实例化见 PDF 18-20。
-- 第 4 卷：目录与从原语言到成人语言的功能重组见 PDF 4-7。
-- 第 7 卷：理论问题清单及及物性、语气、主位的关系见 PDF 7-10。
-- 第 10 卷：语域及语场、语旨、语式见 PDF 17-18。
-- 第 11 卷：可应用语言学见 PDF 1-2；产义与意识见 PDF 5-6；模糊性、概率性与分层见 PDF 50。
-- 《语言系统的并协与互补》：目录及语法—词汇连续统见 PDF 13-17。
-- 《通过意义识解经验》：中英文目录及整体理论结构见 PDF 30-34。该文件 OCR 错误较多，关键术语应与英文原著或 IFG 交叉核验。
-- `halliday in the 21st centery1-100.pdf` 经页面渲染确认，实际是中文《21 世纪的韩礼德语言学思想》的前 100 页扫描，不是英文第 11 卷的重复版本；该文件无可提取文本层。
+以下仅是检索入口，不是可直接复制的最终参考文献。最终回答必须按插件的 `source-citation-protocol.md` 补全书目并核验印刷页码：
+
+- M. A. K. Halliday 与 Christian M. I. M. Matthiessen，*Halliday's Introduction to Functional Grammar*，第4版：资源/文本定义见 PDF 22；五组架构维度见 PDF 39；情境与三目式视角见 PDF 54。
+- Jonathan J. Webster 编，*On Language and Linguistics: Volume 3 in the Collected Works of M. A. K. Halliday*：语言架构的分层、元功能、组合/选择和实例化见 PDF 18-20。
+- Jonathan J. Webster 编，*The Language of Early Childhood: Volume 4 in the Collected Works of M. A. K. Halliday*：目录与从原语言到成人语言的功能重组见 PDF 4-7。
+- Jonathan J. Webster 编，*Studies in English Language: Volume 7 in the Collected Works of M. A. K. Halliday*：理论问题清单及及物性、语气、主位的关系见 PDF 7-10。
+- Jonathan J. Webster 编，*Language and Society: Volume 10 in the Collected Works of M. A. K. Halliday*：语域及语场、语旨、语式见 PDF 17-18。
+- Jonathan J. Webster 编，*Halliday in the 21st Century: Volume 11 in the Collected Works of M. A. K. Halliday*：可应用语言学见 PDF 1-2；产义与意识见 PDF 5-6；模糊性、概率性与分层见 PDF 50。
+- M. A. K. Halliday，*Complementarities in Language*（《语言系统的并协与互补》）：目录及语法—词汇连续统见 PDF 13-17。
+- M. A. K. Halliday 与 Christian M. I. M. Matthiessen，*Construing Experience through Meaning: A Language-based Approach to Cognition*，中文 OCR 版：中英文目录及整体理论结构见 PDF 30-34。关键术语应与英文原著或 IFG 交叉核验。
+- Bingjun Yang，*Grammatical Metaphor: Improvements and Applications*，ISFC 51 演示文稿，香港都会大学，2026年7月11日，共208张幻灯片。引用时必须给出具体 `PPTX slide x`，并区分演讲者主张、引用文献和AI截图。
+- `halliday in the 21st centery1-100.pdf` 经页面渲染确认，实际是中文《21世纪的韩礼德语言学思想》的前100页扫描，不是英文第11卷的重复版本；该文件无可提取文本层。
 
 本稿是“理论架构版”蒸馏。它有意不展开英语每个系统的全部网络，也不把 Martin、Hasan、Matthiessen 等人的后续扩展全部归入 Halliday 本人。

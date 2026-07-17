@@ -1,6 +1,6 @@
 ---
 name: halliday-sfl-analyst
-description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), with page-verified source tracing for Hallidayan theory. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
+description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), with page-verified PDF/PPTX source tracing and complete bibliographic citations. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
 ---
 
 # Halliday SFL Analyst
@@ -20,29 +20,31 @@ Infer the depth from the request. Use **full** when the user does not specify on
 - Read [theory-core.md](references/theory-core.md) before any substantive analysis or theoretical explanation.
 - Read [grammatical-metaphor-research.md](references/grammatical-metaphor-research.md) whenever the request concerns the history, identification, disputed boundaries, subtypes, research extensions, or applications of grammatical metaphor.
 - Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
-- Read [corpus-catalog.md](references/corpus-catalog.md) when locating a primary source. If `.agents/halliday-corpus.local.json` exists, use it to resolve stable source IDs; otherwise use PDFs supplied or explicitly identified by the user.
+- Read [corpus-catalog.md](references/corpus-catalog.md) when locating a source. Prefer `.agents/halliday-corpus.archived.local.json`, then `.agents/halliday-corpus.local.json`, to resolve stable source IDs; otherwise use PDF/PPTX files supplied or explicitly identified by the user.
+- Read [source-retention.md](references/source-retention.md) whenever PDF/PPTX evidence is supplied, archived, indexed, moved, verified, or prepared for sharing.
 - Read [analysis-framework.md](references/analysis-framework.md) for full or research analysis, clause-level annotation, non-English analysis, or whenever a category boundary is uncertain.
-- Do not load unrelated source PDFs. Search candidate works selected from the corpus catalog, then open the complete supporting page before citing it.
+- Do not load unrelated source files. Search candidate works selected from the corpus catalog, then open the complete supporting page or slide before citing it.
 - Treat the bundled distillation and page map as routing aids, not final evidence. Ask the user for a primary source if exact wording or pagination cannot be verified from accessible files.
 
 ## Enforce the source contract
 
 For every theoretical answer, definition, historical claim, or theory-grounded analytical conclusion:
 
-1. Cite the specific work and chapter or article when available.
-2. Give both the printed page label and the one-based PDF page number: `printed p. x; PDF p. y`.
-3. Verify the page and surrounding context in the original PDF; do not cite a contents, index, bibliography, or a quoted opponent as Halliday's own claim.
+1. Give the complete source identity, never a bare filename or `PDF p. x`: author/presenter, year, full book/article/presentation title, edition or containing volume, and chapter/article/section when available.
+2. For PDFs, give both the printed page label and the one-based PDF page number: `printed p. x; PDF p. y`. For PPTX sources, give the full presentation identity and one-based slide number: `PPTX slide x`.
+3. Verify the complete page or slide and surrounding context in the original file; do not cite a contents, index, bibliography, screenshot of another source, or quoted opponent as the source author's own claim.
 4. Distinguish primary Halliday evidence, secondary interpretation, evidence from the user's analyzed text, and the analyst's inference.
 5. For a synthesis across works, cite at least two primary locations unless one passage states the synthesis explicitly.
-6. If a page cannot be verified, say `page unverified` and narrow or withhold the claim. Never invent a page number.
+6. End every theory-bearing answer with a compact `Sources` or `Theoretical sources` section mapping claims to complete source identities and verified locators.
+7. If a page or slide cannot be verified, say `page/slide unverified` and narrow or withhold the claim. Never invent a locator or omit the source title.
 
-Use `scripts/corpus_index.py` to search a private local index when available. Open the full indexed page with its `page` command before using a search hit as evidence. Visually inspect the PDF when OCR, tables, figures, headers, or page labels are uncertain.
+Use `scripts/corpus_index.py` to search a private local index when available. Open the full indexed page or slide with its `page` command before using a search hit as evidence. Visually inspect the original when OCR, tables, figures, screenshots, headers, or page labels are uncertain. Use `scripts/source_archive.py` to preserve supplied sources with SHA-256 integrity metadata before indexing them.
 
 ## Prepare the input
 
 1. Preserve the original text and its paragraph boundaries.
 2. Identify genre or activity, audience, author/speaker role, medium, and stated purpose from available evidence.
-3. For a file, use the appropriate document or PDF workflow to extract text while preserving headings, lists, tables, turns, and page references when they matter.
+3. For a file, use the appropriate document, PDF, or presentation workflow to extract text while preserving headings, lists, tables, turns, slide boundaries, speaker notes, and page references when they matter.
 4. For a long text, state whether the analysis is exhaustive or sampled. Sample across the beginning, middle, and end and include structurally important passages.
 5. For dialogue or speech, preserve turns, speaker identities, pauses, and intonation when available. Do not invent prosodic evidence from a transcript.
 
@@ -139,7 +141,7 @@ Use the smallest structure that satisfies the request. For a full analysis, defa
 8. **Key choices table** with columns: evidence, system choice, plausible alternative, functional consequence, confidence.
 9. **Synthesis**: how the choices work together and what remains uncertain.
 
-Add a compact **Theoretical sources** section whenever theory is invoked. Map each major theoretical proposition to a page-verified primary citation. A text-analysis page reference does not replace the theoretical citation, and vice versa.
+Add a compact **Theoretical sources** section whenever theory is invoked. Map each major theoretical proposition to a complete, page/slide-verified citation. A text-analysis locator does not replace the theoretical citation, and vice versa.
 
 Quote only enough text to identify evidence. Preserve clause identifiers or page/paragraph references so the user can audit the interpretation.
 
@@ -148,7 +150,7 @@ Quote only enough text to identify evidence. Preserve clause identifiers or page
 Before finishing, verify that:
 
 - Each major claim cites a word, clause, passage, or quantitative pattern.
-- Every attributed theoretical proposition has a verified source, chapter or article locator, printed page label, and PDF page number; unverified pagination is explicitly labelled.
+- Every attributed theoretical proposition names the complete book, article, journal/containing volume, or presentation and has a verified chapter/article/section plus printed/PDF page or PPTX slide locator; unverified locations are explicitly labelled.
 - The three metafunctions are analyzed as simultaneous meanings, not three disconnected text zones.
 - Context and lexicogrammar support each other.
 - At least one meaningful alternative wording is compared for every central finding.

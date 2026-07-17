@@ -1,7 +1,7 @@
 {
   "name": "halliday-sfl-analysis-skill",
-  "version": "1.1.0+codex.20260715073932",
-  "description": "Page-verified Hallidayan Systemic Functional Linguistics analysis with primary-source tracing.",
+  "version": "1.1.0+codex.20260717040529",
+  "description": "Hallidayan SFL analysis with retained-source integrity and page/slide-verified citations.",
   "author": {
     "name": "cinquewoo",
     "url": "https://github.com/cinquewoo"
@@ -18,8 +18,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Halliday SFL Analyst",
-    "shortDescription": "Hallidayan analysis with page-verified primary-source tracing.",
-    "longDescription": "Analyze texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor; explain alternatives; and support theoretical claims with verified work, chapter, printed-page, and PDF-page citations.",
+    "shortDescription": "Hallidayan analysis with complete, page/slide-verified source tracing.",
+    "longDescription": "Analyze texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor; explain alternatives; preserve private PDF/PPTX evidence with integrity metadata; and support theoretical claims with complete source identities and verified page or slide citations.",
     "developerName": "cinquewoo",
     "category": "Education",
     "capabilities": [

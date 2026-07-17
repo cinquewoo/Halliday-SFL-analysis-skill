@@ -1,4 +1,4 @@
 interface:
   display_name: "Halliday SFL Analyst"
-  short_description: "用韩礼德系统功能语言学分析文本，并核验原著出处与双页码"
-  default_prompt: "Use $halliday-sfl-analyst to analyze the provided text and cite page-verified Halliday sources with printed and PDF page numbers."
+  short_description: "用韩礼德系统功能语言学分析文本，并核验完整书目、页码或幻灯片号"
+  default_prompt: "Use $halliday-sfl-analyst to analyze the provided text and cite complete, page-verified source identities with printed/PDF pages or PPTX slide numbers."

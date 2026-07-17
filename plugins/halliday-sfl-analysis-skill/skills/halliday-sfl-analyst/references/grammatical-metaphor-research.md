@@ -30,10 +30,10 @@ Do not answer “When was grammatical metaphor first proposed?” with one year 
 
 | Stage | Date | What can be claimed | Evidence |
 | --- | ---: | --- | --- |
-| Conceptual precursor | 1966 | Halliday describes objectification, process nouns, and nominalization before naming the mature theory. | Halliday, `Grammar, Society and the Noun`, printed p. 67; PDF p. 80. Yang 2026, slides 45-46, 53. |
-| Earlier verified wording | 1976 | Halliday uses the phrase `grammatical metaphors` in a broader taxonomy of metaphor in anti-language; this is not yet the mature semantics-lexicogrammar account. | Halliday, `Anti-Languages`, printed p. 278; PDF p. 292. Yang 2026, slides 47-48, 53. |
-| Explicit naming and comparison | 1984 | Halliday says the phenomenon has no general name and calls it `grammatical metaphor`, then contrasts grammatical with lexical metaphor. This is the clearest verified naming of the mature phenomenon. | Halliday, `Grammatical Metaphor in English and Chinese`, printed p. 325; PDF p. 336. Yang 2026, slides 49-53. |
-| Systematic exposition | 1985 | The first edition of *An Introduction to Functional Grammar*, Chapter 10, gives the first extended textbook account of ideational and interpersonal metaphor. | Halliday 1985, Ch. 10; Yang 2026, slide 52-53. Exact PDF pagination depends on the supplied edition. |
+| Conceptual precursor | 1966 | Halliday describes objectification, process nouns, and nominalization before naming the mature theory. | Halliday, `Grammar, Society and the Noun`, in Jonathan J. Webster (ed.), *On Language and Linguistics: Volume 3 in the Collected Works of M. A. K. Halliday* (printed p. 67; PDF p. 80). Yang 2026, PPTX slides 45-46, 53. |
+| Earlier verified wording | 1976 | Halliday uses the phrase `grammatical metaphors` in a broader taxonomy of metaphor in anti-language; this is not yet the mature semantics-lexicogrammar account. | Halliday, `Anti-Languages`, in Jonathan J. Webster (ed.), *Language and Society: Volume 10 in the Collected Works of M. A. K. Halliday* (printed p. 278; PDF p. 292). Yang 2026, PPTX slides 47-48, 53. |
+| Explicit naming and comparison | 1984 | Halliday says the phenomenon has no general name and calls it `grammatical metaphor`, then contrasts grammatical with lexical metaphor. This is the clearest verified naming of the mature phenomenon. | Halliday, `Grammatical Metaphor in English and Chinese`, in Jonathan J. Webster (ed.), *Studies in Chinese Language: Volume 8 in the Collected Works of M. A. K. Halliday* (printed p. 325; PDF p. 336). Yang 2026, PPTX slides 49-53. |
+| Systematic exposition | 1985 | The first edition of *An Introduction to Functional Grammar*, Chapter 10, gives the first extended textbook account of ideational and interpersonal metaphor. | Halliday, *An Introduction to Functional Grammar*, 1st ed., Ch. 10; Yang 2026, PPTX slides 52-53. Exact PDF pagination depends on the supplied edition. |
 
 Answer according to the user's intended sense:
 
@@ -157,7 +157,7 @@ Do not label clefts, passives, internal conjunction, or text-reference nouns as 
 
 ### Polarity metaphor
 
-Do not confine polarity metaphor to the interpersonal metafunction. Halliday's 1984 example `I don't think he's coming` contains both a modal metaphor and a polarity metaphor: the negative is transferred into the projecting clause. Halliday, `Grammatical Metaphor in English and Chinese` (printed p. 329; PDF p. 340).
+Do not confine polarity metaphor to the interpersonal metafunction. Halliday's 1984 example `I don't think he's coming` contains both a modal metaphor and a polarity metaphor: the negative is transferred into the projecting clause. Halliday, `Grammatical Metaphor in English and Chinese`, in Jonathan J. Webster (ed.), *Studies in Chinese Language: Volume 8 in the Collected Works of M. A. K. Halliday* (printed p. 329; PDF p. 340).
 
 Yang & Gao broaden polarity metaphor into the indirect reconstrual of negative meaning with both ideational and interpersonal realizations:
 
@@ -244,9 +244,9 @@ The presentation's Wittgenstein-SFL comparison can motivate a context-first orie
 
 ### Page-verified Halliday anchors
 
-- Halliday, `Grammar, Society and the Noun` (1966), in *Collected Works*, vol. 3, *On Language and Linguistics* (printed p. 67; PDF p. 80): objectification, process nouns, and nominalization.
-- Halliday, `Anti-Languages` (1976), in *Collected Works*, vol. 10, *Language and Society* (printed p. 278; PDF p. 292): broader earlier occurrence of `grammatical metaphors`.
-- Halliday, `Grammatical Metaphor in English and Chinese` (1984), in *Collected Works*, vol. 8, *Studies in Chinese Language* (printed p. 325; PDF p. 336): explicit naming and lexical/grammatical comparison.
+- Halliday, `Grammar, Society and the Noun` (1966), in Jonathan J. Webster (ed.), *On Language and Linguistics: Volume 3 in the Collected Works of M. A. K. Halliday* (printed p. 67; PDF p. 80): objectification, process nouns, and nominalization.
+- Halliday, `Anti-Languages` (1976), in Jonathan J. Webster (ed.), *Language and Society: Volume 10 in the Collected Works of M. A. K. Halliday* (printed p. 278; PDF p. 292): broader earlier occurrence of `grammatical metaphors`.
+- Halliday, `Grammatical Metaphor in English and Chinese` (1984), in Jonathan J. Webster (ed.), *Studies in Chinese Language: Volume 8 in the Collected Works of M. A. K. Halliday* (printed p. 325; PDF p. 336): explicit naming and lexical/grammatical comparison.
 - The same article (printed p. 329; PDF p. 340): modal metaphor, polarity metaphor, tag evidence, and English-Chinese contrast.
 
 ### Later research distilled from the presentation
