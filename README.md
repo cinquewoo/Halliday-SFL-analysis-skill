@@ -1,175 +1,167 @@
-# Halliday SFL Analysis Skill
+<p align="center">
+  <img src="assets/github-hero.svg" alt="Halliday SFL Analyst — meaning choices, congruent alternatives, verifiable sources" width="100%">
+</p>
 
-An installable Codex plugin for evidence-grounded analysis with Hallidayan Systemic Functional Linguistics (SFL), including a dedicated Chinese SFL and grammatical-metaphor framework, private PDF/PPTX/EPUB source retention, and source-verified citations with complete source titles.
+<p align="center">
+  <a href="https://github.com/cinquewoo/Halliday-SFL-analysis-skill/releases"><img alt="Release" src="https://img.shields.io/github/v/release/cinquewoo/Halliday-SFL-analysis-skill?display_name=tag&sort=semver&style=flat-square&color=2f81f7"></a>
+  <img alt="Codex plugin" src="https://img.shields.io/badge/Codex-installable_plugin-14b8a6?style=flat-square">
+  <img alt="Languages" src="https://img.shields.io/badge/analysis-English_%7C_%E4%B8%AD%E6%96%87-d4a72c?style=flat-square">
+  <img alt="Source policy" src="https://img.shields.io/badge/sources-page_verified-8b5cf6?style=flat-square">
+</p>
 
-It supports context and register, ideational, interpersonal, and textual metafunctions, clause complexes, grammatical metaphor, alternative wording, English-Chinese analysis safeguards, teaching, and research-oriented review.
+<p align="center">
+  <strong>Evidence-grounded Hallidayan analysis for English and Chinese.</strong><br>
+  From context and metafunctions to grammatical-metaphor diagnostics, congruent alternatives, and complete source locations.
+</p>
 
-For Chinese, `references/chinese-sfl-analysis.md` supplies a separate workflow grounded in Yang Yanning's *汉语语法隐喻研究*. It covers Chinese process types, Theme, Mood and modality, clause complexes, zero derivation, 13 ideational transfer candidates, and Chinese mood/modality metaphor. It requires natural Chinese congruent agnates and does not treat `的`, sentence-final particles, `是……的`, `有……`, or `我想/我认为/我觉得……` as automatic metaphor markers.
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#what-it-does">Capabilities</a> ·
+  <a href="#try-these-prompts">Examples</a> ·
+  <a href="#how-a-claim-is-built">Method</a> ·
+  <a href="README.zh-CN.md">中文说明</a>
+</p>
 
-The grammatical-metaphor module also distinguishes historical milestones, tests semantic junction rather than suffixes alone, separates rank shift from metaphor, applies Context-first and AS IF diagnostics to interpersonal metaphor, and marks logical, textual, polarity, contextual, and multimodal extensions by lineage and level of consensus. For a clause or word judgement, it must give the contextual unit, congruent agnate, identification evidence, strongest counter-test, verdict, confidence, functional consequence, and complete page-verified theory source.
+---
 
-## Install
+## Quick start
 
-Add this repository as a Codex plugin marketplace:
+Add this repository as a Codex plugin marketplace, then install the plugin:
 
 ```bash
 codex plugin marketplace add cinquewoo/Halliday-SFL-analysis-skill
-```
-
-Install the plugin:
-
-```bash
 codex plugin add halliday-sfl-analysis-skill@halliday-sfl
 ```
 
-Start a new Codex task after installation so the skill is loaded.
-
-## Use
-
-Invoke the skill explicitly:
+Start a new Codex task, then ask:
 
 ```text
 $halliday-sfl-analyst
 
-Analyze the attached article at full depth. Explain the key meaning choices and provide plausible alternative wordings for the central clauses.
+Analyze the attached article at full depth. Explain the key meaning choices,
+give congruent alternatives for the central clauses, and cite the theory with
+complete source titles and verified page locations.
 ```
 
-Chinese example:
+> [!TIP]
+> The skill also activates implicitly for clear requests about Hallidayan SFL, transitivity, Theme–Rheme, mood and modality, register, or grammatical metaphor.
+
+## What it does
+
+| You ask about | The skill returns |
+| --- | --- |
+| A text or conversation | Field–tenor–mode, register, three metafunctions, clause complexes, cohesion, and key meaning choices |
+| A clause or wording | Systemic-functional analysis, consequential alternatives, and how each alternative changes meaning |
+| Grammatical metaphor | Contextual unit, congruent agnate, mapping evidence, counter-test, verdict, confidence, and functional effect |
+| Chinese discourse | A dedicated Chinese SFL workflow with language-internal congruent forms and Chinese-specific safeguards |
+| Hallidayan theory | A qualified answer with author, year, complete work title, section, and verified page/slide/EPUB location |
+| A research corpus | Reproducible sampling, category definitions, counts with denominators, exceptions, and evidence tables |
+
+### Three depths
+
+- **Quick** — context plus 5–10 consequential language choices.
+- **Full** — register, three metafunctions, clause complexes, grammatical metaphor, alternatives, and limitations.
+- **Research** — reproducible methods, evidence tables, category counts, exceptions, and cautious claims.
+
+## Try these prompts
+
+<details open>
+<summary><strong>Full text analysis</strong></summary>
 
 ```text
 $halliday-sfl-analyst
 
-对我上传的文章进行 full 分析，解释关键意义选择，并为核心句提供替代表达。
+对我上传的文章进行 full 分析。分别分析概念、人际和语篇意义，解释关键语言选择，
+并为核心句提供可比较的替代表达。每个理论判断都给出完整来源和可核验页码。
 ```
 
-Chinese grammatical-metaphor instance:
+</details>
+
+<details>
+<summary><strong>Grammatical-metaphor diagnosis</strong></summary>
 
 ```text
 $halliday-sfl-analyst
 
-判断“经济的快速发展改变了城市结构”是否包含语法隐喻。给出自然的汉语一致式、映射证据、最强反分析、判定和置信度，并写出完整理论来源及可验证定位。
+Does “his arrival yesterday” contain grammatical metaphor? Give the congruent
+form, apply the identification criteria step by step, state the strongest
+counter-analysis, and cite the complete theory sources with printed/PDF pages.
 ```
 
-To require source tracing explicitly:
+</details>
+
+<details>
+<summary><strong>Chinese clause analysis</strong></summary>
 
 ```text
 $halliday-sfl-analyst
 
-Explain grammatical metaphor. For every theoretical claim, cite the author, year, complete book/article/presentation title, chapter or section, and verified printed/PDF page or PPTX slide.
+判断“经济的快速发展改变了城市结构”是否包含语法隐喻。给出自然的汉语一致式、
+映射证据、最强反分析、判定与置信度，并写出完整理论来源及可验证定位。
 ```
 
-The skill also allows implicit invocation when a request clearly asks for Hallidayan SFL, metafunction, transitivity, Theme-Rheme, mood/modality, register, or grammatical-metaphor analysis.
+</details>
 
-## Analysis depths
-
-- **Quick**: Context plus 5-10 consequential language choices.
-- **Full**: Context, three metafunctions, clause-complex relations, grammatical metaphor, alternatives, and limitations.
-- **Research**: Reproducible sampling, category definitions, counts with denominators, exceptions, evidence tables, and cautious claims.
-
-## Grammatical-metaphor research support
-
-For questions such as “When was grammatical metaphor first proposed?”, the skill avoids collapsing different milestones into one date: 1966 is treated as a conceptual precursor, 1976 as an earlier broader occurrence of the terminology, 1984 as the explicit naming of the mature phenomenon, and 1985 as the canonical systematic exposition.
-
-For identification, it checks a plausible congruent agnate, semantic junction, rank relation, realization degree, morphology, and contextual function. It does not assume that every nominalization, embedded clause, process-type change, or rank shift is automatically a grammatical metaphor.
-
-Ask about a specific instance:
+<details>
+<summary><strong>Theory and intellectual history</strong></summary>
 
 ```text
 $halliday-sfl-analyst
 
-Does “his arrival yesterday” contain grammatical metaphor? Give the congruent form, apply the identification criteria step by step, state the strongest counter-analysis, and cite the complete theory sources with printed/PDF pages.
+When was grammatical metaphor first proposed? Distinguish the conceptual
+precursor, the earlier use of the term, the explicit naming of the mature
+phenomenon, and the canonical systematic exposition. Cite primary sources.
 ```
 
-The mandatory instance workflow is in `references/gm-identification-protocol.md`. It integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles and Li and Yang's four-system nominalizing-metaphor test. The broader research history is in `references/grammatical-metaphor-research.md`. The privately supplied articles and presentation are not redistributed.
+</details>
 
-## What a full report contains
+## How a claim is built
 
-1. Executive finding.
-2. Scope, evidence, and limitations.
-3. Field, tenor, mode, and register hypothesis.
-4. Ideational analysis.
-5. Interpersonal analysis.
-6. Textual analysis.
-7. Grammatical metaphor and congruent unpacking.
-8. Key-choice table with evidence, alternatives, effects, and confidence.
-9. Synthesis without unsupported claims about authorial intention.
+The skill does not label a form from morphology alone. It follows an auditable evidence chain:
 
-## Retained and source-verified sources
-
-For theoretical claims, the skill is instructed to:
-
-- preserve supplied PDF/PPTX/EPUB files in a private content-addressed archive with SHA-256 integrity metadata;
-- verify the complete primary-source page, slide, or EPUB section and its surrounding context;
-- cite the author, year, complete book/article/presentation title, containing volume or venue, and chapter/section when available;
-- report both the printed page label and one-based PDF page, the one-based PPTX slide number, or the chapter/section plus EPUB href/anchor when a reflowable ebook has no page map;
-- distinguish primary evidence, secondary interpretation, text evidence, and analyst inference;
-- mark unavailable or unverified pagination explicitly instead of inventing a locator;
-- never use a bare filename, source ID, `PDF p. x`, or `slide x` as the complete citation.
-
-The repository defines stable source IDs in `references/corpus-catalog.md`. Users may privately map those IDs to their own legally available PDFs in `.agents/halliday-corpus.local.json`:
-
-```json
-{
-  "version": 2,
-  "sources": [
-    {
-      "id": "ifg4",
-      "title": "Halliday's Introduction to Functional Grammar, 4th edition",
-      "full_citation": "Halliday, M. A. K., and Christian M. I. M. Matthiessen. 2014. Halliday's Introduction to Functional Grammar, 4th edition.",
-      "short_citation": "Halliday & Matthiessen, IFG4",
-      "kind": "pdf",
-      "page_label_mode": "encoded",
-      "path": "/absolute/path/to/IFG4.pdf"
-    }
-  ]
-}
+```text
+context and speech function
+        ↓
+meaning and system choice
+        ↓
+plausible congruent agnate
+        ↓
+realization mapping + rank relation
+        ↓
+strongest counter-test
+        ↓
+qualified verdict + confidence
+        ↓
+complete, page-verified theory source
 ```
 
-Archive the originals first. The command uses APFS cloning when available and otherwise makes a byte-for-byte copy:
+For grammatical metaphor, the mandatory workflow integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles, plus Li and Yang's four-system nominalizing-metaphor test. It separates rank shift from metaphor and does not treat every nominalization, embedding, process-type change, or suffix as sufficient evidence.
 
-```bash
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/source_archive.py \
-  archive --manifest .agents/halliday-corpus.local.json \
-  --destination ~/.codex/halliday-sfl-analysis-sources \
-  --output-manifest .agents/halliday-corpus.archived.local.json
+For historical questions, it also keeps distinct milestones distinct—for example, a conceptual precursor is not automatically the first explicit naming or the first systematic exposition.
 
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/source_archive.py \
-  verify --manifest .agents/halliday-corpus.archived.local.json
-```
+## Chinese SFL is a first-class workflow
 
-Build a private page/slide/EPUB-section SQLite index from the archived manifest, then search and open the complete supporting unit:
+The dedicated [Chinese analysis framework](plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/references/chinese-sfl-analysis.md) covers Chinese process types, Theme, Mood and modality, clause complexes, zero derivation, ideational transfer candidates, and Chinese mood/modality metaphor.
 
-```bash
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  build --manifest .agents/halliday-corpus.archived.local.json \
-  --database .agents/cache/halliday-corpus.sqlite3
+It requires natural Chinese congruent agnates and does **not** treat `的`, sentence-final particles, `是……的`, `有……`, or `我想／我认为／我觉得……` as automatic metaphor markers.
 
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  search --database .agents/cache/halliday-corpus.sqlite3 \
-  --source ifg4 --query "resource making meaning"
+## Source verification and privacy
 
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  page --database .agents/cache/halliday-corpus.sqlite3 \
-  --source ifg4 --pdf-page 22
+Theory answers must name the **actual book, article, chapter, or presentation**—never merely “the PDF”—and provide the most precise verified locator available:
 
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  page --database .agents/cache/halliday-corpus.sqlite3 \
-  --source gm-improvements-2026 --slide 103
+- printed page plus one-based PDF page;
+- one-based PPTX slide;
+- or EPUB chapter/section plus href/anchor when no fixed page map exists.
 
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/corpus_index.py \
-  page --database .agents/cache/halliday-corpus.sqlite3 \
-  --source yang-yanning-2020-chinese-gm --epub-unit 19
-```
+The public plugin includes the original analytical framework, source catalog, citation protocol, and indexing utilities. It does **not** redistribute copyrighted books, presentations, extracted source text, absolute local paths, or private indexes. Users map their own legally available sources locally.
 
-The indexer requires Python and `pypdf`; PPTX and EPUB text extraction use the Python standard library. Search hits are candidate evidence: inspect the complete page, slide, or EPUB section and visually check scans, OCR, screenshots, tables, diagrams, or uncertain page labels before citing them.
+See [Private corpus and page verification](docs/private-corpus.md) for archive, integrity-check, indexing, search, and page-label instructions.
 
-For PDFs with bad embedded labels, set `page_label_mode` to `offset` and add visually verified `printed_page_start` and `printed_page_pdf_start`, or use `none` when no reliable printed mapping exists. The index never treats a publisher's article number as a page number merely because it was embedded in `/PageLabels`.
-
-## Repository structure
+## Repository map
 
 ```text
 .agents/plugins/marketplace.json
-.agents/skills/halliday-sfl-analyst -> ../../plugins/.../skills/halliday-sfl-analyst
+.agents/skills/halliday-sfl-analyst → canonical plugin skill
 plugins/halliday-sfl-analysis-skill/
 ├── .codex-plugin/plugin.json
 └── skills/halliday-sfl-analyst/
@@ -178,25 +170,21 @@ plugins/halliday-sfl-analysis-skill/
     ├── references/
     │   ├── analysis-framework.md
     │   ├── chinese-sfl-analysis.md
-    │   ├── corpus-catalog.md
     │   ├── gm-identification-protocol.md
     │   ├── grammatical-metaphor-research.md
-    │   ├── source-citation-protocol.md
-    │   ├── source-retention.md
-    │   └── theory-core.md
+    │   └── source-citation-protocol.md
     └── scripts/
         ├── corpus_index.py
         └── source_archive.py
-halliday-distillation.md
 ```
 
-The repository-level symlink keeps the skill directly discoverable while developing inside this repository. Installed users receive the canonical skill bundled under the plugin.
+Installed users receive the canonical skill under the plugin. The repository-level symlink keeps it directly discoverable during local development.
 
-## Sources and redistribution
+## Contributing
 
-The plugin includes an original theoretical distillation, procedural framework, source catalog, retention utility, citation protocol, and PDF/PPTX/EPUB indexing utility. The user's supplied source binaries are retained privately with integrity metadata, but the public repository does not redistribute copyrighted books, presentations, absolute local paths, extracted text, or SQLite indexes. Installed users provide their own legally available copies when exact quotation or source-location verification is needed.
+Issues and focused pull requests are welcome—especially reproducible false positives/negatives, Chinese counterexamples, source-location corrections, and improvements to analytical transparency. Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting material, and never upload copyrighted source files.
 
-## Validate locally
+## Local validation
 
 ```bash
 python3 /path/to/plugin-creator/scripts/validate_plugin.py \
@@ -205,3 +193,9 @@ python3 /path/to/plugin-creator/scripts/validate_plugin.py \
 python3 /path/to/skill-creator/scripts/quick_validate.py \
   plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst
 ```
+
+---
+
+<p align="center">
+  Built for analysts who want interpretive depth <em>and</em> an inspectable trail from wording to theory.
+</p>
