@@ -1,0 +1,55 @@
+name: Analysis or plugin bug
+description: Report a reproducible error in installation, analysis, or source tracing.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the skill. Do not attach copyrighted sources or confidential text.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Installation or activation
+        - English SFL analysis
+        - Chinese SFL analysis
+        - Grammatical-metaphor identification
+        - Source citation or page location
+        - Corpus archive or index utility
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Minimal reproducible input
+      description: Give the exact short prompt/text and the necessary context.
+      placeholder: "Prompt, clause, context, and selected depth…"
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed result
+      description: What did the skill return or fail to do?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result and evidence
+      description: State the expected analysis and, when relevant, the complete source title and verified location.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      placeholder: "For example: 1.1.0"
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Environment details, counter-analysis, or screenshots without private source content.

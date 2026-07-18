@@ -1,0 +1,31 @@
+name: Analysis or documentation improvement
+description: Propose a focused capability, framework refinement, or documentation change.
+title: "[Proposal]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Analytical or user need
+      description: What question is currently hard to answer well?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+      description: Describe the behavior, output, or documentation you would add.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example and expected result
+      description: Prefer a short constructed example. Do not upload copyrighted source files.
+    validations:
+      required: true
+  - type: textarea
+    id: theory
+    attributes:
+      label: Theoretical basis
+      description: If applicable, provide complete source titles and verified locations.
