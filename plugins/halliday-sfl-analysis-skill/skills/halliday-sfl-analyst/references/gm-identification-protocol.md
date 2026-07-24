@@ -1,6 +1,6 @@
 # Grammatical-metaphor instance identification protocol
 
-Use this protocol whenever the user asks whether a clause, group, phrase, word, morpheme, or short wording contains grammatical metaphor (GM). The task is relational: a visible form is not GM by itself. The analysis must establish a meaning in context, a plausible congruent agnate, and the non-congruent realization that relates them.
+Use this protocol whenever the user asks whether a clause, group, phrase, word, morpheme, or short wording contains grammatical metaphor (GM). The task is relational: a visible form is not GM by itself. The analysis must establish a meaning in context, a plausible congruent agnate, and the non-congruent realization that relates them. Also load [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md) and return its schema-conformant JSON record before the concise explanation.
 
 ## Mandatory result
 
@@ -11,7 +11,7 @@ Every instance judgement must provide:
 3. **Congruent agnate/form.** Give the most plausible congruent wording that preserves the relevant contextual meaning. Call it an *agnate*, not an exact synonym.
 4. **Identification evidence.** Show the semantic-to-lexicogrammatical relation step by step, using the type-specific tests below.
 5. **Counter-test.** State the strongest reason the item might not be GM and why that alternative was accepted or rejected.
-6. **Verdict.** Use `GM`, `partly/gradient GM`, `not GM`, `disputed`, or `insufficient context`; add high, medium, or low confidence with a reason.
+6. **Verdict.** Set ideational and interpersonal status independently to `TYPICAL_GM`, `MARGINAL_GM`, `NON_GM`, or `INDETERMINATE`; record polarity separately and add high, medium, or low confidence with a reason.
 7. **Meaning consequence.** Explain what the selected wording changes in agency, time, causality, abstraction, reference, negotiability, arguability, commitment, or information flow.
 8. **Verified theory source.** Give the complete book/article title and exact printed/PDF pages under the citation protocol.
 
@@ -80,7 +80,7 @@ For a canonical nominalizing metaphor, test four complementary systems. No singl
 | Test | Required question | Positive evidence | Common false positive |
 | --- | --- | --- | --- |
 | Semantic junction | Is entity meaning fused with process, quality, circumstance, or relator meaning? | `develop → development`, with both event and thing-like reference active | product, agent, patient, instrument, location, or measure noun with no active junction |
-| Morphological priority | Is the closest legitimate agnate being compared? | derivational agnation first; then `-ing`/infinitival for a lexical gap; non-morphological only where needed | choosing a remote synonym although a direct derivative exists |
+| Morphological priority | Is the closest legitimate agnate being compared? | derivational agnation first; then `-ing`/infinitival only for a lexical gap; non-morphological only where neither is available | choosing a lower-priority form or remote synonym although a direct derivative exists |
 | Full realization | Is the figure compressed in meaning **and** form? | clause/sequence realized as a nominal group or word | a finite embedded clause compressed only semantically |
 | Rank shift | What lower-ranked unit realizes the meaning? | clause complex → clause/group/word; clause → group/word | rankshifted embedding without semantic-grammatical reconstrual |
 
@@ -91,6 +91,20 @@ Report realization degree explicitly:
 - **Raw:** compressed only in meaning while retaining clausal form; do not classify as GM merely because it is embedded.
 
 Use the four systems together. Li and Yang propose concurrent choices in SEMANTIC JUNCTION, MORPHOLOGICAL PRIORITY, FULL REALIZATION, and RANK SHIFT, and show the integrated system and examples on printed pp. 16-18 (PDF pp. 16-18) of *Towards a system of principles for identifying nominalizing metaphors*. Yang develops the full/intermediate/raw distinction and the embedding counter-test on printed pp. 166-170 (PDF pp. 6-10) of *Full realization principle for the identification of ideational grammatical metaphor: nominalization as example*.
+
+### Mandatory MPP record
+
+For every nominalizing candidate, enumerate plausible agnates before selecting one and record:
+
+- MPP applicability;
+- all serious candidate agnates;
+- selected agnate;
+- `DERIVATIONAL_AGNATION`, `ING_TO_AGNATION`, or `NON_MORPHOLOGICAL_AGNATION`;
+- `PASS`, `FAIL`, or `UNCLEAR`;
+- whether a higher-priority form was available;
+- the violation reason when failed.
+
+For Chinese, use the ordered levels in [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md), set the cross-linguistic caution flag, and require human review. MPP governs the agnate pairing only. A pass does not replace full realization, rank shift, semantic junction, and exclusion checks; a fail prevents a typical nominalizing-GM label.
 
 ### Exclusion checks
 
@@ -150,7 +164,7 @@ Treat textual GM as disputed. A change in Theme, cohesion, information flow, ref
 
 If these tests fail, report `ideational/interpersonal GM with textual effects`, `textual variation`, or `disputed`, not a confident textual-GM verdict. Yang identifies the lack of a congruent baseline, overlap with ideational metaphor, nominalization dominance, weak tests, and an undefined unique function on printed pp. 212-218 (PDF pp. 9-15), and argues that the separate category is redundant for current meaning creation and analysis on printed p. 219 (PDF p. 16) of *Textual Metaphor Revisited*.
 
-## Decision table
+## Explanatory decision table
 
 Use this compact table in clause/word answers:
 
@@ -164,6 +178,8 @@ Use this compact table in clause/word answers:
 | Counter-test | strongest non-GM analysis |
 | Verdict | GM / partly GM / not GM / disputed / insufficient context + confidence |
 | Meaning consequence | what becomes more/less explicit, temporal, agentive, abstract, referable, arguable, or negotiable |
+
+Use the table as an explanatory aid only. The normative record is the JSON object defined by [gm-annotation-v2.schema.json](gm-annotation-v2.schema.json). Output one object per item, then a Chinese explanation of no more than 120 Chinese characters (or one equivalently concise sentence if the user explicitly requests another language), followed by complete theory sources.
 
 ## Source map
 

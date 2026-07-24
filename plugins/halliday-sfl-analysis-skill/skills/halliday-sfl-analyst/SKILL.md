@@ -1,6 +1,6 @@
 ---
 name: halliday-sfl-analyst
-description: Analyze written or spoken texts with Hallidayan Systemic Functional Linguistics (SFL), including Chinese SFL and Chinese grammatical metaphor, with source-verified PDF/PPTX/EPUB tracing and complete bibliographic citations. Cover field-tenor-mode, register, ideational meaning and transitivity, interpersonal meaning and mood/modality, textual meaning and Theme/information/cohesion, clause complexes, grammatical metaphor, congruent forms, and meaningful alternative wordings. Use for Halliday/SFL analysis, metafunction analysis, functional grammar, Chinese functional grammar, transitivity, Theme-Rheme, mood or modality, register, grammatical metaphor, deciding whether a clause or word contains grammatical metaphor, questions about Halliday's concepts or intellectual development, and theory-grounded explanations of how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless the user asks for an SFL perspective.
+description: Analyze English or Chinese texts with Hallidayan SFL, source-verified PDF/PPTX/EPUB citations, and machine-validatable GM annotations. Cover field-tenor-mode, register, transitivity, clause complexes, mood/modality, Theme/information/cohesion, ideational/interpersonal/textual meaning, grammatical metaphor, congruent agnates, and alternative wordings. Use for Halliday/SFL or functional-grammar analysis; Chinese SFL; transitivity; Theme-Rheme; mood, modality, register, or GM; deciding or annotating whether a clause, phrase, word, or morpheme contains GM; GM coding data; Halliday concept/history questions; or explaining how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless an SFL perspective is requested.
 ---
 
 # Halliday SFL Analyst
@@ -19,7 +19,8 @@ Infer the depth from the request. Use **full** when the user does not specify on
 
 - Read [theory-core.md](references/theory-core.md) before any substantive analysis or theoretical explanation.
 - Read [grammatical-metaphor-research.md](references/grammatical-metaphor-research.md) whenever the request concerns the history, identification, disputed boundaries, subtypes, research extensions, or applications of grammatical metaphor.
-- Read [gm-identification-protocol.md](references/gm-identification-protocol.md) whenever the user asks whether a particular clause, group, phrase, word, or morpheme contains grammatical metaphor. Follow its mandatory result format and provide a congruent agnate even when the verdict is negative, disputed, gradient, or context-dependent.
+- Read [gm-identification-protocol.md](references/gm-identification-protocol.md) whenever the user asks whether a particular clause, group, phrase, word, or morpheme contains grammatical metaphor. Provide a congruent agnate even when the verdict is negative, disputed, gradient, or context-dependent.
+- Read [gm-annotation-framework-v2.md](references/gm-annotation-framework-v2.md) for every item-level GM judgement, annotation request, batch-coding task, or gold-data workflow. Follow its independent ideational/interpersonal labels, mandatory Morphological Priority Principle gate for nominalizing candidates, JSON output contract, and uncertainty rules. Use [gm-annotation-v2.schema.json](references/gm-annotation-v2.schema.json) as the exact field contract.
 - Read [chinese-sfl-analysis.md](references/chinese-sfl-analysis.md) whenever the text is Chinese, the request concerns Chinese grammatical metaphor, or the task compares Chinese and another language. Construct congruent agnates inside Chinese and apply its language-specific counter-tests.
 - Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
 - Read [corpus-catalog.md](references/corpus-catalog.md) when locating a source. Prefer `.agents/halliday-corpus.archived.local.json`, then `.agents/halliday-corpus.local.json`, to resolve stable source IDs; otherwise use PDF/PPTX/EPUB files supplied or explicitly identified by the user.
@@ -108,11 +109,11 @@ Explain how the text guides attention and maintains continuity. Do not equate Th
 
 Identify ideational or interpersonal grammatical metaphor, especially nominalization, process-to-thing reconstrual, compressed causal relations, metaphorical modality, and indirect commands. Reword consequential examples into plausible, more congruent alternatives.
 
-Do not diagnose grammatical metaphor from morphology, embedding, rank shift, or process-type change alone. For ideational cases, test the congruent agnate, semantic junction, rank relation, and degree of realization. For interpersonal cases, establish the contextual speech function or modal value before comparing it with the grammatical realization. Treat logical, textual, polarity, contextual, and multimodal metaphor as differently established extensions; name their lineage and level of consensus.
+Do not diagnose grammatical metaphor from morphology, embedding, rank shift, or process-type change alone. For ideational cases, test the congruent agnate, semantic junction, rank relation, and degree of realization. For every nominalizing candidate, first enumerate serious agnates and run the Morphological Priority Principle in the order specified by [gm-annotation-framework-v2.md](references/gm-annotation-framework-v2.md); `MPP_PASS` licenses the pairing but does not prove GM, while `MPP_FAIL` bars a typical nominalizing-GM verdict. For interpersonal cases, establish the contextual speech function or modal value before comparing it with the grammatical realization. Treat logical, textual, polarity, contextual, and multimodal metaphor as differently established extensions; name their lineage and level of consensus.
 
-For Chinese, construct the congruent agnate in natural Chinese and use [chinese-sfl-analysis.md](references/chinese-sfl-analysis.md). Treat zero derivation, `的`, sentence-final particles, `是……的`, `有……`, and projecting clauses such as `我想/我认为/我觉得……` as evidence to test, not automatic GM markers. When Yang Yanning's broad Chinese classification and the stricter identification protocol diverge, report both transparently.
+For Chinese, construct the congruent agnate in natural Chinese and use [chinese-sfl-analysis.md](references/chinese-sfl-analysis.md). Treat zero derivation, `的`, sentence-final particles, `是……的`, `有……`, and projecting clauses such as `我想/我认为/我觉得……` as evidence to test, not automatic GM markers. Apply the Chinese MPP ordering without inventing English-style derivation; set the cross-linguistic caution and human-review flags whenever MPP applies. When Yang Yanning's broad Chinese classification and the stricter identification protocol diverge, report both transparently.
 
-When judging a specific clause or word, do not answer with a bare yes/no. Quote the analysed unit and context; name the candidate lineage; give the congruent agnate; show the semantic-to-grammatical mapping and type-specific tests; state the strongest counter-analysis; report `GM`, `partly/gradient GM`, `not GM`, `disputed`, or `insufficient context` with confidence; and cite the complete theory source with verified pages. A word in isolation is normally underdetermined: give conditional agnates and identify the missing context instead of forcing a verdict.
+When judging a specific clause or word, do not answer with a bare yes/no. Output the v2 JSON object first, with ideational and interpersonal statuses independently set to `NON_GM`, `MARGINAL_GM`, `TYPICAL_GM`, or `INDETERMINATE`, then give the prescribed concise explanation and complete theory sources. A word in isolation is normally underdetermined: give conditional agnates, identify the missing context, and require review instead of forcing a verdict.
 
 For every key comparison, explain what changes in:
 
@@ -149,7 +150,7 @@ Use the smallest structure that satisfies the request. For a full analysis, defa
 
 Add a compact **Theoretical sources** section whenever theory is invoked. Map each major theoretical proposition to a complete, source-verified citation. A text-analysis locator does not replace the theoretical citation, and vice versa.
 
-For a clause/word GM judgement, default to the decision table in [gm-identification-protocol.md](references/gm-identification-protocol.md), even when the rest of the answer is brief.
+For a clause/word GM judgement, default to the JSON contract in [gm-annotation-framework-v2.md](references/gm-annotation-framework-v2.md), even when the rest of the answer is brief. Keep complete source citations outside the item JSON so the record remains schema-valid.
 
 Quote only enough text to identify evidence. Preserve clause identifiers or page/paragraph references so the user can audit the interpretation.
 
@@ -165,7 +166,9 @@ Before finishing, verify that:
 - Counts include a denominator and sampling basis.
 - Theme is not conflated with Subject, and Given/New is not inferred from word order alone.
 - Rank shift, embedding, process-type change, and nominalization are not treated as automatic proof of grammatical metaphor.
-- Every clause/word GM judgement includes a contextualized unit, congruent agnate, positive evidence, counter-test, explicit verdict, confidence basis, functional consequence, and complete page-verified theory source.
+- Every clause/word GM judgement includes every required v2 JSON field, a contextualized unit, congruent agnate, positive evidence, counterevidence, independent ideational/interpersonal statuses, confidence basis, and complete page-verified theory source.
+- Every nominalizing candidate records MPP applicability, candidate agnates, selected level, pass/fail/unclear status, any higher-priority option, and cross-linguistic caution; no `MPP_FAIL` case is labelled typical nominalizing GM.
+- `TYPICAL_GM` nominalization also has downward rank shift, `FULL` realization, semantic junction, and no exclusion; low-confidence or Chinese-MPP cases require human review.
 - English descriptive categories are not imposed unchanged on another language.
 - Later SFL extensions are not attributed to Halliday without qualification.
 - The conclusion answers the user's question rather than merely naming categories.
