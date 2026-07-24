@@ -55,7 +55,7 @@ Treat GM as a relation between a wording, its meaning, and a plausible congruent
 3. **Compare semantic category with grammatical realization.** Ask whether a process, quality, circumstance, relator, speech function, or modal value is being realized through a non-default grammatical resource.
 4. **Test semantic junction.** Ask whether the metaphorical wording combines the original semantic value with affordances of a second category, such as a process construed with thing-like definiteness, modification, quantification, or thematic potential.
 5. **Locate rank and degree of realization.** Record whether the shift is from clause complex to clause, clause to group, group to word, or another relation; distinguish full, intermediate, and raw realization when that distinction is supported.
-6. **Check morphology without making it decisive.** Prefer a direct morphological agnate when available, but recognize non-morphological agnation such as `if` → `condition` or `can` → `possibility`.
+6. **Apply morphological priority without treating it as proof.** For nominalizing candidates, enumerate agnates and select direct derivation first, `-ing`/infinitival only for a lexical gap, and non-morphological agnation such as `if` → `condition` only where neither higher relation is available. A failed pairing cannot support a typical nominalizing-GM annotation, but a pass still requires the other identification tests.
 7. **Interpret the functional consequence.** Explain changes in agency, time, causality, negotiability, arguability, information flow, abstraction, and technicality.
 8. **Report uncertainty.** Treat lexicalized, technicalized, or weakly agnate cases as gradient or disputed when the evidence does not justify a binary decision.
 
@@ -99,7 +99,7 @@ Do not ask only whether a word is morphologically nominalized. Treat nominalizin
 | Full realization | How completely is compression realized in meaning and form? | full; intermediate; raw |
 | Rank shift | What rank relation realizes the reconstrual? | clause complex → clause/group/word; clause → group/word |
 
-Use the systems together. None of them alone identifies all NMs. Li and Yang, *Towards a system of principles for identifying nominalizing metaphors* (semantic junction: printed pp. 13-14; PDF pp. 13-14; morphological priority: printed pp. 14-15; PDF pp. 14-15; integrated system: printed pp. 16-18; PDF pp. 16-18); Yang 2026, PPTX slides 87-102, especially slides 97 and 101-102.
+Use the systems together. None of them alone identifies all NMs. For annotation, apply the strict MPP ordering and machine-readable fields in [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md). Li and Yang, *Towards a system of principles for identifying nominalizing metaphors* (semantic junction: printed pp. 13-14; PDF pp. 13-14; morphological priority: printed pp. 14-15; PDF pp. 14-15; integrated system: printed pp. 16-18; PDF pp. 16-18); Yang 2026, PPTX slides 87-102, especially slides 97 and 101-102.
 
 Recognize non-morphological NMs. Examples discussed in the presentation include:
 

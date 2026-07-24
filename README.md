@@ -52,7 +52,7 @@ complete source titles and verified page locations.
 | --- | --- |
 | A text or conversation | Field–tenor–mode, register, three metafunctions, clause complexes, cohesion, and key meaning choices |
 | A clause or wording | Systemic-functional analysis, consequential alternatives, and how each alternative changes meaning |
-| Grammatical metaphor | Contextual unit, congruent agnate, mapping evidence, counter-test, verdict, confidence, and functional effect |
+| Grammatical metaphor | Schema-valid v2 JSON, independent ideational/interpersonal labels, MPP evidence, congruent agnate, counterevidence, confidence, and review status |
 | Chinese discourse | A dedicated Chinese SFL workflow with language-internal congruent forms and Chinese-specific safeguards |
 | Hallidayan theory | A qualified answer with author, year, complete work title, section, and verified page/slide/EPUB location |
 | A research corpus | Reproducible sampling, category definitions, counts with denominators, exceptions, and evidence tables |
@@ -84,8 +84,8 @@ $halliday-sfl-analyst
 $halliday-sfl-analyst
 
 Does “his arrival yesterday” contain grammatical metaphor? Give the congruent
-form, apply the identification criteria step by step, state the strongest
-counter-analysis, and cite the complete theory sources with printed/PDF pages.
+form, return the v2 annotation JSON, apply MPP and the other identification
+criteria, state the strongest counter-analysis, and cite complete theory sources.
 ```
 
 </details>
@@ -124,18 +124,37 @@ context and speech function
         ↓
 meaning and system choice
         ↓
-plausible congruent agnate
+congruent agnate candidates
         ↓
-realization mapping + rank relation
+MPP selection + realization mapping
         ↓
-strongest counter-test
+rank + FRP + semantic junction / AS IF
         ↓
-qualified verdict + confidence
+exclusions + strongest counterevidence
+        ↓
+independent labels + confidence + review
         ↓
 complete, page-verified theory source
 ```
 
-For grammatical metaphor, the mandatory workflow integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles, plus Li and Yang's four-system nominalizing-metaphor test. It separates rank shift from metaphor and does not treat every nominalization, embedding, process-type change, or suffix as sufficient evidence.
+For grammatical metaphor, the mandatory workflow integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles, plus Li and Yang's four-system nominalizing-metaphor test. Morphological Priority Principle (MPP) is now a strict agnate-selection gate for nominalizing candidates: direct derivation precedes `-ing`/infinitival agnation, which precedes non-morphological agnation. An MPP pass does not prove GM; typical nominalizing GM must also pass rank, full-realization, semantic-junction, and exclusion gates.
+
+### Reproducible GM annotation
+
+Each item-level judgement returns a stable JSON contract with:
+
+- separate `ideational_gm_status` and `interpersonal_gm_status`;
+- polarity as an independent co-occurring annotation;
+- candidate and selected agnates, MPP level and status;
+- rank shift, Full Realization, semantic junction, Context-first/AS IF evidence;
+- exclusions, positive evidence, counterevidence, confidence, and human-review status.
+
+Chinese MPP uses a cautious language-internal ordering and always requires a cross-linguistic caution flag plus human review. Saved or batch records can be checked with the bundled validator:
+
+```bash
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
+  annotation.json
+```
 
 For historical questions, it also keeps distinct milestones distinct—for example, a conceptual precursor is not automatically the first explicit naming or the first systematic exposition.
 
@@ -170,12 +189,15 @@ plugins/halliday-sfl-analysis-skill/
     ├── references/
     │   ├── analysis-framework.md
     │   ├── chinese-sfl-analysis.md
+    │   ├── gm-annotation-framework-v2.md
+    │   ├── gm-annotation-v2.schema.json
     │   ├── gm-identification-protocol.md
     │   ├── grammatical-metaphor-research.md
     │   └── source-citation-protocol.md
     └── scripts/
         ├── corpus_index.py
-        └── source_archive.py
+        ├── source_archive.py
+        └── validate_gm_annotation.py
 ```
 
 Installed users receive the canonical skill under the plugin. The repository-level symlink keeps it directly discoverable during local development.
@@ -192,6 +214,9 @@ python3 /path/to/plugin-creator/scripts/validate_plugin.py \
 
 python3 /path/to/skill-creator/scripts/quick_validate.py \
   plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst
+
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
+  annotation.json
 ```
 
 ---

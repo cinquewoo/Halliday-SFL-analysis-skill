@@ -148,7 +148,7 @@ Track reference, substitution, ellipsis, conjunction, and lexical cohesion. Expl
 
 ## 5. Grammatical metaphor
 
-For a judgement about one clause, group, phrase, word, or morpheme, follow [gm-identification-protocol.md](gm-identification-protocol.md). The forms below are candidate signals only.
+For a judgement about one clause, group, phrase, word, or morpheme, follow [gm-identification-protocol.md](gm-identification-protocol.md) and [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md). The forms below are candidate signals only; the normative item record is [gm-annotation-v2.schema.json](gm-annotation-v2.schema.json).
 
 ### Ideational metaphor
 
@@ -238,10 +238,9 @@ Do not call a feature frequent or significant without a baseline. Reserve statis
 
 ### Grammatical-metaphor instance judgement
 
-| Unit + context | Candidate | Congruent agnate | Mapping and type-specific evidence | Counter-test | Verdict + confidence | Meaning consequence |
-|---|---|---|---|---|---|---|
+Return one schema-valid v2 JSON object per item, followed by the prescribed concise explanation. Keep ideational and interpersonal status independent, record polarity separately, and include both evidence and counterevidence. For nominalizing candidates, the record is incomplete without MPP candidates, selected agnate and level, status, priority check, and cross-linguistic caution where applicable.
 
-Use confidence labels such as high, medium, and low only after explaining the evidence basis.
+Use `LOW`, `MEDIUM`, and `HIGH` confidence only after explaining the evidence basis. Validate saved or batch records with `scripts/validate_gm_annotation.py`.
 
 ### Research coding note
 

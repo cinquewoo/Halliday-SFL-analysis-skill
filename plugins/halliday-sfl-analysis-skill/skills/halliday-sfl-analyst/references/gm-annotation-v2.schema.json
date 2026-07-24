@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill/blob/main/plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/references/gm-annotation-v2.schema.json",
+  "title": "Halliday SFL grammatical-metaphor annotation v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "item_id",
+    "text",
+    "context",
+    "language",
+    "unit_type",
+    "context_sufficiency",
+    "ideational_gm_status",
+    "ideational_type",
+    "congruent_agnate",
+    "source_semantic_category",
+    "source_rank",
+    "target_grammatical_category",
+    "target_rank",
+    "rank_shift",
+    "semantic_junction",
+    "frp_realization",
+    "mpp_applicability",
+    "mpp_candidate_agnates",
+    "mpp_selected_agnate",
+    "mpp_agnation_level",
+    "mpp_status",
+    "mpp_higher_priority_available",
+    "mpp_violation_reason",
+    "mpp_crosslinguistic_caution",
+    "interpersonal_gm_status",
+    "interpersonal_type",
+    "speech_function",
+    "mood_form",
+    "mood_mismatch",
+    "as_if_relation",
+    "modality_type",
+    "orientation",
+    "explicitness",
+    "congruent_modal_rewrite",
+    "polarity_metaphor",
+    "polarity_subtype",
+    "exclusion_reason",
+    "evidence",
+    "counterevidence",
+    "confidence",
+    "needs_human_review"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "language": {
+      "enum": [
+        "zh",
+        "en",
+        "other"
+      ]
+    },
+    "unit_type": {
+      "enum": [
+        "WORD",
+        "PHRASE",
+        "CLAUSE",
+        "CLAUSE_COMPLEX",
+        "TEMPLATE"
+      ]
+    },
+    "context_sufficiency": {
+      "enum": [
+        "SUFFICIENT",
+        "PARTIAL",
+        "INSUFFICIENT"
+      ]
+    },
+    "ideational_gm_status": {
+      "$ref": "#/$defs/gmStatus"
+    },
+    "ideational_type": {
+      "enum": [
+        "NONE",
+        "NOM_QUALITY",
+        "NOM_PROCESS",
+        "NOM_CIRCUMSTANCE",
+        "NOM_RELATOR",
+        "RANK_SHIFT_SEQUENCE_TO_FIGURE",
+        "RANK_SHIFT_FIGURE_TO_ELEMENT",
+        "VERBALIZATION",
+        "ADJECTIVIZATION",
+        "ADVERBIALIZATION",
+        "OTHER_IDEATIONAL"
+      ]
+    },
+    "congruent_agnate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_semantic_category": {
+      "enum": [
+        "ENTITY",
+        "QUALITY",
+        "PROCESS",
+        "CIRCUMSTANCE",
+        "RELATOR",
+        "FIGURE",
+        "SEQUENCE",
+        "POLARITY",
+        "UNCLEAR"
+      ]
+    },
+    "source_rank": {
+      "$ref": "#/$defs/rank"
+    },
+    "target_grammatical_category": {
+      "enum": [
+        "NOMINAL",
+        "VERBAL",
+        "ADJECTIVAL",
+        "ADVERBIAL",
+        "CLAUSAL",
+        "OTHER",
+        "UNCLEAR"
+      ]
+    },
+    "target_rank": {
+      "$ref": "#/$defs/rank"
+    },
+    "rank_shift": {
+      "enum": [
+        "NONE",
+        "CLAUSE_COMPLEX_TO_CLAUSE",
+        "CLAUSE_COMPLEX_TO_GROUP",
+        "CLAUSE_COMPLEX_TO_WORD",
+        "CLAUSE_TO_GROUP",
+        "CLAUSE_TO_WORD",
+        "GROUP_TO_WORD",
+        "OTHER"
+      ]
+    },
+    "semantic_junction": {
+      "enum": [
+        "NONE",
+        "QUALITY_ENTITY",
+        "PROCESS_ENTITY",
+        "CIRCUMSTANCE_ENTITY",
+        "RELATOR_ENTITY",
+        "POLARITY_ENTITY",
+        "POLARITY_PROCESS",
+        "POLARITY_QUALITY",
+        "POLARITY_CIRCUMSTANCE",
+        "OTHER"
+      ]
+    },
+    "frp_realization": {
+      "enum": [
+        "NONE",
+        "RAW",
+        "INTERMEDIATE",
+        "FULL",
+        "UNCLEAR"
+      ]
+    },
+    "mpp_applicability": {
+      "enum": [
+        "APPLICABLE",
+        "NOT_APPLICABLE",
+        "UNCLEAR"
+      ]
+    },
+    "mpp_candidate_agnates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mpp_selected_agnate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mpp_agnation_level": {
+      "enum": [
+        "DERIVATIONAL_AGNATION",
+        "ING_TO_AGNATION",
+        "NON_MORPHOLOGICAL_AGNATION",
+        "ZH_SAME_CORE_MORPHEME",
+        "ZH_OVERT_NOMINALIZING_RESOURCE",
+        "ZH_MINIMAL_STRUCTURAL_AGNATION",
+        "ZH_NON_MORPHOLOGICAL_AGNATION",
+        "NOT_APPLICABLE",
+        "UNCLEAR"
+      ]
+    },
+    "mpp_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "UNCLEAR"
+      ]
+    },
+    "mpp_higher_priority_available": {
+      "type": "boolean"
+    },
+    "mpp_violation_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mpp_crosslinguistic_caution": {
+      "type": "boolean"
+    },
+    "interpersonal_gm_status": {
+      "$ref": "#/$defs/gmStatus"
+    },
+    "interpersonal_type": {
+      "enum": [
+        "NONE",
+        "MOOD_METAPHOR",
+        "MODALITY_METAPHOR",
+        "MOOD_AND_MODALITY",
+        "POLARITY_INTERPERSONAL"
+      ]
+    },
+    "speech_function": {
+      "enum": [
+        "GIVE_INFORMATION",
+        "DEMAND_INFORMATION",
+        "GIVE_GOODS_SERVICES",
+        "DEMAND_GOODS_SERVICES",
+        "UNCLEAR"
+      ]
+    },
+    "mood_form": {
+      "enum": [
+        "DECLARATIVE",
+        "INTERROGATIVE",
+        "IMPERATIVE",
+        "MINOR",
+        "OTHER",
+        "UNCLEAR"
+      ]
+    },
+    "mood_mismatch": {
+      "type": "boolean"
+    },
+    "as_if_relation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "modality_type": {
+      "enum": [
+        "NONE",
+        "PROBABILITY",
+        "USUALITY",
+        "OBLIGATION",
+        "INCLINATION",
+        "UNCLEAR"
+      ]
+    },
+    "orientation": {
+      "enum": [
+        "NONE",
+        "SUBJECTIVE",
+        "OBJECTIVE",
+        "UNCLEAR"
+      ]
+    },
+    "explicitness": {
+      "enum": [
+        "NONE",
+        "IMPLICIT",
+        "EXPLICIT",
+        "UNCLEAR"
+      ]
+    },
+    "congruent_modal_rewrite": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "polarity_metaphor": {
+      "type": "boolean"
+    },
+    "polarity_subtype": {
+      "enum": [
+        "NONE",
+        "PARTICIPATION",
+        "PROCESSATION",
+        "QUALIFICATION",
+        "CIRCUMSTANTIATION",
+        "MOOD_POLARITY",
+        "MODALITY_POLARITY",
+        "NEGATIVE_TRANSFER",
+        "OTHER"
+      ]
+    },
+    "exclusion_reason": {
+      "enum": [
+        "NONE",
+        "PROPER_NAME",
+        "ABBREVIATION_ONLY",
+        "ORDINARY_COMPOUND",
+        "LEXICAL_METAPHOR_ONLY",
+        "TECHNICALIZED_OR_DEAD",
+        "EVENT_NOUN_WITHOUT_AGNATE",
+        "PARTICIPANT_NOUN_ONLY",
+        "RAW_EMBEDDING",
+        "NO_SEMANTIC_JUNCTION",
+        "NO_CONTEXT",
+        "OTHER"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "counterevidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "confidence": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ]
+    },
+    "needs_human_review": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "gmStatus": {
+      "enum": [
+        "NON_GM",
+        "MARGINAL_GM",
+        "TYPICAL_GM",
+        "INDETERMINATE"
+      ]
+    },
+    "rank": {
+      "enum": [
+        "WORD",
+        "GROUP_PHRASE",
+        "CLAUSE",
+        "CLAUSE_COMPLEX",
+        "UNCLEAR"
+      ]
+    }
+  }
+}
