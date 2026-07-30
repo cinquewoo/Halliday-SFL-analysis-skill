@@ -54,6 +54,7 @@ complete source titles and verified page locations.
 | A clause or wording | Systemic-functional analysis, consequential alternatives, and how each alternative changes meaning |
 | Grammatical metaphor | Schema-valid v2 JSON, independent ideational/interpersonal labels, MPP evidence, congruent agnate, counterevidence, confidence, and review status |
 | Chinese discourse | A dedicated Chinese SFL workflow with language-internal congruent forms and Chinese-specific safeguards |
+| A Chinese buzzword or new sense | Exact coverage from both configured private dictionaries, contextual sense evidence, a bounded online fallback when needed, and a separate GM judgement |
 | Hallidayan theory | A qualified answer with author, year, complete work title, section, and verified page/slide/EPUB location |
 | A research corpus | Reproducible sampling, category definitions, counts with denominators, exceptions, and evidence tables |
 
@@ -98,6 +99,19 @@ $halliday-sfl-analyst
 
 判断“经济的快速发展改变了城市结构”是否包含语法隐喻。给出自然的汉语一致式、
 映射证据、最强反分析、判定与置信度，并写出完整理论来源及可验证定位。
+```
+
+</details>
+
+<details>
+<summary><strong>Chinese buzzword and dictionary evidence</strong></summary>
+
+```text
+$halliday-sfl-analyst
+
+从语法隐喻角度分析“游客纷纷来这里打卡”中的“打卡”。先分别查询《现代汉语词典》
+第7版和侯敏《汉语新词语词典（2000—2020）》；若语境义仍未覆盖，再核验在线新词语库。
+给出词条定位、自然汉语一致式、v2 JSON、最强反分析和页码经过核验的理论来源。
 ```
 
 </details>
@@ -164,15 +178,29 @@ The dedicated [Chinese analysis framework](plugins/halliday-sfl-analysis-skill/s
 
 It requires natural Chinese congruent agnates and does **not** treat `的`, sentence-final particles, `是……的`, `有……`, or `我想／我认为／我觉得……` as automatic metaphor markers.
 
+## Dictionary-backed Chinese buzzword analysis
+
+The [lexical-evidence protocol](plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/references/lexical-evidence.md) fixes the contextual sense before testing GM:
+
+1. query both locally configured dictionaries and retain every homograph and sense marker;
+2. report each dictionary's exact-match status and TXT line locator;
+3. if neither dictionary covers the contextual sense, perform one bounded exact lookup in the China Media University new-word research database;
+4. keep dictionary/web evidence separate from the Hallidayan evidence used to decide GM.
+
+Dictionary inclusion, absence, figurative origin, semantic extension, and part-of-speech labels do not by themselves prove or disprove grammatical metaphor. A TXT line is reported as a TXT line—never converted into an invented printed page.
+
+The plugin ships the private indexing and online-adapter code, not the dictionaries. Users build the index from legally obtained local texts; a user-level index under `~/.codex` can then be discovered from new tasks and other projects.
+
 ## Source verification and privacy
 
 Theory answers must name the **actual book, article, chapter, or presentation**—never merely “the PDF”—and provide the most precise verified locator available:
 
 - printed page plus one-based PDF page;
 - one-based PPTX slide;
-- or EPUB chapter/section plus href/anchor when no fixed page map exists.
+- EPUB chapter/section plus href/anchor when no fixed page map exists;
+- or dictionary headword plus supplied-TXT line span when no printed-page map can be verified.
 
-The public plugin includes the original analytical framework, source catalog, citation protocol, and indexing utilities. It does **not** redistribute copyrighted books, presentations, extracted source text, absolute local paths, or private indexes. Users map their own legally available sources locally.
+The public plugin includes the original analytical framework, source catalog, citation protocol, and indexing utilities. It does **not** redistribute copyrighted books, dictionaries, presentations, extracted source text, absolute local paths, or private indexes. Users map their own legally available sources locally.
 
 See [Private corpus and page verification](docs/private-corpus.md) for archive, integrity-check, indexing, search, and page-label instructions.
 
@@ -193,10 +221,17 @@ plugins/halliday-sfl-analysis-skill/
     │   ├── gm-annotation-v2.schema.json
     │   ├── gm-identification-protocol.md
     │   ├── grammatical-metaphor-research.md
+    │   ├── lexical-evidence.md
+    │   ├── source-retention.md
     │   └── source-citation-protocol.md
     └── scripts/
         ├── corpus_index.py
+        ├── cuc_newword_lookup.mjs
+        ├── lexicon_index.py
         ├── source_archive.py
+        ├── test_cuc_newword_lookup.mjs
+        ├── test_lexicon_index.py
+        ├── test_source_archive.py
         └── validate_gm_annotation.py
 ```
 
@@ -217,6 +252,10 @@ python3 /path/to/skill-creator/scripts/quick_validate.py \
 
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
   annotation.json
+
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_lexicon_index.py
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_source_archive.py
+node plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_cuc_newword_lookup.mjs
 ```
 
 ---

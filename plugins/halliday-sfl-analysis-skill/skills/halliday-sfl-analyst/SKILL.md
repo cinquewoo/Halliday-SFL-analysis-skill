@@ -1,6 +1,6 @@
 ---
 name: halliday-sfl-analyst
-description: Analyze English or Chinese texts with Hallidayan SFL, source-verified PDF/PPTX/EPUB citations, and machine-validatable GM annotations. Cover field-tenor-mode, register, transitivity, clause complexes, mood/modality, Theme/information/cohesion, ideational/interpersonal/textual meaning, grammatical metaphor, congruent agnates, and alternative wordings. Use for Halliday/SFL or functional-grammar analysis; Chinese SFL; transitivity; Theme-Rheme; mood, modality, register, or GM; deciding or annotating whether a clause, phrase, word, or morpheme contains GM; GM coding data; Halliday concept/history questions; or explaining how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless an SFL perspective is requested.
+description: Analyze English or Chinese texts with Hallidayan SFL, source-verified PDF/PPTX/EPUB citations, private Chinese-dictionary lookup, online neologism fallback, and machine-validatable GM annotations. Cover field-tenor-mode, register, transitivity, clause complexes, mood/modality, Theme/information/cohesion, ideational/interpersonal/textual meaning, grammatical metaphor, congruent agnates, and alternative wordings. Use for Halliday/SFL or functional-grammar analysis; Chinese SFL; transitivity; Theme-Rheme; mood, modality, register, or GM; deciding or annotating whether a clause, phrase, word, morpheme, buzzword, popular expression, neologism, or new sense contains GM; dictionary-supported Chinese lexical analysis; GM coding data; Halliday concept/history questions; or explaining how wording construes experience and social relations. Do not trigger for generic summaries, proofreading, or literary commentary unless an SFL perspective is requested.
 ---
 
 # Halliday SFL Analyst
@@ -24,7 +24,8 @@ Infer the depth from the request. Use **full** when the user does not specify on
 - Read [chinese-sfl-analysis.md](references/chinese-sfl-analysis.md) whenever the text is Chinese, the request concerns Chinese grammatical metaphor, or the task compares Chinese and another language. Construct congruent agnates inside Chinese and apply its language-specific counter-tests.
 - Read [source-citation-protocol.md](references/source-citation-protocol.md) whenever the answer defines a concept, attributes a view to Halliday, summarizes the Halliday corpus, cites theory, or uses theory to justify an analysis.
 - Read [corpus-catalog.md](references/corpus-catalog.md) when locating a source. Prefer `.agents/halliday-corpus.archived.local.json`, then `.agents/halliday-corpus.local.json`, to resolve stable source IDs; otherwise use PDF/PPTX/EPUB files supplied or explicitly identified by the user.
-- Read [source-retention.md](references/source-retention.md) whenever PDF/PPTX/EPUB evidence is supplied, archived, indexed, moved, verified, or prepared for sharing.
+- Read [source-retention.md](references/source-retention.md) whenever PDF/PPTX/EPUB/TXT evidence is supplied, archived, indexed, moved, verified, or prepared for sharing.
+- Read [lexical-evidence.md](references/lexical-evidence.md) whenever the request concerns a Chinese buzzword, popular expression, neologism, new sense, dictionary definition, lexical conventionalization, or word-level GM. Query both private local dictionaries before using its online fallback.
 - Read [analysis-framework.md](references/analysis-framework.md) for full or research analysis, clause-level annotation, non-English analysis, or whenever a category boundary is uncertain.
 - Do not load unrelated source files. Search candidate works selected from the corpus catalog, then open the complete supporting page or slide before citing it.
 - Treat the bundled distillation and page map as routing aids, not final evidence. Ask the user for a primary source if exact wording or pagination cannot be verified from accessible files.
@@ -42,6 +43,8 @@ For every theoretical answer, definition, historical claim, or theory-grounded a
 7. If a page, slide, or EPUB section cannot be verified, say so and narrow or withhold the claim. Never invent a locator or omit the source title.
 
 Use `scripts/corpus_index.py` to search a private local index when available. Open the full indexed page, slide, or EPUB spine item with its `page` command before using a search hit as evidence. Visually inspect the original when OCR, tables, figures, screenshots, headers, or page labels are uncertain. Use `scripts/source_archive.py` to preserve supplied sources with SHA-256 integrity metadata before indexing them.
+
+For Chinese buzzwords and word-level GM, use `scripts/lexicon_index.py` to query the private local dictionary index. Report the result for each configured dictionary, not only the first match. If neither dictionary covers the headword or the contextual sense, follow [lexical-evidence.md](references/lexical-evidence.md) and verify an online definition. Treat dictionary evidence as lexical evidence rather than theoretical proof of GM.
 
 ## Prepare the input
 
@@ -113,6 +116,8 @@ Do not diagnose grammatical metaphor from morphology, embedding, rank shift, or 
 
 For Chinese, construct the congruent agnate in natural Chinese and use [chinese-sfl-analysis.md](references/chinese-sfl-analysis.md). Treat zero derivation, `的`, sentence-final particles, `是……的`, `有……`, and projecting clauses such as `我想/我认为/我觉得……` as evidence to test, not automatic GM markers. Apply the Chinese MPP ordering without inventing English-style derivation; set the cross-linguistic caution and human-review flags whenever MPP applies. When Yang Yanning's broad Chinese classification and the stricter identification protocol diverge, report both transparently.
 
+For a Chinese popular word or new sense, first fix the contextual sense with [lexical-evidence.md](references/lexical-evidence.md). Compare the supplied clause with dictionary definitions, usage examples, and any verified online result; then test whether the current wording activates a grammatical remapping. Do not equate etymological imagery, semantic extension, dictionary part-of-speech change, or dictionary absence with GM.
+
 When judging a specific clause or word, do not answer with a bare yes/no. Output the v2 JSON object first, with ideational and interpersonal statuses independently set to `NON_GM`, `MARGINAL_GM`, `TYPICAL_GM`, or `INDETERMINATE`, then give the prescribed concise explanation and complete theory sources. A word in isolation is normally underdetermined: give conditional agnates, identify the missing context, and require review instead of forcing a verdict.
 
 For every key comparison, explain what changes in:
@@ -167,6 +172,8 @@ Before finishing, verify that:
 - Theme is not conflated with Subject, and Given/New is not inferred from word order alone.
 - Rank shift, embedding, process-type change, and nominalization are not treated as automatic proof of grammatical metaphor.
 - Every clause/word GM judgement includes every required v2 JSON field, a contextualized unit, congruent agnate, positive evidence, counterevidence, independent ideational/interpersonal statuses, confidence basis, and complete page-verified theory source.
+- Every Chinese buzzword/new-sense judgement reports exact-lookup coverage for both configured dictionaries, gives entry/line locators or an explicit `not_found`, and verifies an online source when the local sense coverage is absent or mismatched.
+- Dictionary evidence is kept separate from theoretical GM evidence; no lexical label, figurative origin, or absence claim is treated as sufficient proof of GM.
 - Every nominalizing candidate records MPP applicability, candidate agnates, selected level, pass/fail/unclear status, any higher-priority option, and cross-linguistic caution; no `MPP_FAIL` case is labelled typical nominalizing GM.
 - `TYPICAL_GM` nominalization also has downward rank shift, `FULL` realization, semantic junction, and no exclusion; low-confidence or Chinese-MPP cases require human review.
 - English descriptive categories are not imposed unchanged on another language.

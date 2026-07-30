@@ -1,4 +1,4 @@
 interface:
   display_name: "Halliday SFL Analyst"
-  short_description: "汉英 SFL 分析与可校验语法隐喻标注，附完整来源定位"
-  default_prompt: "Use $halliday-sfl-analyst to analyze this English or Chinese text; for a grammatical-metaphor item return v2 JSON with MPP evidence, congruent agnates, counterevidence, confidence, and complete source-verified citations."
+  short_description: "汉英 SFL、流行语词典检索与可校验语法隐喻分析"
+  default_prompt: "Use $halliday-sfl-analyst to analyze this English or Chinese text; for a Chinese buzzword, check both private dictionaries and verified online fallback before returning the GM judgement, congruent agnate, and complete sources."
