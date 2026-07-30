@@ -16,6 +16,8 @@ Never write only `PDF p. 22`, `slide 45`, a filename, a source ID, an abbreviate
 
 For a clause/word grammatical-metaphor judgement, cite the theory that supplies the identification criterion, not merely a page where a similar example occurs. The user's wording is **text evidence**; the Halliday/Yang passage is **theory evidence**. A source locator cannot substitute for the explicit congruent agnate and identification reasoning required by [gm-identification-protocol.md](gm-identification-protocol.md).
 
+For Chinese buzzwords and new senses, dictionary and web definitions are **lexical evidence**, not theory evidence. A supplied TXT without a verified paper-page map must be cited by complete dictionary identity, headword, and TXT line span, followed by `printed page unavailable from the supplied TXT`; never convert a TXT line into a book page. Cite a dynamic online dictionary by the resource owner, complete resource title, headword or query, result URL or query/result pages, and access date. Follow [lexical-evidence.md](lexical-evidence.md).
+
 ## Evidence hierarchy
 
 Prefer evidence in this order:
@@ -98,6 +100,7 @@ When the answer contains several claims, add a short `Sources` list mapping each
 - **Corpus evidence**: wording and verified page/slide/EPUB-section locations in identified primary or secondary sources.
 - **Text evidence**: clauses, paragraphs, counts, or page locations in the user's analyzed text.
 - **Analyst inference**: the functional interpretation made from those two evidence sets.
+- **Lexical evidence**: dictionary entries, online definitions, usage labels, examples, and coverage status used to establish a contextual sense; this does not replace theory evidence.
 
 Label synthesis and inference as interpretation rather than attributing them directly to Halliday. For a synthesis across works, cite at least two primary locations unless one passage explicitly makes the synthesis.
 

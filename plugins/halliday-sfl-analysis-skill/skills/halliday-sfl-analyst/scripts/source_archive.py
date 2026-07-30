@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Archive and verify user-supplied Halliday PDF/PPTX/EPUB sources privately."""
+"""Archive and verify user-supplied Halliday PDF/PPTX/EPUB/TXT sources privately."""
 
 from __future__ import annotations
 
@@ -7,7 +7,9 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -15,7 +17,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-SUPPORTED_KINDS = {"pdf", "pptx", "epub"}
+SUPPORTED_KINDS = {"pdf", "pptx", "epub", "txt"}
+SOURCE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
 
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
@@ -45,6 +48,11 @@ def load_manifest(path: Path) -> dict[str, object]:
         if missing:
             raise ValueError(f"Manifest source is missing {', '.join(missing)}: {raw!r}")
         source_id = str(raw["id"])
+        if not SOURCE_ID_RE.fullmatch(source_id):
+            raise ValueError(
+                f"Unsafe source id {source_id!r}; use 1-128 ASCII letters, "
+                "digits, dots, underscores, or hyphens, beginning with a letter or digit"
+            )
         if source_id in seen:
             raise ValueError(f"Duplicate source id: {source_id}")
         seen.add(source_id)
@@ -66,7 +74,8 @@ def atomic_json_write(path: Path, data: dict[str, object]) -> None:
 
 
 def clone_or_copy(source: Path, destination: Path, mode: str) -> str:
-    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    destination.parent.chmod(0o700)
     temporary = destination.with_name(f".{destination.name}.{os.getpid()}.tmp")
     temporary.unlink(missing_ok=True)
     method = "copy"
@@ -84,7 +93,9 @@ def clone_or_copy(source: Path, destination: Path, mode: str) -> str:
                 raise OSError(result.stderr.strip() or "APFS clone failed")
         if not temporary.exists():
             shutil.copy2(source, temporary)
+        temporary.chmod(0o600)
         temporary.replace(destination)
+        destination.chmod(0o600)
         return method
     except Exception:
         temporary.unlink(missing_ok=True)
@@ -96,6 +107,15 @@ def archive_sources(
 ) -> None:
     data = load_manifest(manifest_path)
     destination = destination.expanduser().resolve()
+    if destination.exists():
+        if not destination.is_dir():
+            raise ValueError(f"Archive destination is not a directory: {destination}")
+        if stat.S_IMODE(destination.stat().st_mode) & 0o077:
+            raise ValueError(
+                f"Archive destination must already be private (mode 0700): {destination}"
+            )
+    else:
+        destination.mkdir(parents=True, mode=0o700)
     archived_sources: list[dict[str, object]] = []
     archived_at = datetime.now(timezone.utc).isoformat()
 
@@ -105,7 +125,11 @@ def archive_sources(
             raise FileNotFoundError(f"Missing source for {raw['id']}: {source}")
         kind = infer_kind(source, raw.get("kind"))
         digest = sha256_file(source)
-        target = destination / str(raw["id"]) / f"{digest}.{kind}"
+        target = (
+            destination / str(raw["id"]) / f"{digest}.{kind}"
+        ).resolve(strict=False)
+        if not target.is_relative_to(destination):
+            raise ValueError(f"Archive target escapes destination: {target}")
         copy_method = "existing"
         if not target.is_file():
             copy_method = clone_or_copy(source, target, mode)
@@ -113,6 +137,8 @@ def archive_sources(
         if target_digest != digest:
             target.unlink(missing_ok=True)
             raise OSError(f"Integrity check failed after archiving {raw['id']}")
+        target.parent.chmod(0o700)
+        target.chmod(0o600)
 
         archived = dict(raw)
         archived.update(
@@ -134,11 +160,18 @@ def archive_sources(
         )
 
     output = {
-        "version": 2,
-        "archive_root": str(destination),
-        "generated_at": archived_at,
-        "sources": archived_sources,
+        key: value
+        for key, value in data.items()
+        if key not in {"version", "archive_root", "generated_at", "sources"}
     }
+    output.update(
+        {
+            "version": 2,
+            "archive_root": str(destination),
+            "generated_at": archived_at,
+            "sources": archived_sources,
+        }
+    )
     atomic_json_write(output_manifest, output)
     print(f"Archived manifest written to {output_manifest}")
 

@@ -1,4 +1,6 @@
 .agents/cache/
 .agents/halliday-corpus.local.json
 .agents/halliday-corpus.archived.local.json
+.agents/halliday-lexicons.local.json
+.agents/halliday-lexicons.archived.local.json
 private-sources/

@@ -1,7 +1,7 @@
 {
   "name": "halliday-sfl-analysis-skill",
-  "version": "1.2.0+codex.20260724054621",
-  "description": "Hallidayan and Chinese SFL analysis with auditable grammatical-metaphor annotation and source-verified citations.",
+  "version": "1.3.0+codex.20260730141536",
+  "description": "Hallidayan and Chinese SFL analysis with private dictionary lookup, online neologism fallback, auditable grammatical-metaphor annotation, and source-verified citations.",
   "author": {
     "name": "cinquewoo",
     "url": "https://github.com/cinquewoo"
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Halliday SFL Analyst",
-    "shortDescription": "Auditable English/Chinese SFL and GM annotation.",
-    "longDescription": "Analyze English and Chinese texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor with independent ideational/interpersonal labels, strict MPP agnate selection, schema-valid JSON, counterevidence, and human-review flags; preserve private PDF/PPTX/EPUB evidence with integrity metadata; and support theoretical claims with complete source identities and verified page, slide, or EPUB section citations.",
+    "shortDescription": "Auditable SFL, GM, and Chinese buzzword analysis.",
+    "longDescription": "Analyze English and Chinese texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor with independent ideational/interpersonal labels, strict MPP agnate selection, schema-valid JSON, counterevidence, and human-review flags; consult private Chinese dictionary indexes and verified online neologism sources without redistributing copyrighted texts; preserve private PDF/PPTX/EPUB evidence with integrity metadata; and support theoretical claims with complete source identities and verified locators.",
     "developerName": "cinquewoo",
     "category": "Education",
     "capabilities": [
@@ -31,7 +31,8 @@
     "defaultPrompt": [
       "Analyze this text with Hallidayan SFL at full depth and cite page-verified primary sources.",
       "Analyze this Chinese clause with the Chinese SFL framework and give a natural Chinese congruent form.",
-      "Annotate this clause for grammatical metaphor with v2 JSON, MPP evidence, a congruent agnate, and exact sources."
+      "Annotate this clause for grammatical metaphor with v2 JSON, MPP evidence, a congruent agnate, and exact sources.",
+      "Analyze this Chinese buzzword for grammatical metaphor after checking both private dictionaries and a verified online fallback when needed."
     ]
   }
 }
