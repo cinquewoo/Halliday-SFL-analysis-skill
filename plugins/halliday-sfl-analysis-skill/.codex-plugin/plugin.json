@@ -1,7 +1,7 @@
 {
   "name": "halliday-sfl-analysis-skill",
-  "version": "1.3.0+codex.20260730141536",
-  "description": "Hallidayan and Chinese SFL analysis with private dictionary lookup, online neologism fallback, auditable grammatical-metaphor annotation, and source-verified citations.",
+  "version": "1.4.0+codex.20260804052110",
+  "description": "Hallidayan and Chinese SFL analysis with explain, Schema v3 annotation, and research modes; conservative GM gates; private lexical evidence; and source-verified citations.",
   "author": {
     "name": "cinquewoo",
     "url": "https://github.com/cinquewoo"
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Halliday SFL Analyst",
-    "shortDescription": "Auditable SFL, GM, and Chinese buzzword analysis.",
-    "longDescription": "Analyze English and Chinese texts through field, tenor, mode, ideational, interpersonal, and textual meaning; identify grammatical metaphor with independent ideational/interpersonal labels, strict MPP agnate selection, schema-valid JSON, counterevidence, and human-review flags; consult private Chinese dictionary indexes and verified online neologism sources without redistributing copyrighted texts; preserve private PDF/PPTX/EPUB evidence with integrity metadata; and support theoretical claims with complete source identities and verified locators.",
+    "shortDescription": "Explain, annotate, and research Hallidayan SFL and GM.",
+    "longDescription": "Analyze English and Chinese texts through field, tenor, mode, ideational, interpersonal, and textual meaning. Ordinary GM questions receive a concise sourced explanation rather than forced JSON; explicit coding requests use Schema v3 with a conservative context gate, independent ideational/interpersonal labels, positive and counterevidence, confidence, and review flags. Research reports use prose and evidence tables, with validated JSON, JSONL, or CSV only for formal item coding. Halliday's semantic-to-lexicogrammatical remapping criterion remains distinct from later Li\u2013Yang and Bingjun Yang operational tests and from Yang Yanning's Chinese descriptive framework. Private dictionary and source indexes remain local and copyrighted source files are never bundled.",
     "developerName": "cinquewoo",
     "category": "Education",
     "capabilities": [
@@ -29,10 +29,9 @@
     ],
     "websiteURL": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill",
     "defaultPrompt": [
-      "Analyze this text with Hallidayan SFL at full depth and cite page-verified primary sources.",
-      "Analyze this Chinese clause with the Chinese SFL framework and give a natural Chinese congruent form.",
-      "Annotate this clause for grammatical metaphor with v2 JSON, MPP evidence, a congruent agnate, and exact sources.",
-      "Analyze this Chinese buzzword for grammatical metaphor after checking both private dictionaries and a verified online fallback when needed."
+      "Explain whether this clause contains GM; give context, a congruent agnate, mapping, and verified sources.",
+      "Annotate these clauses with Schema v3 JSONL, evidence, counterevidence, confidence, and review flags.",
+      "Run a full Hallidayan SFL analysis of this English or Chinese text with verified sources."
     ]
   }
 }

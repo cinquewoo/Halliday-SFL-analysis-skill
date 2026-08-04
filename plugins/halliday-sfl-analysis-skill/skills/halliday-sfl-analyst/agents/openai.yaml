@@ -1,4 +1,4 @@
 interface:
   display_name: "Halliday SFL Analyst"
-  short_description: "汉英 SFL、流行语词典检索与可校验语法隐喻分析"
-  default_prompt: "Use $halliday-sfl-analyst to analyze this English or Chinese text; for a Chinese buzzword, check both private dictionaries and verified online fallback before returning the GM judgement, congruent agnate, and complete sources."
+  short_description: "汉英 SFL 的解释、Schema v3 标注与研究模式"
+  default_prompt: "Use $halliday-sfl-analyst for this SFL request: default to explain, use annotate for requested item coding, and use research for a corpus, method, source-audit, or evaluation report."

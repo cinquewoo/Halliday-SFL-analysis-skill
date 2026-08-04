@@ -17,11 +17,15 @@ For an analysis issue, include the exact input, intended context, observed resul
 1. Keep the change focused and explain the analytical consequence.
 2. Update the relevant reference file as well as `SKILL.md` when behavior changes.
 3. Verify every theoretical citation against the complete source unit.
-4. Run the plugin and skill validators shown in the README.
-5. Run `git diff --check` and confirm that no private corpus paths or source files are included.
+4. Add or update a constructed gold case and regression test for behavioral changes.
+5. Run the Python/Node tests and `python3 scripts/release_check.py` shown in the README.
+6. Run `git diff --check` and confirm that no private corpus paths or source files are included.
 
 ## Source and copyright policy
 
 Do not upload copyrighted books, articles, presentations, extracted source text, private indexes, or absolute local paths. A contribution may add original distillation and bibliographic metadata, with short quotations only where legally appropriate.
 
-By submitting a contribution, you confirm that you have the right to provide it under the repository's applicable terms.
+The repository's public license is awaiting owner confirmation. Do not assume an
+open-source license from public visibility alone. By submitting a contribution, you
+confirm that you have the right to provide it and understand that acceptance remains
+subject to the license terms the owner later selects.

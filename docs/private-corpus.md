@@ -51,7 +51,15 @@ python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/
   --database .agents/cache/halliday-corpus.sqlite3
 ```
 
-The indexer requires Python and `pypdf`. PPTX and EPUB text extraction uses the Python standard library.
+The indexer requires Python 3.11+. PPTX and EPUB extraction uses only the standard
+library. PDF extraction is an optional extra; install it from the repository root:
+
+```bash
+python3 -m pip install '.[pdf-index]'
+```
+
+Without that extra, help, manifest checks, PPTX/EPUB indexing, and all non-PDF
+commands remain available; a PDF build exits with an actionable dependency message.
 
 ## 4. Build a private Chinese dictionary index
 

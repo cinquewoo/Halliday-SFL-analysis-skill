@@ -48,6 +48,9 @@
     "needs_human_review"
   ],
   "properties": {
+    "schema_version": {
+      "const": "2.0"
+    },
     "item_id": {
       "type": "string",
       "minLength": 1

@@ -14,12 +14,12 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
-
-from pypdf import PdfReader
+from typing import Any
 
 
 SCHEMA_VERSION = 4
 SUPPORTED_KINDS = {"pdf", "pptx", "epub"}
+SHA256_PATTERN = re.compile(r"[0-9a-fA-F]{64}")
 SCHEMA = f"""
 CREATE TABLE metadata (schema_version INTEGER NOT NULL);
 INSERT INTO metadata VALUES ({SCHEMA_VERSION});
@@ -54,6 +54,25 @@ CREATE VIRTUAL TABLE page_fts USING fts5(
 """
 
 
+class MissingOptionalDependency(RuntimeError):
+    """Raised only when a requested source kind needs an uninstalled extra."""
+
+
+def load_pdf_reader() -> type[Any]:
+    """Import pypdf only for PDF extraction, keeping every other command usable."""
+
+    try:
+        from pypdf import PdfReader
+    except ModuleNotFoundError as error:
+        if error.name != "pypdf":
+            raise
+        raise MissingOptionalDependency(
+            "PDF indexing requires the optional dependency 'pypdf'; install it with "
+            "`python -m pip install 'pypdf>=4'` or the project's `pdf` extra"
+        ) from error
+    return PdfReader
+
+
 def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -71,11 +90,15 @@ def infer_kind(path: Path, declared: object | None = None) -> str:
 
 def load_manifest(path: Path) -> list[dict[str, object]]:
     data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("Manifest root must be a JSON object")
     if data.get("version") not in (1, 2) or not isinstance(data.get("sources"), list):
         raise ValueError("Manifest must contain version 1 or 2 and a sources array")
     seen: set[str] = set()
     sources: list[dict[str, object]] = []
     for raw in data["sources"]:
+        if not isinstance(raw, dict):
+            raise ValueError("Every manifest source must be a JSON object")
         required = ("id", "title", "path")
         missing = [key for key in required if not raw.get(key)]
         if missing:
@@ -87,7 +110,7 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
         resolved_path = Path(str(raw["path"])).expanduser().resolve()
         kind = infer_kind(resolved_path, raw.get("kind"))
         page_label_mode = str(
-            raw.get("page_label_mode") or ("none" if kind == "epub" else "encoded")
+            raw.get("page_label_mode") or ("encoded" if kind == "pdf" else "none")
         )
         if page_label_mode not in {"encoded", "none", "offset"}:
             raise ValueError(
@@ -96,6 +119,10 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
         printed_page_start = raw.get("printed_page_start")
         printed_page_pdf_start = raw.get("printed_page_pdf_start")
         if page_label_mode == "offset":
+            if kind != "pdf":
+                raise ValueError(
+                    f"page_label_mode=offset is supported only for PDF sources: {source_id}"
+                )
             if not isinstance(printed_page_start, int) or printed_page_start < 1:
                 raise ValueError(
                     f"printed_page_start must be a positive integer for {source_id}"
@@ -104,6 +131,9 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
                 raise ValueError(
                     f"printed_page_pdf_start must be a positive integer for {source_id}"
                 )
+        declared_sha256 = str(raw.get("sha256") or "")
+        if declared_sha256 and not SHA256_PATTERN.fullmatch(declared_sha256):
+            raise ValueError(f"Invalid SHA-256 for {source_id}: expected 64 hexadecimal digits")
         source: dict[str, object] = {
             "id": source_id,
             "title": str(raw["title"]),
@@ -111,7 +141,7 @@ def load_manifest(path: Path) -> list[dict[str, object]]:
             "short_citation": str(raw.get("short_citation") or raw["title"]),
             "path": str(resolved_path),
             "kind": kind,
-            "sha256": str(raw.get("sha256") or ""),
+            "sha256": declared_sha256.lower(),
             "page_label_mode": page_label_mode,
             "printed_page_start": printed_page_start,
             "printed_page_pdf_start": printed_page_pdf_start,
@@ -124,7 +154,7 @@ def clean_text(text: str) -> str:
     return text.replace("\x00", " ").replace("\r\n", "\n").replace("\r", "\n")
 
 
-def pdf_page_labels(reader: PdfReader, source: dict[str, object]) -> tuple[list[str], bool]:
+def pdf_page_labels(reader: Any, source: dict[str, object]) -> tuple[list[str], bool]:
     encoded = reader.root_object.get("/PageLabels") is not None
     mode = str(source["page_label_mode"])
     if mode == "none":
@@ -146,6 +176,7 @@ def pdf_page_labels(reader: PdfReader, source: dict[str, object]) -> tuple[list[
 def extract_pdf(
     path: Path, source: dict[str, object]
 ) -> tuple[list[tuple[int, str, str]], bool]:
+    PdfReader = load_pdf_reader()
     reader = PdfReader(str(path), strict=False)
     labels, page_labels_encoded = pdf_page_labels(reader, source)
     units: list[tuple[int, str, str]] = []
@@ -461,7 +492,7 @@ def build_index(manifest: Path, database: Path) -> None:
 def connect_readonly(database: Path) -> sqlite3.Connection:
     if not database.is_file():
         raise FileNotFoundError(f"Index not found: {database}")
-    connection = sqlite3.connect(f"file:{database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"{database.resolve().as_uri()}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
     try:
         version = connection.execute("SELECT schema_version FROM metadata").fetchone()
@@ -525,22 +556,31 @@ def location_fields(kind: str, unit_number: int, unit_label: str) -> dict[str, o
             "epub_section": None,
             "location": f"PPTX slide {unit_number}",
         }
-    return {
-        "printed_page": None,
-        "pdf_page": None,
-        "slide": None,
-        "epub_unit": unit_number,
-        "epub_section": unit_label,
-        "location": (
-            f"EPUB section {unit_label}; printed page unavailable from this EPUB"
-        ),
-    }
+    if kind == "epub":
+        return {
+            "printed_page": None,
+            "pdf_page": None,
+            "slide": None,
+            "epub_unit": unit_number,
+            "epub_section": unit_label,
+            "location": (
+                f"EPUB section {unit_label}; printed page unavailable from this EPUB"
+            ),
+        }
+    raise ValueError(f"Unsupported source type: {kind}")
 
 
 def search_index(
     database: Path, query: str, source_id: str | None, limit: int, mode: str
 ) -> None:
+    if limit < 1 or limit > 1000:
+        raise ValueError("Search limit must be between 1 and 1000")
     connection = connect_readonly(database)
+    if source_id and not connection.execute(
+        "SELECT 1 FROM source WHERE id = ?", (source_id,)
+    ).fetchone():
+        connection.close()
+        raise LookupError(f"Unknown source: {source_id}")
     params: list[object] = [fts_query(query, mode)]
     source_clause = ""
     if source_id:
@@ -680,10 +720,10 @@ def parser() -> argparse.ArgumentParser:
     page.add_argument("--database", type=Path, required=True)
     page.add_argument("--source", required=True)
     selector = page.add_mutually_exclusive_group(required=True)
-    selector.add_argument("--pdf-page", type=int)
-    selector.add_argument("--slide", type=int)
-    selector.add_argument("--epub-unit", type=int)
-    selector.add_argument("--unit", type=int)
+    selector.add_argument("--pdf-page", type=positive_int)
+    selector.add_argument("--slide", type=positive_int)
+    selector.add_argument("--epub-unit", type=positive_int)
+    selector.add_argument("--unit", type=positive_int)
     selector.add_argument("--label")
 
     source = commands.add_parser("source", help="Show full source identity and integrity metadata")
@@ -695,15 +735,34 @@ def parser() -> argparse.ArgumentParser:
     return root
 
 
-def main() -> int:
-    args = parser().parse_args()
+def positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("value must be a positive integer")
+    return parsed
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parser().parse_args(argv)
     try:
         if args.command == "build":
             build_index(args.manifest, args.database)
         elif args.command == "search":
             search_index(args.database, args.query, args.source, args.limit, args.mode)
         elif args.command == "page":
-            unit_number = args.pdf_page or args.slide or args.epub_unit or args.unit
+            unit_number = next(
+                (
+                    value
+                    for value in (
+                        args.pdf_page,
+                        args.slide,
+                        args.epub_unit,
+                        args.unit,
+                    )
+                    if value is not None
+                ),
+                None,
+            )
             selector_kind = (
                 "pdf"
                 if args.pdf_page is not None
@@ -718,7 +777,15 @@ def main() -> int:
             show_source(args.database, args.source)
         elif args.command == "status":
             show_status(args.database)
-    except (FileNotFoundError, LookupError, ValueError, zipfile.BadZipFile, ET.ParseError, sqlite3.Error) as error:
+    except (
+        FileNotFoundError,
+        LookupError,
+        MissingOptionalDependency,
+        ValueError,
+        zipfile.BadZipFile,
+        ET.ParseError,
+        sqlite3.Error,
+    ) as error:
         print(f"error: {error}", file=sys.stderr)
         return 2
     return 0

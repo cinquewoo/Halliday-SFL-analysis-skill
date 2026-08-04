@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cinquewoo/Halliday-SFL-analysis-skill/blob/main/plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/references/gm-annotation-v3.schema.json",
+  "title": "Halliday SFL grammatical-metaphor annotation v3",
+  "description": "A compact, auditable contract for annotate mode and research tasks that produce item-level coding. Explain mode does not require JSON.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "analysis_mode",
+    "document_id",
+    "sentence_id",
+    "sentence",
+    "context_before",
+    "context_after",
+    "language",
+    "unit_type",
+    "candidate_span",
+    "span_start",
+    "span_end",
+    "semantic_category",
+    "actual_realization",
+    "congruent_realization",
+    "congruent_agnate",
+    "remapping_type",
+    "candidate_rule",
+    "mapping_mismatch",
+    "congruent_agnate_plausible",
+    "remapping_explicit",
+    "lexical_only",
+    "gm_candidate",
+    "ideational_gm_status",
+    "interpersonal_gm_status",
+    "polarity_metaphor",
+    "positive_evidence",
+    "counter_evidence",
+    "context_sufficiency",
+    "confidence",
+    "needs_human_review",
+    "framework_profile",
+    "operational_tests",
+    "analyzer_version",
+    "annotator_type",
+    "source_provenance",
+    "candidate_interpretations",
+    "rank_relation",
+    "realization_degree",
+    "semantic_junction",
+    "exclusion_reason"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "3.0"
+    },
+    "analysis_mode": {
+      "enum": ["annotate", "research"]
+    },
+    "document_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sentence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sentence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context_before": {
+      "type": "string"
+    },
+    "context_after": {
+      "type": "string"
+    },
+    "language": {
+      "enum": ["zh", "en", "other"]
+    },
+    "unit_type": {
+      "enum": ["WORD", "PHRASE", "CLAUSE", "CLAUSE_COMPLEX", "TEMPLATE"]
+    },
+    "candidate_span": {
+      "type": "string",
+      "minLength": 1
+    },
+    "span_start": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "span_end": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "semantic_category": {
+      "enum": [
+        "THING",
+        "QUALITY",
+        "PROCESS",
+        "FIGURE",
+        "SEQUENCE",
+        "CIRCUMSTANCE",
+        "LOGICAL_RELATION",
+        "SPEECH_FUNCTION",
+        "MODALITY",
+        "POLARITY",
+        "UNCLEAR",
+        "OTHER"
+      ]
+    },
+    "actual_realization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "congruent_realization": {
+      "type": ["string", "null"]
+    },
+    "congruent_agnate": {
+      "type": ["string", "null"]
+    },
+    "remapping_type": {
+      "enum": [
+        "NONE",
+        "PROCESS_TO_THING",
+        "FIGURE_TO_NOMINAL_GROUP",
+        "QUALITY_TO_THING",
+        "CIRCUMSTANCE_TO_THING",
+        "LOGICAL_RELATION_TO_PROCESS",
+        "LOGICAL_RELATION_TO_THING",
+        "PROCESS_TO_QUALITY",
+        "THING_TO_QUALITY",
+        "MOOD_METAPHOR",
+        "MODALITY_METAPHOR",
+        "POLARITY_METAPHOR",
+        "OTHER"
+      ]
+    },
+    "candidate_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mapping_mismatch": {
+      "type": "boolean"
+    },
+    "congruent_agnate_plausible": {
+      "type": "boolean"
+    },
+    "remapping_explicit": {
+      "type": "boolean"
+    },
+    "lexical_only": {
+      "type": "boolean"
+    },
+    "gm_candidate": {
+      "type": "boolean"
+    },
+    "ideational_gm_status": {
+      "$ref": "#/$defs/gmStatus"
+    },
+    "interpersonal_gm_status": {
+      "$ref": "#/$defs/gmStatus"
+    },
+    "polarity_metaphor": {
+      "type": "boolean"
+    },
+    "polarity_subtype": {
+      "enum": [
+        "NONE",
+        "PARTICIPATION",
+        "PROCESSATION",
+        "QUALIFICATION",
+        "CIRCUMSTANTIATION",
+        "MOOD_POLARITY",
+        "MODALITY_POLARITY",
+        "NEGATIVE_TRANSFER",
+        "OTHER"
+      ],
+      "default": "NONE"
+    },
+    "positive_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "counter_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "context_sufficiency": {
+      "enum": ["SUFFICIENT", "PARTIAL", "INSUFFICIENT"]
+    },
+    "confidence": {
+      "enum": ["LOW", "MEDIUM", "HIGH"]
+    },
+    "needs_human_review": {
+      "type": "boolean"
+    },
+    "framework_profile": {
+      "enum": [
+        "HALLIDAY_CORE",
+        "HALLIDAY_PLUS_YANG_OPERATIONAL",
+        "CUSTOM"
+      ]
+    },
+    "operational_tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "analyzer_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "annotator_type": {
+      "enum": ["HUMAN", "RULE_BASELINE", "LLM", "HYBRID"]
+    },
+    "source_provenance": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_interpretations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "rank_relation": {
+      "enum": [
+        "NONE",
+        "CLAUSE_COMPLEX_TO_CLAUSE",
+        "CLAUSE_COMPLEX_TO_GROUP",
+        "CLAUSE_COMPLEX_TO_WORD",
+        "CLAUSE_TO_GROUP",
+        "CLAUSE_TO_WORD",
+        "GROUP_TO_WORD",
+        "OTHER",
+        "UNCLEAR"
+      ]
+    },
+    "realization_degree": {
+      "enum": ["NONE", "RAW", "INTERMEDIATE", "FULL", "UNCLEAR"]
+    },
+    "semantic_junction": {
+      "enum": [
+        "NONE",
+        "QUALITY_ENTITY",
+        "PROCESS_ENTITY",
+        "FIGURE_ENTITY",
+        "CIRCUMSTANCE_ENTITY",
+        "RELATION_ENTITY",
+        "RELATION_PROCESS",
+        "SPEECH_FUNCTION_MOOD",
+        "MODALITY_CLAUSE",
+        "POLARITY_OTHER",
+        "OTHER",
+        "UNCLEAR"
+      ]
+    },
+    "exclusion_reason": {
+      "enum": [
+        "NONE",
+        "ORDINARY_ENTITY_NOUN",
+        "ORDINARY_EVENT_CLAUSE",
+        "LEXICAL_METAPHOR_ONLY",
+        "LEXICALIZED_EVENT_NOUN",
+        "ORDINARY_RANK_SHIFT",
+        "NO_CONGRUENT_AGNATE",
+        "NO_MAPPING_MISMATCH",
+        "NO_SEMANTIC_JUNCTION",
+        "NO_CONTEXT",
+        "OTHER"
+      ]
+    },
+    "mpp": {
+      "$ref": "#/$defs/mpp"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "context_sufficiency": {"const": "INSUFFICIENT"}
+        },
+        "required": ["context_sufficiency"]
+      },
+      "then": {
+        "properties": {
+          "ideational_gm_status": {"const": "INDETERMINATE"},
+          "interpersonal_gm_status": {"const": "INDETERMINATE"},
+          "confidence": {"const": "LOW"},
+          "needs_human_review": {"const": true},
+          "gm_candidate": {"const": false},
+          "semantic_category": {"const": "UNCLEAR"},
+          "congruent_realization": {"const": null},
+          "congruent_agnate": {"const": null},
+          "remapping_type": {"const": "NONE"},
+          "mapping_mismatch": {"const": false},
+          "congruent_agnate_plausible": {"const": false},
+          "remapping_explicit": {"const": false},
+          "lexical_only": {"const": false},
+          "candidate_interpretations": {"minItems": 1},
+          "rank_relation": {"const": "UNCLEAR"},
+          "realization_degree": {"const": "UNCLEAR"},
+          "semantic_junction": {"const": "UNCLEAR"},
+          "exclusion_reason": {"const": "NO_CONTEXT"}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "context_sufficiency": {"const": "PARTIAL"}
+        },
+        "required": ["context_sufficiency"]
+      },
+      "then": {
+        "properties": {
+          "confidence": {"enum": ["LOW", "MEDIUM"]},
+          "needs_human_review": {"const": true}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gm_candidate": {"const": true}
+        },
+        "required": ["gm_candidate"]
+      },
+      "then": {
+        "properties": {
+          "mapping_mismatch": {"const": true},
+          "congruent_agnate_plausible": {"const": true},
+          "remapping_explicit": {"const": true},
+          "lexical_only": {"const": false},
+          "remapping_type": {"not": {"const": "NONE"}}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mapping_mismatch": {"const": true},
+          "congruent_agnate_plausible": {"const": true},
+          "remapping_explicit": {"const": true},
+          "lexical_only": {"const": false}
+        },
+        "required": [
+          "mapping_mismatch",
+          "congruent_agnate_plausible",
+          "remapping_explicit",
+          "lexical_only"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gm_candidate": {"const": true}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "ideational_gm_status": {"const": "TYPICAL_GM"}
+        },
+        "required": ["ideational_gm_status"]
+      },
+      "then": {
+        "properties": {
+          "gm_candidate": {"const": true},
+          "congruent_agnate": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "interpersonal_gm_status": {"const": "TYPICAL_GM"}
+        },
+        "required": ["interpersonal_gm_status"]
+      },
+      "then": {
+        "properties": {
+          "gm_candidate": {"const": true},
+          "congruent_agnate": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lexical_only": {"const": true}
+        },
+        "required": ["lexical_only"]
+      },
+      "then": {
+        "properties": {
+          "gm_candidate": {"const": false},
+          "ideational_gm_status": {"enum": ["NON_GM", "INDETERMINATE"]},
+          "interpersonal_gm_status": {"enum": ["NON_GM", "INDETERMINATE"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "congruent_agnate_plausible": {"const": false}
+        },
+        "required": ["congruent_agnate_plausible"]
+      },
+      "then": {
+        "properties": {
+          "ideational_gm_status": {"enum": ["NON_GM", "MARGINAL_GM", "INDETERMINATE"]},
+          "interpersonal_gm_status": {"enum": ["NON_GM", "MARGINAL_GM", "INDETERMINATE"]}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "gmStatus": {
+      "enum": ["NON_GM", "MARGINAL_GM", "TYPICAL_GM", "INDETERMINATE"]
+    },
+    "mpp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicability",
+        "candidate_agnates",
+        "selected_agnate",
+        "agnation_level",
+        "status",
+        "higher_priority_available",
+        "violation_reason",
+        "crosslinguistic_caution"
+      ],
+      "properties": {
+        "applicability": {
+          "enum": ["APPLICABLE", "NOT_APPLICABLE", "UNCLEAR"]
+        },
+        "candidate_agnates": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "selected_agnate": {
+          "type": ["string", "null"]
+        },
+        "agnation_level": {
+          "enum": [
+            "DERIVATIONAL_AGNATION",
+            "ING_TO_AGNATION",
+            "NON_MORPHOLOGICAL_AGNATION",
+            "ZH_SAME_CORE_MORPHEME",
+            "ZH_OVERT_NOMINALIZING_RESOURCE",
+            "ZH_MINIMAL_STRUCTURAL_AGNATION",
+            "ZH_NON_MORPHOLOGICAL_AGNATION",
+            "NOT_APPLICABLE",
+            "UNCLEAR"
+          ]
+        },
+        "status": {
+          "enum": ["PASS", "FAIL", "NOT_APPLICABLE", "UNCLEAR"]
+        },
+        "higher_priority_available": {
+          "type": "boolean"
+        },
+        "violation_reason": {
+          "type": ["string", "null"]
+        },
+        "crosslinguistic_caution": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
