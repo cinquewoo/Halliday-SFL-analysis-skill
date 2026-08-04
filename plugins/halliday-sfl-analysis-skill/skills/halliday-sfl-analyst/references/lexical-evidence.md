@@ -1,12 +1,12 @@
 # 汉语流行语词汇证据协议
 
-分析汉语流行语、新词、新义、缩略语或单个词语的语法隐喻时，先用本协议固定词义和用法，再运行 [chinese-sfl-analysis.md](chinese-sfl-analysis.md) 与 [gm-identification-protocol.md](gm-identification-protocol.md)。
+分析汉语流行语、新词、新义、缩略语或单个词语的语法隐喻时，先用本协议固定词义和用法，再运行 [chinese-sfl-analysis.md](chinese-sfl-analysis.md) 与 [gm-decision-protocol.md](gm-decision-protocol.md)。
 
 ## 证据边界
 
 - 词典收录、词性标注、释义、例句和未收录状态是**词汇证据**。
 - 词汇证据可以帮助判断语义来源、常规化、多义和可能的词类功能，但不能单独证明或排除语法隐喻。
-- 必须分析词语所在的完整小句或短语，构造自然的汉语一致关系项，并应用语义连接、MPP、充分实现、级转移或 Context-first/AS IF 等类型专门标准。
+- 必须分析词语所在的完整小句或短语，构造自然的汉语一致关系项并证明跨层重映射。只在选用相应扩展 profile 时，才应用 Li–Yang/杨炳钧的语义连接、MPP、FRP、级转移或 Context-first/AS IF 等类型专门标准。
 - 区分词汇隐喻、普通多义、词汇化、构词压缩与语法隐喻；流行、形象或有比喻来源不等于语法隐喻。
 
 ## 本机检索顺序
@@ -64,7 +64,7 @@ python3 scripts/lexicon_index.py build \
       "id": "example-lexicon",
       "title": "完整书名",
       "full_citation": "作者或编者，年份，《完整书名》，版次，出版地：出版社。",
-      "path": "/absolute/private/path/dictionary.txt",
+      "path": "${PRIVATE_DICTIONARY_PATH}",
       "format": "bracket-entry-lines",
       "sha256": "verified-file-digest"
     }
@@ -119,7 +119,9 @@ node scripts/cuc_newword_lookup.mjs --term "待查词" --match exact
 
 ## 流行语语法隐喻分析输出
 
-在 v2 GM JSON 之外增加一个简短“词汇证据”区块：
+在普通 explain 回答中增加一个简短“词汇证据”区块；若用户明确要求
+annotate，或 research 任务实际产生正式逐项编码，则把同一证据写入 v3 记录的 provenance、positive evidence
+和 counterevidence，并在 JSON 之外保留可读的词典定位：
 
 1. 当前语境中的词形、完整小句和拟分析义项。
 2. 两部本机词典各自的 `found/not_found` 状态、词条定位和相关释义。

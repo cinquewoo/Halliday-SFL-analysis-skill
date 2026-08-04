@@ -1,0 +1,126 @@
+{
+  "ruleset_version": "1.0",
+  "description": "JSON-compatible YAML. Rules nominate spans for analysis; they never decide grammatical metaphor by themselves.",
+  "rules": [
+    {
+      "id": "PROCESS_NOMINAL_GROUP",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "ideational",
+      "remapping_hint": "PROCESS_TO_THING",
+      "patterns": ["\\b[A-Za-z]+(?:tion|ment|ance|ence)\\b", "(?:增长|到来|躺平|破防)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "FIGURE_NOMINAL_GROUP",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "ideational",
+      "remapping_hint": "FIGURE_TO_NOMINAL_GROUP",
+      "patterns": [],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "QUALITY_NOMINAL_GROUP",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "ideational",
+      "remapping_hint": "QUALITY_TO_THING",
+      "patterns": ["\\b[A-Za-z]+(?:ness|ity)\\b", "(?:性|度|率|感)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "LOGICAL_RELATION_PROCESS",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "logical",
+      "remapping_hint": "LOGICAL_RELATION_TO_PROCESS",
+      "patterns": ["\\b(?:cause|result|follow)\\w*\\b", "(?:导致|带来|造成)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "LOGICAL_RELATION_THING",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "logical",
+      "remapping_hint": "LOGICAL_RELATION_TO_THING",
+      "patterns": ["\\b(?:reason|condition|consequence)\\b", "(?:原因|条件|结果)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "INTERPERSONAL_MOOD_MISMATCH",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "interpersonal",
+      "remapping_hint": "MOOD_METAPHOR",
+      "patterns": ["\\?$", "[吗呢吧？]$"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "INTERPERSONAL_MODALITY_EXPANSION",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "interpersonal",
+      "remapping_hint": "MODALITY_METAPHOR",
+      "patterns": ["\\bI (?:think|believe|suppose)\\b", "(?:我想|我认为|我觉得|有可能|有必要)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "POLARITY_RELOCATION",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "polarity",
+      "remapping_hint": "POLARITY_METAPHOR",
+      "patterns": ["\\bI don['’]t think\\b", "(?:我不认为|我没觉得)"],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "ZH_ZERO_DERIVATION",
+      "languages": ["zh"],
+      "candidate_family": "ideational",
+      "remapping_hint": "PROCESS_TO_THING",
+      "patterns": [],
+      "decision_effect": "candidate_only"
+    },
+    {
+      "id": "ORDINARY_ENTITY_NOUN",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "negative_control",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "negative_control"
+    },
+    {
+      "id": "ORDINARY_EVENT_CLAUSE",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "negative_control",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "negative_control"
+    },
+    {
+      "id": "LEXICAL_METAPHOR_ONLY",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "negative_control",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "negative_control"
+    },
+    {
+      "id": "LEXICALIZED_EVENT_NOUN",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "boundary",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "review"
+    },
+    {
+      "id": "ORDINARY_RANK_SHIFT",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "negative_control",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "negative_control"
+    },
+    {
+      "id": "CONTEXT_INSUFFICIENT",
+      "languages": ["en", "zh", "other"],
+      "candidate_family": "boundary",
+      "remapping_hint": "NONE",
+      "patterns": [],
+      "decision_effect": "review"
+    }
+  ]
+}

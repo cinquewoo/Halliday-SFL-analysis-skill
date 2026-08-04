@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "halliday-sfl-analysis-skill"
+version = "1.4.0"
+description = "Lightweight validation and corpus utilities for the Halliday SFL Analyst Codex plugin"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+pdf-index = ["pypdf>=4,<7"]
+
+[tool.halliday-sfl]
+plugin-path = "plugins/halliday-sfl-analysis-skill"
+schema-version = "3.0"
+
+[tool.setuptools]
+packages = []

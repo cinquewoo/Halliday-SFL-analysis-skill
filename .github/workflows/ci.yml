@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install optional PDF index dependency
+        run: python -m pip install '.[pdf-index]'
+      - name: Unit and Schema regression tests
+        run: >-
+          python -m unittest discover
+          -s plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/tests
+          -p 'test_*.py' -v
+      - name: Legacy script tests
+        run: |
+          python plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_lexicon_index.py
+          python plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_source_archive.py
+
+  node:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm run test:node
+
+  release-policy:
+    name: Plugin and publication policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Manifest, Skill, version, and privacy checks
+        run: python scripts/release_check.py
+      - name: Whitespace checks
+        run: |
+          git diff --check
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            git diff --check HEAD^ HEAD
+          fi

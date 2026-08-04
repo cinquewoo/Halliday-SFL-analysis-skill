@@ -1,6 +1,6 @@
 # 汉语系统功能与语法隐喻分析
 
-本文件把杨延宁《汉语语法隐喻研究》的汉语描述框架转化为可执行的分析程序，并用本技能现有的语法隐喻识别协议加以约束。分析汉语文本、判断汉语词语或小句是否包含语法隐喻、或进行汉英比较时，先读本文件，再读 [gm-identification-protocol.md](gm-identification-protocol.md)。
+本文件把杨延宁《汉语语法隐喻研究》的汉语描述框架转化为可执行的分析程序，并用本技能现有的语法隐喻识别协议加以约束。分析汉语文本、判断汉语词语或小句是否包含语法隐喻、或进行汉英比较时，先读本文件，再读 [gm-decision-protocol.md](gm-decision-protocol.md)。
 
 ## 目录
 
@@ -166,12 +166,13 @@
 - 检查该单位是否已成为普通名称、产品、人物、工具、地点或计量单位；
 - 检查是否只是嵌入、关系化或普通词类多功能，而非意义的重新映射。
 
-若候选涉及名物化，必须按 [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md) 运行汉语 MPP 审慎适配：优先同一核心语素，其次明确的名词化/实体化资源，再次是保留核心语素且改动最小的结构同源，最后才使用非形态语义同源。不得为汉语伪造英语式派生层级；`性、度、率、量、感、力、化、行为、过程、现象` 本身不构成 GM 证据。只要汉语候选运行 MPP，就设置 `mpp_crosslinguistic_caution=true` 和 `needs_human_review=true`。
+若候选涉及名物化，且选用 `HALLIDAY_PLUS_YANG_OPERATIONAL`，可按
+[gm-decision-protocol.md](gm-decision-protocol.md) 运行汉语 MPP 审慎适配。此处 MPP 及四系统操作化来自 Wen Li 与杨炳钧，不是杨延宁的汉语描写框架。优先同一核心语素，其次明确的名词化/实体化资源，再次是保留核心语素且改动最小的结构同源，最后才使用非形态语义同源。不得为汉语伪造英语式派生层级；`性、度、率、量、感、力、化、行为、过程、现象` 本身不构成 GM 证据。MPP 只是后续操作化的一致关系项选择工具，不能取代跨层重映射。只要汉语候选运行 MPP，就设置 `mpp.crosslinguistic_caution=true` 和 `needs_human_review=true`。
 
 ### 第六步：应用类型专门测试
 
-- 概念名词化：应用语义连接、形态优先、充分实现和级转移四系统；完整程序见 [gm-identification-protocol.md](gm-identification-protocol.md)。
-- 语气隐喻：应用 Context-first 和 AS IF，比较实际言语功能与典型语气实现。
+- 概念名词化：先证明语义—词汇语法重映射；若选用 Li–Yang/杨炳钧后续操作化 profile，再应用语义连接、MPP、FRP 和级转移；完整程序见 [gm-decision-protocol.md](gm-decision-protocol.md)。
+- 语气隐喻：先比较实际言语功能与典型语气实现；仅在相应扩展 profile 中应用杨炳钧（2019）的 Context-first 和 AS IF。
 - 情态隐喻：先定概率、通常性、义务或意愿，再比较主观/客观、显性/隐性取向。
 - 极性隐喻：先给直接否定的一致式，再证明否定意义如何被间接重构。
 - 所谓语篇隐喻：先排除普通标记主位、衔接变化和概念/人际隐喻的语篇后果。
@@ -182,9 +183,9 @@
 
 ### 第八步：给分层判定
 
-在 v2 记录中，概念和人际两轴分别使用 `TYPICAL_GM`、`MARGINAL_GM`、`NON_GM`、`INDETERMINATE`，极性另行记录；同时写明置信度和人工复核状态。若杨延宁的宽分类与严格协议不同，可写：
+在正式 v3 记录中，概念和人际两轴分别使用 `TYPICAL_GM`、`MARGINAL_GM`、`NON_GM`、`INDETERMINATE`，极性另行记录；同时写明置信度和人工复核状态。若杨延宁的宽分类与严格协议不同，可写：
 
-> 杨延宁分类框架下：X 类候选；严格识别协议下：因缺少自然一致式/充分实现/语境证据，判为有争议。
+> 杨延宁分类框架下：X 类候选；严格识别协议下：因缺少自然一致式、跨层重映射或语境证据（或在扩展 profile 下未通过适用测试），判为有争议。
 
 ## 概念语法隐喻分类
 
@@ -251,7 +252,7 @@
 
 ## 报告格式
 
-汉语完整分析沿用主技能的 full/research 结构，并在关键表中加入“汉语诊断”列。对单个语法隐喻候选，先输出 [gm-annotation-v2.schema.json](gm-annotation-v2.schema.json) 规定的完整 JSON，再给不超过 120 个汉字的解释；解释必须覆盖汉语一致式、MPP 选择、级阶/范畴、FRP 或 Context-first/AS IF、排除项、判定和置信度。保存或批量标注时运行 `scripts/validate_gm_annotation.py`。
+汉语完整分析沿用主技能的 explain/research 结构，并在关键表中加入“汉语诊断”列。普通词语或小句 GM 问题默认直接解释：结论、语境、自然汉语一致式、两层映射、重映射、反分析和置信度，不强制输出 JSON。用户明确要求标注、编码、JSON、Schema 或批量标签时，或 research 任务实际产生正式逐项编码时，才按 [gm-annotation-schema.md](gm-annotation-schema.md) 输出 v3 记录；每条正式记录都必须在返回前通过 `scripts/validate_gm_annotation.py`。
 
 引用理论时给出完整书名和可验证定位。用户文本的句号、段落号或页码是文本证据，不能替代理论来源。
 

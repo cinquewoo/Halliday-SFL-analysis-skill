@@ -148,7 +148,12 @@ Track reference, substitution, ellipsis, conjunction, and lexical cohesion. Expl
 
 ## 5. Grammatical metaphor
 
-For a judgement about one clause, group, phrase, word, or morpheme, follow [gm-identification-protocol.md](gm-identification-protocol.md) and [gm-annotation-framework-v2.md](gm-annotation-framework-v2.md). The forms below are candidate signals only; the normative item record is [gm-annotation-v2.schema.json](gm-annotation-v2.schema.json).
+For a judgement about one clause, group, phrase, word, or morpheme, follow
+[gm-decision-protocol.md](gm-decision-protocol.md). Ordinary GM instance questions use explain
+mode and do not require JSON. For an explicit coding, JSON, Schema, or batch request,
+also follow [gm-annotation-schema.md](gm-annotation-schema.md); the normative new
+record is [gm-annotation-v3.schema.json](gm-annotation-v3.schema.json). The forms
+below are candidate signals only.
 
 ### Ideational metaphor
 
@@ -162,14 +167,22 @@ Check for:
 
 Unpack the metaphor into one or more plausible congruent clauses. Compare changes in rank, participant roles, agency, tense, modality, causality, and the ability to qualify or classify the new entity.
 
-For a nominalizing candidate, record all four diagnostics rather than only the nominal form:
+First establish Halliday's core semantic–lexicogrammatical re-mapping. If the
+selected profile is `HALLIDAY_PLUS_YANG_OPERATIONAL`, then record the later
+Li–Yang/Bingjun Yang diagnostics rather than only the nominal form:
 
 - semantic junction: process/quality/circumstance/relator + entity;
 - morphological priority: derivational, then inflectional/infinitival for a lexical gap, then non-morphological where necessary;
 - realization degree: full, intermediate, or raw;
 - rank relation: clause complex to clause/group/word or clause to group/word.
 
-Only a full realization that also passes the other relevant tests supports a canonical nominalizing-GM verdict. Treat intermediate realization as gradient and raw clausal realization as non-GM. Exclude ordinary participant/product nouns, lexicalized labels, event nouns without an unpackable process, and embedded clauses unless the positive relation is independently demonstrated.
+Under that later operational profile, full realization plus the other relevant tests
+supports a typical nominalizing-GM verdict; intermediate realization is gradient and
+raw clausal realization is non-GM. These diagnostics do not redefine Halliday's
+core criterion and should not be imposed as universal conditions on other profiles
+or GM types. In every profile, exclude ordinary participant/product nouns,
+lexicalized labels, event nouns without an unpackable process, and embedded clauses
+unless the positive re-mapping is independently demonstrated.
 
 ### Interpersonal metaphor
 
@@ -181,7 +194,11 @@ Check for:
 
 Compare force, responsibility, negotiability, politeness, and dialogic openness. Avoid assuming indirectness always means politeness.
 
-Establish the contextual speech function and response potential before comparing it with Mood. Apply the AS IF test and supply the congruent statement, question, command, offer, or modal wording. A surface imperative, interrogative, or declarative has no context-free metaphor status.
+Establish the contextual speech function and response potential before comparing it
+with Mood. When the applicable extended profile is selected, apply Bingjun Yang's
+(2019) AS IF test. Supply the congruent statement, question, command, offer, or modal
+wording in every profile; a surface imperative, interrogative, or declarative has no
+context-free metaphor status.
 
 ### Polarity and proposed textual metaphor
 
@@ -238,9 +255,21 @@ Do not call a feature frequent or significant without a baseline. Reserve statis
 
 ### Grammatical-metaphor instance judgement
 
-Return one schema-valid v2 JSON object per item, followed by the prescribed concise explanation. Keep ideational and interpersonal status independent, record polarity separately, and include both evidence and counterevidence. For nominalizing candidates, the record is incomplete without MPP candidates, selected agnate and level, status, priority check, and cross-linguistic caution where applicable.
+In explain mode, return the direct conclusion, context, congruent agnate, both
+mapping layers, re-mapping type, strongest counter-analysis, meaning effect, and
+confidence; do not force JSON. In annotate mode—or when research produces formal
+item-level coding—return one schema-valid v3 record per item. A research method,
+source-audit, statistical, or publication report remains prose or tables. Keep
+ideational and interpersonal status independent, record polarity separately, and
+include both positive and counterevidence. When `HALLIDAY_PLUS_YANG_OPERATIONAL` is
+selected for a nominalizing candidate, attribute MPP, semantic-junction, and rank
+diagnostics to Wen Li and Bingjun Yang and FRP to Bingjun Yang; record the candidates,
+selected agnate and level, status, priority check, FRP/rank evidence, and
+cross-linguistic caution where applicable.
 
-Use `LOW`, `MEDIUM`, and `HIGH` confidence only after explaining the evidence basis. Validate saved or batch records with `scripts/validate_gm_annotation.py`.
+Use `LOW`, `MEDIUM`, and `HIGH` confidence only after explaining the evidence basis.
+Validate every formal record, whether inline, saved, or batched, with
+`scripts/validate_gm_annotation.py` before returning it.
 
 ### Research coding note
 

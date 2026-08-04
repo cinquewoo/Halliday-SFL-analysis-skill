@@ -4,10 +4,14 @@
 
 <p align="center">
   <a href="https://github.com/cinquewoo/Halliday-SFL-analysis-skill/releases"><img alt="Release" src="https://img.shields.io/github/v/release/cinquewoo/Halliday-SFL-analysis-skill?display_name=tag&sort=semver&style=flat-square&color=2f81f7"></a>
+  <a href="https://github.com/cinquewoo/Halliday-SFL-analysis-skill/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/cinquewoo/Halliday-SFL-analysis-skill/ci.yml?branch=main&style=flat-square&label=CI"></a>
   <img alt="Codex plugin" src="https://img.shields.io/badge/Codex-installable_plugin-14b8a6?style=flat-square">
+  <img alt="GM Schema" src="https://img.shields.io/badge/GM_Schema-v3.0-f97316?style=flat-square">
   <img alt="Languages" src="https://img.shields.io/badge/analysis-English_%7C_%E4%B8%AD%E6%96%87-d4a72c?style=flat-square">
   <img alt="Source policy" src="https://img.shields.io/badge/sources-page_verified-8b5cf6?style=flat-square">
 </p>
+
+<!-- plugin-version: 1.4.0 -->
 
 <p align="center">
   <strong>Evidence-grounded Hallidayan analysis for English and Chinese.</strong><br>
@@ -52,17 +56,17 @@ complete source titles and verified page locations.
 | --- | --- |
 | A text or conversation | Field–tenor–mode, register, three metafunctions, clause complexes, cohesion, and key meaning choices |
 | A clause or wording | Systemic-functional analysis, consequential alternatives, and how each alternative changes meaning |
-| Grammatical metaphor | Schema-valid v2 JSON, independent ideational/interpersonal labels, MPP evidence, congruent agnate, counterevidence, confidence, and review status |
+| Grammatical metaphor | A direct prose judgement by default; Schema v3 evidence records only when annotation or machine-readable coding is requested |
 | Chinese discourse | A dedicated Chinese SFL workflow with language-internal congruent forms and Chinese-specific safeguards |
 | A Chinese buzzword or new sense | Exact coverage from both configured private dictionaries, contextual sense evidence, a bounded online fallback when needed, and a separate GM judgement |
 | Hallidayan theory | A qualified answer with author, year, complete work title, section, and verified page/slide/EPUB location |
 | A research corpus | Reproducible sampling, category definitions, counts with denominators, exceptions, and evidence tables |
 
-### Three depths
+### Three work modes
 
-- **Quick** — context plus 5–10 consequential language choices.
-- **Full** — register, three metafunctions, clause complexes, grammatical metaphor, alternatives, and limitations.
-- **Research** — reproducible methods, evidence tables, category counts, exceptions, and cautious claims.
+- **explain** (default) — ordinary questions and text analysis; no mandatory JSON. Use `quick` or `full` depth as needed.
+- **annotate** — explicit annotation, coding, JSON, Schema, or batch-label requests; every formal record uses and passes Schema v3.
+- **research** — corpus design, statistics, source audits, evaluation, and publication-oriented methods. JSONL/CSV is used only when item-level coding is part of the task.
 
 ## Try these prompts
 
@@ -85,8 +89,21 @@ $halliday-sfl-analyst
 $halliday-sfl-analyst
 
 Does “his arrival yesterday” contain grammatical metaphor? Give the congruent
-form, return the v2 annotation JSON, apply MPP and the other identification
-criteria, state the strongest counter-analysis, and cite complete theory sources.
+form, make the semantic-to-lexicogrammatical remapping explicit, state the strongest
+counter-analysis, and cite complete theory sources. Do not return JSON.
+```
+
+</details>
+
+<details>
+<summary><strong>Formal Schema v3 annotation</strong></summary>
+
+```text
+$halliday-sfl-analyst
+
+Annotate “A decision was made” as Schema v3 JSON. Include the candidate span,
+congruent agnate, both mapping layers, remapping type, positive and counterevidence,
+confidence and review state; validate the record before returning it.
 ```
 
 </details>
@@ -111,7 +128,7 @@ $halliday-sfl-analyst
 
 从语法隐喻角度分析“游客纷纷来这里打卡”中的“打卡”。先分别查询《现代汉语词典》
 第7版和侯敏《汉语新词语词典（2000—2020）》；若语境义仍未覆盖，再核验在线新词语库。
-给出词条定位、自然汉语一致式、v2 JSON、最强反分析和页码经过核验的理论来源。
+给出词条定位、自然汉语一致式、最强反分析和页码经过核验的理论来源。
 ```
 
 </details>
@@ -140,22 +157,33 @@ meaning and system choice
         ↓
 congruent agnate candidates
         ↓
-MPP selection + realization mapping
+semantic ↔ lexicogrammatical mapping comparison
         ↓
-rank + FRP + semantic junction / AS IF
+explicit remapping + lexical-only exclusion
         ↓
-exclusions + strongest counterevidence
+optional operational tests under a named extended profile
         ↓
 independent labels + confidence + review
         ↓
 complete, page-verified theory source
 ```
 
-For grammatical metaphor, the mandatory workflow integrates Halliday's re-mapping account with Yang's Full Realization, Context-first, and AS IF principles, plus Li and Yang's four-system nominalizing-metaphor test. Morphological Priority Principle (MPP) is now a strict agnate-selection gate for nominalizing candidates: direct derivation precedes `-ing`/infinitival agnation, which precedes non-morphological agnation. An MPP pass does not prove GM; typical nominalizing GM must also pass rank, full-realization, semantic-junction, and exclusion gates.
+The core decision follows Halliday: grammatical metaphor requires a re-mapping between a semantic category and its lexicogrammatical realization, supported by a plausible congruent agnate. A noun, nominalization, rank shift, lexical metaphor, or model score is not sufficient by itself. MPP and semantic-junction/rank diagnostics from Wen Li and Bingjun Yang, and FRP, Context-first, and AS IF from Bingjun Yang, are later operational tools used only under an explicitly named extended profile. They supplement rather than redefine Halliday's criterion.
 
-### Reproducible GM annotation
+The machine decision invariant is:
 
-Each item-level judgement returns a stable JSON contract with:
+```text
+gm_candidate = mapping_mismatch
+               AND congruent_agnate_plausible
+               AND remapping_explicit
+               AND NOT lexical_only
+```
+
+An isolated word has insufficient context: both GM axes are `INDETERMINATE`, confidence is `LOW`, and human review is required. Conditional readings remain candidates rather than final labels.
+
+### Reproducible Schema v3 annotation
+
+Formal **annotate** records—and research records only when item coding is requested—use a stable Schema v3 contract with:
 
 - separate `ideational_gm_status` and `interpersonal_gm_status`;
 - polarity as an independent co-occurring annotation;
@@ -163,12 +191,14 @@ Each item-level judgement returns a stable JSON contract with:
 - rank shift, Full Realization, semantic junction, Context-first/AS IF evidence;
 - exclusions, positive evidence, counterevidence, confidence, and human-review status.
 
-Chinese MPP uses a cautious language-internal ordering and always requires a cross-linguistic caution flag plus human review. Saved or batch records can be checked with the bundled validator:
+Chinese MPP uses a cautious language-internal ordering and always requires a cross-linguistic caution flag plus human review. The dependency-free validator accepts one JSON object, a JSON array, JSONL/NDJSON, or CSV:
 
 ```bash
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
   annotation.json
 ```
+
+Schema v2 remains available only for backward-compatible validation. New data must use v3.
 
 For historical questions, it also keeps distinct milestones distinct—for example, a conceptual precursor is not automatically the first explicit naming or the first systematic exposition.
 
@@ -209,6 +239,7 @@ See [Private corpus and page verification](docs/private-corpus.md) for archive, 
 ```text
 .agents/plugins/marketplace.json
 .agents/skills/halliday-sfl-analyst → canonical plugin skill
+.github/workflows/ci.yml
 plugins/halliday-sfl-analysis-skill/
 ├── .codex-plugin/plugin.json
 └── skills/halliday-sfl-analyst/
@@ -217,15 +248,18 @@ plugins/halliday-sfl-analysis-skill/
     ├── references/
     │   ├── analysis-framework.md
     │   ├── chinese-sfl-analysis.md
-    │   ├── gm-annotation-framework-v2.md
+    │   ├── gm-theory.md
+    │   ├── gm-decision-protocol.md
+    │   ├── gm-annotation-schema.md
+    │   ├── gm-annotation-v3.schema.json
     │   ├── gm-annotation-v2.schema.json
-    │   ├── gm-identification-protocol.md
-    │   ├── grammatical-metaphor-research.md
+    │   ├── gm-candidate-rules.yaml
     │   ├── lexical-evidence.md
     │   ├── source-retention.md
     │   └── source-citation-protocol.md
     └── scripts/
         ├── corpus_index.py
+        ├── gm_pipeline.py
         ├── cuc_newword_lookup.mjs
         ├── lexicon_index.py
         ├── source_archive.py
@@ -233,6 +267,9 @@ plugins/halliday-sfl-analysis-skill/
         ├── test_lexicon_index.py
         ├── test_source_archive.py
         └── validate_gm_annotation.py
+    └── tests/
+        ├── fixtures/gm-gold-v3.json
+        └── test_*.py
 ```
 
 Installed users receive the canonical skill under the plugin. The repository-level symlink keeps it directly discoverable during local development.
@@ -244,19 +281,27 @@ Issues and focused pull requests are welcome—especially reproducible false pos
 ## Local validation
 
 ```bash
-python3 /path/to/plugin-creator/scripts/validate_plugin.py \
-  plugins/halliday-sfl-analysis-skill
-
-python3 /path/to/skill-creator/scripts/quick_validate.py \
-  plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst
-
-python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
-  annotation.json
+python3 -m unittest discover \
+  -s plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/tests \
+  -p 'test_*.py' -v
 
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_lexicon_index.py
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_source_archive.py
-node plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_cuc_newword_lookup.mjs
+npm run test:node
+python3 scripts/release_check.py
+git diff --check
 ```
+
+Python 3.11+ is required. Core GM analysis and validation use only the standard
+library. PDF corpus indexing is optional: `python3 -m pip install '.[pdf-index]'`.
+Node 20+ is needed only for the online new-word lookup adapter and its tests.
+
+## Project metadata pending owner confirmation
+
+The repository owner has not yet selected a public license or confirmed the author
+identity/ORCID for `CITATION.cff`. Until a `LICENSE` is added, no reuse license is
+granted by the repository itself. These two files should be completed only after the
+owner confirms those choices; CI reports their absence without inventing metadata.
 
 ---
 

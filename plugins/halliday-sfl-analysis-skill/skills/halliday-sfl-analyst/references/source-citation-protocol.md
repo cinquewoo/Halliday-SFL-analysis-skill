@@ -14,7 +14,7 @@ Every theory-bearing answer must include a compact `Sources` or `Theoretical sou
 
 Never write only `PDF p. 22`, `slide 45`, a filename, a source ID, an abbreviated title such as `IFG`, or a volume number. Short forms may appear in the discussion only after the complete source has been supplied in the same answer.
 
-For a clause/word grammatical-metaphor judgement, cite the theory that supplies the identification criterion, not merely a page where a similar example occurs. The user's wording is **text evidence**; the Halliday/Yang passage is **theory evidence**. A source locator cannot substitute for the explicit congruent agnate and identification reasoning required by [gm-identification-protocol.md](gm-identification-protocol.md).
+For a clause/word grammatical-metaphor judgement, cite the theory that supplies the identification criterion, not merely a page where a similar example occurs. The user's wording is **text evidence**; the Halliday/Yang passage is **theory evidence**. A source locator cannot substitute for the explicit congruent agnate and identification reasoning required by [gm-decision-protocol.md](gm-decision-protocol.md).
 
 For Chinese buzzwords and new senses, dictionary and web definitions are **lexical evidence**, not theory evidence. A supplied TXT without a verified paper-page map must be cited by complete dictionary identity, headword, and TXT line span, followed by `printed page unavailable from the supplied TXT`; never convert a TXT line into a book page. Cite a dynamic online dictionary by the resource owner, complete resource title, headword or query, result URL or query/result pages, and access date. Follow [lexical-evidence.md](lexical-evidence.md).
 

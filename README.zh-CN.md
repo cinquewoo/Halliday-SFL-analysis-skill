@@ -8,6 +8,13 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/cinquewoo/Halliday-SFL-analysis-skill/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/cinquewoo/Halliday-SFL-analysis-skill/ci.yml?branch=main&style=flat-square&label=CI"></a>
+  <img alt="GM Schema" src="https://img.shields.io/badge/GM_Schema-v3.0-f97316?style=flat-square">
+</p>
+
+<!-- plugin-version: 1.4.0 -->
+
+<p align="center">
   <a href="README.md">English</a> ·
   <a href="#30-秒安装">快速安装</a> ·
   <a href="#核心能力">核心能力</a> ·
@@ -37,13 +44,13 @@ $halliday-sfl-analyst
 | --- | --- |
 | 文章、对话或多模态材料 | 语场—语旨—语式、语域、三大元功能、小句复合体、衔接与关键意义选择 |
 | 一个小句或词组 | 系统功能分析、可比较替换形式，以及每种表达改变了什么意义 |
-| “这是不是语法隐喻？” | v2 JSON、概念／人际独立标签、MPP 证据、一致式、反证、置信度与复核状态 |
+| “这是不是语法隐喻？” | 默认直接给出解释性结论；只有明确要求正式标注或机器可读编码时才输出 Schema v3 |
 | 汉语语篇 | 独立的汉语 SFL 工作流、自然汉语一致式和汉语专属识别约束 |
 | 汉语流行语、新词或新义 | 两部私有词典的逐源精确检索、语境义证据、必要时受限在线补查，以及与词义证据分开的 GM 判定 |
 | 理论或学术史问题 | 作者、年份、完整书籍／论文／演示文稿名称、章节和核验页码 |
 | 研究语料 | 可复现抽样、类别定义、分母明确的计数、例外和证据表 |
 
-分析深度分为：**quick**（语境与 5–10 个关键选择）、**full**（完整元功能和语法隐喻分析）、**research**（可复现研究设计与证据表）。
+工作模式分为：**explain**（默认，普通问答和文本分析，不强制 JSON）、**annotate**（用户明确要求标注、编码、JSON、Schema 或批量标签）和 **research**（语料统计、方法、来源审计与评测）。`quick`／`full` 是 explain 的分析深度；research 只有在逐项编码时才使用 JSONL／CSV。
 
 ## 可直接复制的提问
 
@@ -62,8 +69,17 @@ $halliday-sfl-analyst
 $halliday-sfl-analyst
 
 判断“经济的快速发展改变了城市结构”是否包含语法隐喻。给出自然的汉语一致式、
-按 v2 Schema 输出 JSON，列出 MPP 候选及选择、映射证据、最强反分析、判定与置信度，
+说明语义层与词汇语法层的映射、重映射类型、最强反分析、判定与置信度，
 并写出完整理论来源及可验证定位。
+```
+
+### 正式 Schema v3 标注
+
+```text
+$halliday-sfl-analyst
+
+把“A decision was made”标注为 Schema v3 JSON：写出候选跨度、一致式、两层映射、
+重映射类型、正证、反证、置信度和人工复核状态；返回前运行校验器。
 ```
 
 ### 理论溯源
@@ -82,7 +98,7 @@ $halliday-sfl-analyst
 
 从语法隐喻角度分析“游客纷纷来这里打卡”中的“打卡”。先分别查询《现代汉语词典》
 第7版和侯敏《汉语新词语词典（2000—2020）》；如果语境义仍未覆盖，再核验在线新词语库。
-给出词条定位、自然汉语一致式、v2 JSON、最强反分析和页码经过核验的理论来源。
+给出词条定位、自然汉语一致式、最强反分析和页码经过核验的理论来源。
 ```
 
 ## 识别方法
@@ -91,23 +107,37 @@ $halliday-sfl-analyst
 
 ```text
 语境与言语功能 → 意义及系统选择 → 一致式候选
-→ MPP 选择与实现映射 → 级阶＋FRP＋语义交汇／AS IF
-→ 排除项与最强反证 → 概念／人际独立判定＋置信度＋复核
+→ 语义层与词汇语法层映射比较 → 明确重映射＋排除纯词汇隐喻
+→ 具名扩展框架下的可选操作检验 → 最强反证
+→ 概念／人际独立判定＋置信度＋复核
 → 完整且页码经过核验的理论来源
 ```
 
-语法隐喻模块结合 Halliday 的重新映射观、杨炳钧的完全实现原则、语境优先原则和 AS IF 原则，以及名词化隐喻的四系统检验。形态优先原则（MPP）现作为名物化候选的强制同源选择闸门：直接派生优先于 `-ing/to`，二者又优先于非形态同源；但 MPP 通过本身不证明 GM，还必须通过级转移、充分实现、语义交汇和排除项检查。
+核心判据遵循 Halliday：语法隐喻必须表现为语义类别与词汇语法实现之间的重新映射，并有合理的一致式关系项。名词、名词化、级转移、词汇隐喻或模型概率都不能单独证明 GM。Wen Li 与杨炳钧提出的 MPP／语义交汇／级阶诊断，以及杨炳钧提出的 FRP、Context-first 和 AS IF，是后续操作化工具，只在明确标记的扩展 profile 下使用，不能取代 Halliday 的核心判据。
 
-## 可复现的 v2 语法隐喻标注
+机器判定遵守：
 
-每个单项判定先输出固定 JSON，分别记录概念和人际状态，极性作为可共现维度另行记录。JSON 还包含一致式候选、MPP 选择、级阶、FRP、语义交汇、Context-first／AS IF、排除项、正证、反证、置信度和人工复核。
+```text
+gm_candidate = mapping_mismatch
+               AND congruent_agnate_plausible
+               AND remapping_explicit
+               AND NOT lexical_only
+```
 
-汉语 MPP 使用语言内部的审慎排序，不伪造英语式派生关系；只要运行汉语 MPP，就必须标记跨语言谨慎并人工复核。保存或批量生成的标注可直接校验：
+孤立词语境不足时，概念与人际两轴都必须是 `INDETERMINATE`，置信度为 `LOW`，并进入人工复核；条件性解读只能保留为候选，不能成为确定标签。
+
+## 可复现的 Schema v3 语法隐喻标注
+
+只有 **annotate** 模式中的正式记录，以及 research 中明确要求逐项编码的记录，才输出固定 JSON。Schema v3 分别记录概念和人际状态，极性作为可共现维度另行记录，并包含候选跨度、一致式、跨层映射、重映射、排除项、正证、反证、置信度、分析器版本、来源和人工复核状态。
+
+汉语 MPP 使用语言内部的审慎排序，不伪造英语式派生关系；只要运行汉语 MPP，就必须标记跨语言谨慎并人工复核。无依赖校验器支持单个 JSON、JSON 数组、JSONL／NDJSON 和 CSV：
 
 ```bash
 python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/validate_gm_annotation.py \
   annotation.json
 ```
+
+Schema v2 只保留用于兼容旧记录；新标注必须使用 v3。
 
 ## 汉语分析不是英语框架的机械移植
 
@@ -144,3 +174,22 @@ python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/
 ## 参与改进
 
 欢迎提交可复现的误判案例、汉语反例、来源页码修正和分析透明度改进。请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，并且不要上传受版权保护的原始资料。
+
+## 本地验证
+
+```bash
+python3 -m unittest discover \
+  -s plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/tests \
+  -p 'test_*.py' -v
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_lexicon_index.py
+python3 plugins/halliday-sfl-analysis-skill/skills/halliday-sfl-analyst/scripts/test_source_archive.py
+npm run test:node
+python3 scripts/release_check.py
+git diff --check
+```
+
+最低 Python 版本为 3.11；核心分析与 Schema 校验只使用标准库。PDF 语料建索引是可选功能，可运行 `python3 -m pip install '.[pdf-index]'` 安装 `pypdf`。Node 20+ 只用于在线新词查询适配器及其测试。
+
+## 等待仓库所有者确认的元数据
+
+仓库所有者尚未选择公开许可证，也未确认 `CITATION.cff` 所需的作者身份／ORCID。在加入 `LICENSE` 前，仓库本身不授予复用许可。CI 会报告这两个缺项，但不会擅自填入许可证、作者或发布标签。
