@@ -311,6 +311,8 @@ owner confirms those choices; CI reports their absence without inventing metadat
 
 ## Annotation web workspace
 
+[Open the deployed workspace](https://halliday-gm-annotator-cinquewoo.comethazelnut.chatgpt.site) (owner-private; sign in with the owning ChatGPT account).
+
 [Halliday Lab](apps/annotator/README.md) adds a full-stack research workspace: text highlighting, Schema v3 model candidates, audited human review, custom JSON/XML framework trees, and Excel review round-trips with conflict checks. It uses React/TypeScript, Cloudflare Workers and D1.
 
 The application is separate from the installable Codex plugin. Start with its teaching example, then configure your own provider/model/key for live annotation. Scores are uncalibrated self-ratings, every result needs review, and private theoretical sources/dictionaries are not included. See the [application guide](apps/annotator/README.md) for limits, testing, local setup, and deployment.

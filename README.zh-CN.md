@@ -196,6 +196,8 @@ git diff --check
 
 ## 语法隐喻标注网站
 
+[打开已部署的标注网站](https://halliday-gm-annotator-cinquewoo.comethazelnut.chatgpt.site)（目前仅所有者可访问，请使用所有者的 ChatGPT 账户登录）。
+
 新增 [Halliday Lab 研究工作台](apps/annotator/README.md)：提供三栏文本高亮、Schema v3 自动标注候选、人工批量审核、JSON/XML 框架树编辑、Excel 导出与修订导回，以及支持浏览器中的本地工作簿同步。采用 React / TypeScript、Cloudflare Workers 与 D1。
 
 网站与可安装的 Codex 插件分别运行。可先载入教学示例；实际推理需配置自己的模型服务、模型 ID 和密钥。自评分不是正确率，所有结果均须复核；私有理论文献与词典没有上传或接入。使用边界、测试、开发和部署方式见[网站说明](apps/annotator/README.md)。
