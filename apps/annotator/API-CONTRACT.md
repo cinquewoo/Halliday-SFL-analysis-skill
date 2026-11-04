@@ -27,5 +27,4 @@ UI annotation DTO offsets are JavaScript UTF-16 code units in the full document,
 - POST `/api/batch_review` `{projectId,items:{id,version}[],action:'accept'|'reject'|'reopen',note?:string}` -> `{updated:number}`; atomic ownership and optimistic version checks; 409 on stale edit.
 - POST `/api/demo` `{}` -> `{project:Project,text:Text,frameworkId:string}`; idempotently create a per-user example project/text with explicitly constructed teaching fixtures, not corpus evidence.
 - GET `/api/export?projectId=...&format=xlsx|json&textId=...`: downloadable workbook/JSON. Workbook includes stable IDs, annotation/text versions, annotations, source texts, metadata, and review fields. Export must prevent spreadsheet formula injection. JSON is lossless.
-- POST `/api/import` multipart file + projectId -> `{updated:number,conflicts:{id,reason}[]}`; parse workbook, only accept review/category/note edits from exported IDs for same owned project/current version, reject stale content/version; transaction with explicit conflict reporting. Upload cap 5 MB. 
-
+- POST `/api/import` multipart file + projectId -> `{updated:number,conflicts:{id,reason}[]}`; parse workbook, only accept review/category/note edits from exported IDs for same owned project/current version, reject stale content/version; transaction with explicit conflict reporting. Upload cap 5 MB.
